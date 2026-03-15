@@ -6,6 +6,9 @@ const config: Config = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', { diagnostics: true }],
+  },
 }
 
 export default config
