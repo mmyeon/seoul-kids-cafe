@@ -34,9 +34,7 @@ export function parseSeoulKidsCafe(raw: SeoulKidsCafeRaw): KidsCafe {
   const lng = parseFloat(raw.LNGTD)
   const ageRange = parseAgeRange(raw.MIN_AGE, raw.MAX_AGE)
 
-  const id = `${raw.FCLTY_NM}-${raw.RDNMADR}`
-    .replace(/\s+/g, '-')
-    .toLowerCase()
+  const id = encodeURIComponent(`${raw.FCLTY_NM}|${raw.RDNMADR}`)
 
   return {
     id,

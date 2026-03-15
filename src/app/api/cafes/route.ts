@@ -22,7 +22,7 @@ export async function GET(): Promise<NextResponse> {
       return NextResponse.json(cafes)
     }
 
-    const enrichedCafes: KidsCafe[] = await Promise.all(
+    const results = await Promise.allSettled(
       cafes.map((cafe) =>
         enrichCafeWithNaverData(cafe, {
           clientId: naverClientId,
@@ -31,10 +31,16 @@ export async function GET(): Promise<NextResponse> {
       )
     )
 
+    const enrichedCafes: KidsCafe[] = results.map((result, index) =>
+      result.status === 'fulfilled' ? result.value : cafes[index]
+    )
+
     return NextResponse.json(enrichedCafes)
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.'
-    return NextResponse.json({ error: message }, { status: 500 })
+    console.error('[GET /api/cafes] 처리 중 오류 발생:', error)
+    return NextResponse.json(
+      { error: '데이터를 불러오는 중 오류가 발생했습니다.' },
+      { status: 500 }
+    )
   }
 }
