@@ -27,16 +27,18 @@ export interface KakaoMapProps {
 /**
  * Kakao Maps SDK 스크립트 URL을 생성합니다.
  * appKey가 빈 문자열이면 빈 문자열을 반환합니다.
+ * appKey는 encodeURIComponent로 인코딩되어 쿼리 스트링 변형을 방지합니다.
  */
 export function buildSdkUrl(appKey: string): string {
   if (!appKey) return '';
-  return `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${appKey}&libraries=services`;
+  return `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(appKey)}&libraries=services`;
 }
 
 /**
  * 위도/경도가 유효한 범위인지 검증합니다.
- * - 위도: -90 ~ 90 (단, 0은 미설정으로 간주하여 제외)
- * - 경도: -180 ~ 180 (단, 0은 미설정으로 간주하여 제외)
+ * - 위도: -90 ~ 90
+ * - 경도: -180 ~ 180
+ * 참고: 한국 서비스 특성상 (0, 0) 좌표는 실제 위치가 아닌 미설정 데이터로 처리합니다.
  */
 export function isValidCoordinate(lat: number, lng: number): boolean {
   if (isNaN(lat) || isNaN(lng)) return false;
@@ -70,6 +72,20 @@ export function getMarkerZIndex(
 // Kakao Maps SDK 타입 선언
 // ============================================================
 
+interface KakaoLatLng {
+  getLat: () => number;
+  getLng: () => number;
+}
+
+interface KakaoMapInstance {
+  setCenter: (latlng: KakaoLatLng) => void;
+}
+
+interface KakaoMarker {
+  setMap: (map: KakaoMapInstance | null) => void;
+  setZIndex: (zIndex: number) => void;
+}
+
 declare global {
   interface Window {
     kakao: {
@@ -77,7 +93,7 @@ declare global {
         load: (callback: () => void) => void;
         Map: new (
           container: HTMLElement,
-          options: { center: InstanceType<Window['kakao']['maps']['LatLng']>; level: number }
+          options: { center: KakaoLatLng; level: number }
         ) => KakaoMapInstance;
         LatLng: new (lat: number, lng: number) => KakaoLatLng;
         Marker: new (options: {
@@ -95,20 +111,6 @@ declare global {
       };
     };
   }
-}
-
-interface KakaoLatLng {
-  getLat: () => number;
-  getLng: () => number;
-}
-
-interface KakaoMapInstance {
-  setCenter: (latlng: KakaoLatLng) => void;
-}
-
-interface KakaoMarker {
-  setMap: (map: KakaoMapInstance | null) => void;
-  setZIndex: (zIndex: number) => void;
 }
 
 // ============================================================
@@ -161,10 +163,20 @@ export default function KakaoMap({
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<KakaoMapInstance | null>(null);
   const markersRef = useRef<Map<string, KakaoMarker>>(new Map());
+  // Store callback in a ref so event listeners always invoke the latest version
+  // without triggering map re-initialization on every parent re-render.
+  const onMarkerClickRef = useRef<(id: string) => void>(onMarkerClick);
+
+  // Sync the ref to the latest prop value inside an effect (not during render)
+  useEffect(() => {
+    onMarkerClickRef.current = onMarkerClick;
+  }, [onMarkerClick]);
 
   // SDK 로드 및 지도 초기화
   useEffect(() => {
     const appKey = process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY ?? '';
+    // Capture ref value at effect start so cleanup uses the same Map instance
+    const markers = markersRef.current;
 
     loadKakaoSdk(appKey, () => {
       if (!containerRef.current) return;
@@ -195,13 +207,20 @@ export default function KakaoMap({
         });
 
         window.kakao.maps.event.addListener(marker, 'click', () => {
-          onMarkerClick(cafe.id);
+          onMarkerClickRef.current(cafe.id);
         });
 
-        markersRef.current.set(cafe.id, marker);
+        markers.set(cafe.id, marker);
       });
     });
-  }, [cafes, selectedCafeId, onMarkerClick]);
+
+    // 언마운트 또는 cafes 변경 시 마커 정리 (메모리 누수 방지)
+    return () => {
+      markers.forEach((marker) => marker.setMap(null));
+      markers.clear();
+      mapRef.current = null;
+    };
+  }, [cafes, selectedCafeId]);
 
   // 선택된 카페가 변경되면 지도 중심 이동 및 마커 z-index 업데이트
   useEffect(() => {
