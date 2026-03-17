@@ -68,7 +68,9 @@ export const parseAgeRange = (text: string): { minAge: number; maxAge: number } 
   const firstToken = tokens[0];
   const lastToken = tokens[tokens.length - 1];
 
-  // If the entire string contains only months (개월), collapse to year 0
+  // If every token carries the '개월' unit (e.g. "6개월~12개월"), collapse to year 0.
+  // Strings like "0~12개월" produce a bare "0" token without a unit, so allMonths is false;
+  // those cases are handled by the per-token fallback on lastToken below.
   const allMonths = tokens.every((t) => t.unit === '개월');
   if (allMonths) return { minAge: 0, maxAge: 0 };
 
