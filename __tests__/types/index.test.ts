@@ -8,47 +8,28 @@
 import type { SeoulKidsCafeRaw, KidsCafe, AgeFilter, MatchStatus } from '../../types/index';
 
 describe('SeoulKidsCafeRaw 타입', () => {
-  it('서울시 API 원본 응답 필드를 모두 포함해야 한다', () => {
+  it('서울시 API(tnFcltySttusInfo1011) 원본 응답 필드를 모두 포함해야 한다', () => {
     const raw: SeoulKidsCafeRaw = {
+      FCLTY_ID: 'DJ260201',
       FCLTY_NM: '테스트 키즈카페',
-      RDNMADR: '서울특별시 강남구 테헤란로 123',
-      LTTUD: '37.5665',
-      LNGTD: '126.9780',
-      MIN_AGE: '0',
-      MAX_AGE: '84',
-      OPER_HR: '10:00~20:00',
-      TELNO: '02-1234-5678',
-      RESERVATION_URL: 'https://example.com/reserve',
+      BASS_ADRES: '서울특별시 강남구 테헤란로 123',
+      DETAIL_ADRES: '3층',
+      X_CRDNT_VALUE: '126.9780',
+      Y_CRDNT_VALUE: '37.5665',
+      POSBL_AGRDE: '0세 ~ 7세',
+      OPEN_WEEK: '화~일요일',
+      CLOSE_WEEK: '월요일, 공휴일',
+      CTTPC: '02-1234-5678',
+      RNTFEE_FREE_AT: 'Y',
     };
 
+    expect(raw.FCLTY_ID).toBe('DJ260201');
     expect(raw.FCLTY_NM).toBe('테스트 키즈카페');
-    expect(raw.RDNMADR).toBe('서울특별시 강남구 테헤란로 123');
-    expect(raw.LTTUD).toBe('37.5665');
-    expect(raw.LNGTD).toBe('126.9780');
-    expect(raw.MIN_AGE).toBe('0');
-    expect(raw.MAX_AGE).toBe('84');
-    expect(raw.OPER_HR).toBe('10:00~20:00');
-    expect(raw.TELNO).toBe('02-1234-5678');
-    expect(raw.RESERVATION_URL).toBe('https://example.com/reserve');
-  });
-
-  it('선택적 필드(네이버 플레이스 URL, 이미지 URL)를 포함할 수 있어야 한다', () => {
-    const raw: SeoulKidsCafeRaw = {
-      FCLTY_NM: '테스트 키즈카페',
-      RDNMADR: '서울특별시 강남구 테헤란로 123',
-      LTTUD: '37.5665',
-      LNGTD: '126.9780',
-      MIN_AGE: '0',
-      MAX_AGE: '84',
-      OPER_HR: '10:00~20:00',
-      TELNO: '02-1234-5678',
-      RESERVATION_URL: 'https://example.com/reserve',
-      NAVER_PLACE_URL: 'https://place.naver.com/123',
-      IMAGE_URL: 'https://example.com/image.jpg',
-    };
-
-    expect(raw.NAVER_PLACE_URL).toBe('https://place.naver.com/123');
-    expect(raw.IMAGE_URL).toBe('https://example.com/image.jpg');
+    expect(raw.BASS_ADRES).toBe('서울특별시 강남구 테헤란로 123');
+    expect(raw.X_CRDNT_VALUE).toBe('126.9780');
+    expect(raw.Y_CRDNT_VALUE).toBe('37.5665');
+    expect(raw.POSBL_AGRDE).toBe('0세 ~ 7세');
+    expect(raw.CTTPC).toBe('02-1234-5678');
   });
 });
 
@@ -74,7 +55,7 @@ describe('KidsCafe 타입', () => {
     expect(cafe.ageRange.maxAge).toBe(84);
   });
 
-  it('선택적 필드(naverPlaceUrl, imageUrl, parking)를 포함할 수 있어야 한다', () => {
+  it('선택적 필드(kakaoPlaceUrl, imageUrl, parking)를 포함할 수 있어야 한다', () => {
     const cafe: KidsCafe = {
       id: 'cafe-002',
       name: '테스트 키즈카페2',
@@ -85,12 +66,12 @@ describe('KidsCafe 타입', () => {
       operatingHours: '10:00~20:00',
       phone: '02-9876-5432',
       reservationUrl: 'https://example.com/reserve2',
-      naverPlaceUrl: 'https://place.naver.com/456',
+      kakaoPlaceUrl: 'https://place.map.kakao.com/456',
       imageUrl: 'https://example.com/image2.jpg',
       parking: 'available',
     };
 
-    expect(cafe.naverPlaceUrl).toBe('https://place.naver.com/456');
+    expect(cafe.kakaoPlaceUrl).toBe('https://place.map.kakao.com/456');
     expect(cafe.imageUrl).toBe('https://example.com/image2.jpg');
     expect(cafe.parking).toBe('available');
   });
@@ -109,8 +90,16 @@ describe('KidsCafe 타입', () => {
       parking: 'available',
     };
 
-    const withUnavailable: KidsCafe = { ...withAvailable, id: 'cafe-004', parking: 'unavailable' };
-    const withUnknown: KidsCafe = { ...withAvailable, id: 'cafe-005', parking: 'unknown' };
+    const withUnavailable: KidsCafe = {
+      ...withAvailable,
+      id: 'cafe-004',
+      parking: 'unavailable',
+    };
+    const withUnknown: KidsCafe = {
+      ...withAvailable,
+      id: 'cafe-005',
+      parking: 'unknown',
+    };
 
     expect(withAvailable.parking).toBe('available');
     expect(withUnavailable.parking).toBe('unavailable');

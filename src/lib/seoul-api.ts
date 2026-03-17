@@ -4,18 +4,21 @@ import type { SeoulKidsCafeRaw, KidsCafe } from '../../../types/index';
  * 서울시 API URL 생성
  */
 export function buildSeoulApiUrl(apiKey: string, startIndex: number, endIndex: number): string {
-  return `http://openAPI.seoul.go.kr:8088/${apiKey}/json/ChildCareInfo/${startIndex}/${endIndex}/`;
+  return `http://openAPI.seoul.go.kr:8088/${apiKey}/json/tnFcltySttusInfo1011/${startIndex}/${endIndex}/`;
 }
 
 /**
- * 개월 수 문자열을 숫자로 파싱
+ * 연령 텍스트를 숫자로 파싱 (예: "0세 ~ 7세" → { minAge: 0, maxAge: 7 })
  */
-export function parseAgeRange(
-  minAgeStr: string,
-  maxAgeStr: string
-): { minAge: number; maxAge: number } {
-  const minAge = parseInt(minAgeStr, 10);
-  const maxAge = parseInt(maxAgeStr, 10);
+export function parseAgeRange(ageRangeStr: string): { minAge: number; maxAge: number } {
+  if (!ageRangeStr) return { minAge: 0, maxAge: 0 };
+
+  const parts = ageRangeStr.split('~');
+  if (parts.length !== 2) return { minAge: 0, maxAge: 0 };
+
+  const minAge = parseInt(parts[0].replace(/[^0-9]/g, ''), 10);
+  const maxAge = parseInt(parts[1].replace(/[^0-9]/g, ''), 10);
+
   return {
     minAge: isNaN(minAge) ? 0 : minAge,
     maxAge: isNaN(maxAge) ? 0 : maxAge,
@@ -26,24 +29,25 @@ export function parseAgeRange(
  * 서울시 원본 데이터를 KidsCafe 타입으로 변환
  */
 export function parseSeoulKidsCafe(raw: SeoulKidsCafeRaw): KidsCafe {
-  const lat = parseFloat(raw.LTTUD);
-  const lng = parseFloat(raw.LNGTD);
-  const ageRange = parseAgeRange(raw.MIN_AGE, raw.MAX_AGE);
+  const lat = parseFloat(raw.Y_CRDNT_VALUE);
+  const lng = parseFloat(raw.X_CRDNT_VALUE);
+  const ageRange = parseAgeRange(raw.POSBL_AGRDE);
 
-  const id = encodeURIComponent(`${raw.FCLTY_NM}|${raw.RDNMADR}`);
+  const address = raw.DETAIL_ADRES
+    ? `${raw.BASS_ADRES} ${raw.DETAIL_ADRES}`.trim()
+    : raw.BASS_ADRES;
+
+  const id = raw.FCLTY_ID || encodeURIComponent(`${raw.FCLTY_NM}|${raw.BASS_ADRES}`);
 
   return {
     id,
     name: raw.FCLTY_NM,
-    address: raw.RDNMADR,
+    address,
     lat: isNaN(lat) ? 0 : lat,
     lng: isNaN(lng) ? 0 : lng,
     ageRange,
-    operatingHours: raw.OPER_HR,
-    phone: raw.TELNO,
-    reservationUrl: raw.RESERVATION_URL,
-    naverPlaceUrl: raw.NAVER_PLACE_URL,
-    imageUrl: raw.IMAGE_URL,
+    operatingHours: raw.OPEN_WEEK,
+    phone: raw.CTTPC,
   };
 }
 
@@ -51,7 +55,7 @@ export function parseSeoulKidsCafe(raw: SeoulKidsCafeRaw): KidsCafe {
  * 서울시 API 응답 원본 타입
  */
 type SeoulApiResponse = {
-  ChildCareInfo: {
+  tnFcltySttusInfo1011: {
     list_total_count: number;
     RESULT: { CODE: string; MESSAGE: string };
     row: SeoulKidsCafeRaw[];
@@ -72,7 +76,7 @@ export async function fetchSeoulKidsCafes(apiKey: string): Promise<KidsCafe[]> {
   }
 
   const data: SeoulApiResponse = await response.json();
-  const rows = data?.ChildCareInfo?.row ?? [];
+  const rows = data?.tnFcltySttusInfo1011?.row ?? [];
 
   return rows.map(parseSeoulKidsCafe);
 }

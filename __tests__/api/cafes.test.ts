@@ -18,8 +18,7 @@ beforeEach(() => {
   process.env = {
     ...ORIGINAL_ENV,
     SEOUL_API_KEY: 'TEST_SEOUL_KEY',
-    NAVER_CLIENT_ID: 'TEST_NAVER_ID',
-    NAVER_CLIENT_SECRET: 'TEST_NAVER_SECRET',
+    KAKAO_REST_API_KEY: 'TEST_KAKAO_KEY',
   };
 });
 
@@ -28,31 +27,33 @@ afterEach(() => {
 });
 
 const mockSeoulApiResponse = {
-  ChildCareInfo: {
+  tnFcltySttusInfo1011: {
     list_total_count: 1,
     RESULT: { CODE: 'INFO-000', MESSAGE: '정상 처리되었습니다.' },
     row: [
       {
+        FCLTY_ID: 'GN260101',
         FCLTY_NM: '강남 키즈카페',
-        RDNMADR: '서울특별시 강남구 테헤란로 123',
-        LTTUD: '37.5665',
-        LNGTD: '126.9780',
-        MIN_AGE: '0',
-        MAX_AGE: '84',
-        OPER_HR: '10:00~20:00',
-        TELNO: '02-1234-5678',
-        RESERVATION_URL: 'https://example.com/reserve',
+        BASS_ADRES: '서울특별시 강남구 테헤란로 123',
+        DETAIL_ADRES: '',
+        X_CRDNT_VALUE: '126.9780',
+        Y_CRDNT_VALUE: '37.5665',
+        POSBL_AGRDE: '0세 ~ 7세',
+        OPEN_WEEK: '화~일요일',
+        CLOSE_WEEK: '월요일, 공휴일',
+        CTTPC: '02-1234-5678',
+        RNTFEE_FREE_AT: 'Y',
       },
     ],
   },
 };
 
-const mockNaverLocalResponse = {
-  items: [{ link: 'https://place.naver.com/restaurant/123' }],
+const mockKakaoLocalResponse = {
+  documents: [{ place_url: 'https://place.map.kakao.com/123' }],
 };
 
-const mockNaverImageResponse = {
-  items: [{ link: 'https://cdn.example.com/image.jpg' }],
+const mockKakaoImageResponse = {
+  documents: [{ image_url: 'https://cdn.example.com/image.jpg' }],
 };
 
 describe('GET /api/cafes', () => {
@@ -64,11 +65,11 @@ describe('GET /api/cafes', () => {
       })
       .mockResolvedValueOnce({
         ok: true,
-        json: () => Promise.resolve(mockNaverLocalResponse),
+        json: () => Promise.resolve(mockKakaoLocalResponse),
       })
       .mockResolvedValueOnce({
         ok: true,
-        json: () => Promise.resolve(mockNaverImageResponse),
+        json: () => Promise.resolve(mockKakaoImageResponse),
       });
 
     const response = await GET();
@@ -80,7 +81,7 @@ describe('GET /api/cafes', () => {
     expect(data[0].name).toBe('강남 키즈카페');
   });
 
-  it('Naver 데이터가 병합되어 반환되어야 한다', async () => {
+  it('Kakao 데이터가 병합되어 반환되어야 한다', async () => {
     mockFetch
       .mockResolvedValueOnce({
         ok: true,
@@ -88,21 +89,21 @@ describe('GET /api/cafes', () => {
       })
       .mockResolvedValueOnce({
         ok: true,
-        json: () => Promise.resolve(mockNaverLocalResponse),
+        json: () => Promise.resolve(mockKakaoLocalResponse),
       })
       .mockResolvedValueOnce({
         ok: true,
-        json: () => Promise.resolve(mockNaverImageResponse),
+        json: () => Promise.resolve(mockKakaoImageResponse),
       });
 
     const response = await GET();
     const data = await response.json();
 
-    expect(data[0].naverPlaceUrl).toBe('https://place.naver.com/restaurant/123');
+    expect(data[0].kakaoPlaceUrl).toBe('https://place.map.kakao.com/123');
     expect(data[0].imageUrl).toBe('https://cdn.example.com/image.jpg');
   });
 
-  it('Naver API 실패 시 서울시 데이터만 반환해야 한다 (fallback)', async () => {
+  it('Kakao API 실패 시 서울시 데이터만 반환해야 한다 (fallback)', async () => {
     mockFetch
       .mockResolvedValueOnce({
         ok: true,
@@ -116,7 +117,7 @@ describe('GET /api/cafes', () => {
 
     expect(response.status).toBe(200);
     expect(data[0].name).toBe('강남 키즈카페');
-    expect(data[0].naverPlaceUrl).toBeUndefined();
+    expect(data[0].kakaoPlaceUrl).toBeUndefined();
     expect(data[0].imageUrl).toBeUndefined();
   });
 

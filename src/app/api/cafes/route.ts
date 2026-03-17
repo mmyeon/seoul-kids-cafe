@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { fetchSeoulKidsCafes } from '../../../lib/seoul-api';
-import { enrichCafeWithNaverData } from '../../../lib/naver-api';
+import { enrichCafeWithKakaoData } from '../../../lib/kakao-api';
 import type { KidsCafe } from '../../../../types/index';
 
 export async function GET(): Promise<NextResponse> {
@@ -12,21 +12,19 @@ export async function GET(): Promise<NextResponse> {
     );
   }
 
-  const naverClientId = process.env.NAVER_CLIENT_ID;
-  const naverClientSecret = process.env.NAVER_CLIENT_SECRET;
+  const kakaoRestApiKey = process.env.KAKAO_REST_API_KEY;
 
   try {
     const cafes = await fetchSeoulKidsCafes(seoulApiKey);
 
-    if (!naverClientId || !naverClientSecret) {
+    if (!kakaoRestApiKey) {
       return NextResponse.json(cafes);
     }
 
     const results = await Promise.allSettled(
       cafes.map((cafe) =>
-        enrichCafeWithNaverData(cafe, {
-          clientId: naverClientId,
-          clientSecret: naverClientSecret,
+        enrichCafeWithKakaoData(cafe, {
+          restApiKey: kakaoRestApiKey,
         })
       )
     );
