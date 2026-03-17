@@ -2,7 +2,7 @@ import type { KidsCafe } from './index';
 
 export interface KakaoMapProps {
   cafes: KidsCafe[];
-  selectedCafeId?: string;
+  selectedKidsCafeId?: string;
   onMarkerClick: (id: string) => void;
 }
 
@@ -36,11 +36,7 @@ declare global {
           zIndex?: number;
         }) => KakaoMarker;
         event: {
-          addListener: (
-            target: KakaoMarker,
-            type: string,
-            handler: () => void
-          ) => void;
+          addListener: (target: KakaoMarker, type: string, handler: () => void) => void;
         };
       };
     };

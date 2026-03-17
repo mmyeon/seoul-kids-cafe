@@ -14,7 +14,7 @@ export type { KakaoMapProps };
 const DEFAULT_CENTER = { lat: 37.5665, lng: 126.978 }; // 서울시청
 const DEFAULT_LEVEL = 8;
 
-export default function KakaoMap({ cafes, selectedCafeId, onMarkerClick }: KakaoMapProps) {
+export default function KakaoMap({ cafes, selectedKidsCafeId, onMarkerClick }: KakaoMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<KakaoMapInstance | null>(null);
   const markersRef = useRef<Map<string, KakaoMarker>>(new Map());
@@ -47,7 +47,7 @@ export default function KakaoMap({ cafes, selectedCafeId, onMarkerClick }: Kakao
         if (!isValidCoordinate(cafe.lat, cafe.lng)) return;
 
         const position = new window.kakao.maps.LatLng(cafe.lat, cafe.lng);
-        const zIndex = getMarkerZIndex(cafe.id, selectedCafeId);
+        const zIndex = getMarkerZIndex(cafe.id, selectedKidsCafeId);
 
         const marker = new window.kakao.maps.Marker({
           position,
@@ -68,21 +68,21 @@ export default function KakaoMap({ cafes, selectedCafeId, onMarkerClick }: Kakao
       markers.clear();
       mapRef.current = null;
     };
-  }, [cafes, selectedCafeId]);
+  }, [cafes, selectedKidsCafeId]);
 
   useEffect(() => {
-    if (!mapRef.current || !selectedCafeId) return;
+    if (!mapRef.current || !selectedKidsCafeId) return;
 
-    const cafe = findCafeById(selectedCafeId, cafes);
+    const cafe = findCafeById(selectedKidsCafeId, cafes);
     if (!cafe || !isValidCoordinate(cafe.lat, cafe.lng)) return;
 
     const position = new window.kakao.maps.LatLng(cafe.lat, cafe.lng);
     mapRef.current.setCenter(position);
 
     markersRef.current.forEach((marker, cafeId) => {
-      marker.setZIndex(getMarkerZIndex(cafeId, selectedCafeId));
+      marker.setZIndex(getMarkerZIndex(cafeId, selectedKidsCafeId));
     });
-  }, [selectedCafeId, cafes]);
+  }, [selectedKidsCafeId, cafes]);
 
   return (
     <div
