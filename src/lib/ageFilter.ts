@@ -188,7 +188,10 @@ export const sortCafes = (
 ): KidsCafe[] => {
   if (cafes.length === 0) return [];
 
-  const hasLocation = userLat !== undefined && userLng !== undefined;
+  const userLocation =
+    userLat !== undefined && userLng !== undefined
+      ? { lat: userLat, lng: userLng }
+      : null;
 
   return [...cafes].sort((a, b) => {
     const statusA = getMatchStatus(a, selectedAges);
@@ -202,9 +205,9 @@ export const sortCafes = (
     if (priorityA !== priorityB) return priorityA - priorityB;
 
     // Same priority group → sort by distance if location is available
-    if (hasLocation) {
-      const distA = haversineKm(userLat!, userLng!, a.lat, a.lng);
-      const distB = haversineKm(userLat!, userLng!, b.lat, b.lng);
+    if (userLocation !== null) {
+      const distA = haversineKm(userLocation.lat, userLocation.lng, a.lat, a.lng);
+      const distB = haversineKm(userLocation.lat, userLocation.lng, b.lat, b.lng);
       return distA - distB;
     }
 
