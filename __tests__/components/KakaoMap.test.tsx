@@ -10,7 +10,7 @@ import {
   isValidCoordinate,
   findCafeById,
   getMarkerZIndex,
-} from '../../components/KakaoMap';
+} from '../../src/lib/kakao-map-utils';
 import type { KidsCafe } from '../../types/index';
 
 // ============================================================
