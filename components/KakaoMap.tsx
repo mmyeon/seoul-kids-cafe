@@ -68,7 +68,8 @@ export default function KakaoMap({ cafes, selectedKidsCafeId, onMarkerClick }: K
       markers.clear();
       mapRef.current = null;
     };
-  }, [cafes, selectedKidsCafeId]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cafes]);
 
   useEffect(() => {
     if (!mapRef.current || !selectedKidsCafeId) return;
