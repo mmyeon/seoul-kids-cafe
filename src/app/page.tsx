@@ -1,65 +1,122 @@
-import Image from 'next/image';
+'use client';
+
+import { useState, useMemo, useCallback } from 'react';
+import dynamic from 'next/dynamic';
+import AgeFilterChips from '../../components/AgeFilterChips';
+import CafeListSection from '../../components/CafeListSection';
+import DistrictFallback from '../../components/DistrictFallback';
+import { useGeolocation } from '../lib/useGeolocation';
+import { useCafes } from '../lib/useCafes';
+import { useAgeFilter } from '../lib/useAgeFilter';
+import { useCafeSelection } from '../lib/useCafeSelection';
+import { buildCafeListItems } from '../lib/cafeListUtils';
+import type { UserLocation } from '../lib/cafeListUtils';
+
+// KakaoMap은 SSR 불가 컴포넌트이므로 dynamic import 사용
+const KakaoMap = dynamic(() => import('../../components/KakaoMap'), { ssr: false });
+
+type ViewMode = 'list' | 'map';
 
 export default function Home() {
+  const geolocation = useGeolocation();
+  const cafesState = useCafes();
+  const { selectedAges, setAges } = useAgeFilter();
+  const { selectedCafeId, selectCafe } = useCafeSelection();
+  const [viewMode, setViewMode] = useState<ViewMode>('list');
+  const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
+
+  const userLocation = useMemo((): UserLocation | null => {
+    if (geolocation.status === 'granted' && geolocation.position !== null) {
+      return geolocation.position;
+    }
+    return null;
+  }, [geolocation.status, geolocation.position]);
+
+  const cafeListItems = useMemo(
+    () => buildCafeListItems(cafesState.cafes, selectedAges, userLocation),
+    [cafesState.cafes, selectedAges, userLocation],
+  );
+
+  const handleAgeFilterChange = useCallback(
+    (ages: typeof selectedAges) => {
+      setAges(ages);
+    },
+    [setAges],
+  );
+
+  const showDistrictFallback =
+    geolocation.status === 'denied' || geolocation.status === 'unsupported';
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="flex flex-col min-h-screen bg-gray-50">
+      {/* 헤더 */}
+      <header className="bg-white border-b border-gray-200 px-4 py-3">
+        <h1 className="text-lg font-bold text-gray-900">서울 키즈카페 탐색</h1>
+      </header>
+
+      {/* 위치 거부 시 자치구 선택 fallback */}
+      {showDistrictFallback && (
+        <DistrictFallback
+          selectedDistrict={selectedDistrict}
+          onSelect={setSelectedDistrict}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{' '}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{' '}
-            or the{' '}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{' '}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+      )}
+
+      {/* 나이 필터 (sticky) */}
+      <AgeFilterChips selected={selectedAges} onChange={handleAgeFilterChange} />
+
+      {/* 본문: 데스크탑은 사이드바 레이아웃, 모바일은 단일 뷰 */}
+      <main className="flex flex-1 overflow-hidden">
+        {/* 카드 리스트 영역 */}
+        <section
+          className={`${
+            viewMode === 'map' ? 'hidden' : 'flex-1'
+          } md:flex md:flex-col md:w-1/2 md:overflow-y-auto`}
+          aria-label="카페 목록"
+        >
+          {cafesState.status === 'loading' && (
+            <div className="flex items-center justify-center py-20 text-gray-400">
+              <p>카페 정보를 불러오는 중...</p>
+            </div>
+          )}
+          {cafesState.status === 'error' && (
+            <div className="flex items-center justify-center py-20 text-red-500">
+              <p>{cafesState.error ?? '데이터를 불러오지 못했습니다.'}</p>
+            </div>
+          )}
+          {cafesState.status === 'success' && (
+            <CafeListSection
+              items={cafeListItems}
+              selectedCafeId={selectedCafeId}
+              onCardClick={selectCafe}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+          )}
+        </section>
+
+        {/* 지도 영역 */}
+        <section
+          className={`${
+            viewMode === 'list' ? 'hidden' : 'flex-1'
+          } md:flex md:sticky md:top-0 md:w-1/2 md:h-screen`}
+          aria-label="지도"
+        >
+          <KakaoMap
+            kidsCafes={cafesState.cafes}
+            selectedKidsCafeId={selectedCafeId ?? undefined}
+            onMarkerClick={selectCafe}
+          />
+        </section>
       </main>
+
+      {/* 모바일 FAB: 목록/지도 전환 */}
+      <button
+        type="button"
+        onClick={() => setViewMode((prev) => (prev === 'list' ? 'map' : 'list'))}
+        className="md:hidden fixed bottom-6 right-6 z-20 flex items-center gap-2 bg-blue-500 text-white px-5 py-3 rounded-full shadow-lg text-sm font-semibold hover:bg-blue-600 transition-colors"
+        aria-label={viewMode === 'list' ? '지도 보기' : '목록 보기'}
+      >
+        {viewMode === 'list' ? '지도 보기' : '목록 보기'}
+      </button>
     </div>
   );
 }
