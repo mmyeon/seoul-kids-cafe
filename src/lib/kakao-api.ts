@@ -45,14 +45,14 @@ export function extractKakaoImageUrl(response: KakaoImageSearchResponse): string
  * 카카오 데이터를 카페에 병합 (immutable)
  */
 export function mergeKakaoData(
-  cafe: KidsCafe,
+  kidsCafe: KidsCafe,
   kakaoPlaceUrl: string | undefined,
   imageUrl: string | undefined
 ): KidsCafe {
   return {
-    ...cafe,
-    kakaoPlaceUrl: kakaoPlaceUrl ?? cafe.kakaoPlaceUrl,
-    imageUrl: imageUrl ?? cafe.imageUrl,
+    ...kidsCafe,
+    kakaoPlaceUrl: kakaoPlaceUrl ?? kidsCafe.kakaoPlaceUrl,
+    imageUrl: imageUrl ?? kidsCafe.imageUrl,
   };
 }
 
@@ -72,17 +72,17 @@ function buildKakaoHeaders(credentials: KakaoCredentials): HeadersInit {
 /**
  * 단일 카페에 대해 Kakao Local + Image 병렬 호출 후 데이터 병합
  */
-export async function enrichCafeWithKakaoData(
-  cafe: KidsCafe,
+export async function enrichKidsCafeWithKakaoData(
+  kidsCafe: KidsCafe,
   credentials: KakaoCredentials
 ): Promise<KidsCafe> {
   const headers = buildKakaoHeaders(credentials);
 
   const [localResult, imageResult] = await Promise.allSettled([
-    fetch(buildKakaoLocalSearchUrl(cafe.name), { headers }).then((r) =>
+    fetch(buildKakaoLocalSearchUrl(kidsCafe.name), { headers }).then((r) =>
       r.ok ? (r.json() as Promise<KakaoLocalSearchResponse>) : null
     ),
-    fetch(buildKakaoImageSearchUrl(cafe.name), { headers }).then((r) =>
+    fetch(buildKakaoImageSearchUrl(kidsCafe.name), { headers }).then((r) =>
       r.ok ? (r.json() as Promise<KakaoImageSearchResponse>) : null
     ),
   ]);
@@ -93,5 +93,5 @@ export async function enrichCafeWithKakaoData(
   const kakaoPlaceUrl = extractKakaoPlaceUrl(localData);
   const imageUrl = extractKakaoImageUrl(imageData);
 
-  return mergeKakaoData(cafe, kakaoPlaceUrl, imageUrl);
+  return mergeKakaoData(kidsCafe, kakaoPlaceUrl, imageUrl);
 }

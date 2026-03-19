@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { fetchSeoulKidsCafes } from '../../../lib/seoul-api';
-import { enrichCafeWithKakaoData } from '../../../lib/kakao-api';
+import { enrichKidsCafeWithKakaoData } from '../../../lib/kakao-api';
 import type { KidsCafe } from '../../../../types/index';
 
 export async function GET(): Promise<NextResponse> {
@@ -15,25 +15,25 @@ export async function GET(): Promise<NextResponse> {
   const kakaoRestApiKey = process.env.KAKAO_REST_API_KEY;
 
   try {
-    const cafes = await fetchSeoulKidsCafes(seoulApiKey);
+    const kidsCafes = await fetchSeoulKidsCafes(seoulApiKey);
 
     if (!kakaoRestApiKey) {
-      return NextResponse.json(cafes);
+      return NextResponse.json(kidsCafes);
     }
 
     const results = await Promise.allSettled(
-      cafes.map((cafe) =>
-        enrichCafeWithKakaoData(cafe, {
+      kidsCafes.map((kidsCafe) =>
+        enrichKidsCafeWithKakaoData(kidsCafe, {
           restApiKey: kakaoRestApiKey,
         })
       )
     );
 
-    const enrichedCafes: KidsCafe[] = results.map((result, index) =>
-      result.status === 'fulfilled' ? result.value : cafes[index]
+    const enrichedKidsCafes: KidsCafe[] = results.map((result, index) =>
+      result.status === 'fulfilled' ? result.value : kidsCafes[index]
     );
 
-    return NextResponse.json(enrichedCafes);
+    return NextResponse.json(enrichedKidsCafes);
   } catch (error) {
     console.error('[GET /api/cafes] 처리 중 오류 발생:', error);
     return NextResponse.json(

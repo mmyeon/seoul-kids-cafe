@@ -1,7 +1,7 @@
 import type { KidsCafe } from './index';
 
 export interface KakaoMapProps {
-  cafes: KidsCafe[];
+  kidsCafes: KidsCafe[];
   selectedKidsCafeId?: string;
   onMarkerClick: (id: string) => void;
 }

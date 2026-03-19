@@ -1,4 +1,4 @@
-import { parseAgeRange, getMatchStatus, sortCafes } from '../../src/lib/ageFilter';
+import { parseAgeRange, getMatchStatus, sortKidsCafes } from '../../src/lib/ageFilter';
 import type { KidsCafe, AgeFilter } from '../../types/index';
 
 // ============================================================
@@ -105,7 +105,7 @@ describe('getMatchStatus', () => {
 // sortCafes
 // ============================================================
 
-describe('sortCafes', () => {
+describe('sortKidsCafes', () => {
   // Build day strings that are deterministically "today" or "not today".
   // KO_DAYS maps JS getDay() (0=Sun) to short Korean day names.
   const KO_DAYS = ['일', '월', '화', '수', '목', '금', '토'] as const;
@@ -162,17 +162,17 @@ describe('sortCafes', () => {
   const selectedAges: AgeFilter[] = ['1', '2', '3', '4'];
 
   it('shouldReturnEmptyArrayForEmptyInput', () => {
-    expect(sortCafes([], selectedAges)).toEqual([]);
+    expect(sortKidsCafes([], selectedAges)).toEqual([]);
   });
 
   it('shouldPlaceFullMatchOpenBeforeFullMatchClosed', () => {
-    const result = sortCafes([fullMatchClosedCafe, fullMatchOpenCafe], selectedAges);
+    const result = sortKidsCafes([fullMatchClosedCafe, fullMatchOpenCafe], selectedAges);
     expect(result[0].id).toBe('full-open');
     expect(result[1].id).toBe('full-closed');
   });
 
   it('shouldPlaceFullMatchBeforePartialMatch', () => {
-    const result = sortCafes(
+    const result = sortKidsCafes(
       [partialMatchOpenCafe, fullMatchOpenCafe],
       selectedAges,
     );
@@ -181,13 +181,13 @@ describe('sortCafes', () => {
   });
 
   it('shouldPlacePartialMatchOpenBeforePartialMatchClosed', () => {
-    const result = sortCafes([partialMatchClosedCafe, partialMatchOpenCafe], selectedAges);
+    const result = sortKidsCafes([partialMatchClosedCafe, partialMatchOpenCafe], selectedAges);
     expect(result[0].id).toBe('partial-open');
     expect(result[1].id).toBe('partial-closed');
   });
 
   it('shouldFollowFullPriority1234Order', () => {
-    const result = sortCafes(
+    const result = sortKidsCafes(
       [noMatchCafe, partialMatchClosedCafe, partialMatchOpenCafe, fullMatchClosedCafe, fullMatchOpenCafe],
       selectedAges,
     );
@@ -216,13 +216,13 @@ describe('sortCafes', () => {
       lat: 37.6,
       lng: 127.0,
     });
-    const result = sortCafes([farCafe, nearCafe], selectedAges, 37.5665, 126.978);
+    const result = sortKidsCafes([farCafe, nearCafe], selectedAges, 37.5665, 126.978);
     expect(result[0].id).toBe('near');
     expect(result[1].id).toBe('far');
   });
 
   it('shouldReturnOriginalOrderWhenNoFiltersSelected', () => {
-    const result = sortCafes([fullMatchOpenCafe, partialMatchOpenCafe], []);
+    const result = sortKidsCafes([fullMatchOpenCafe, partialMatchOpenCafe], []);
     // All are 'none', no user location → original order preserved
     expect(result.map((c) => c.id)).toEqual(['full-open', 'partial-open']);
   });

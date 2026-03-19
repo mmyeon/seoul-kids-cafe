@@ -103,10 +103,10 @@ const isAgeInRange = (
  * - partial: at least one selected age is within range
  * - none:    no selected age falls within range (or no filters selected)
  */
-export const getMatchStatus = (cafe: KidsCafe, selectedAges: AgeFilter[]): MatchStatus => {
+export const getMatchStatus = (kidsCafe: KidsCafe, selectedAges: AgeFilter[]): MatchStatus => {
   if (selectedAges.length === 0) return 'none';
 
-  const matched = selectedAges.filter((age) => isAgeInRange(age, cafe.ageRange));
+  const matched = selectedAges.filter((age) => isAgeInRange(age, kidsCafe.ageRange));
 
   if (matched.length === selectedAges.length) return 'full';
   if (matched.length > 0) return 'partial';
@@ -182,20 +182,20 @@ const haversineKm = (
  * user's location (ascending). If no location is provided, original order
  * within the group is preserved.
  */
-export const sortCafes = (
-  cafes: KidsCafe[],
+export const sortKidsCafes = (
+  kidsCafes: KidsCafe[],
   selectedAges: AgeFilter[],
   userLat?: number,
   userLng?: number,
 ): KidsCafe[] => {
-  if (cafes.length === 0) return [];
+  if (kidsCafes.length === 0) return [];
 
   const userLocation =
     userLat !== undefined && userLng !== undefined
       ? { lat: userLat, lng: userLng }
       : null;
 
-  return [...cafes].sort((a, b) => {
+  return [...kidsCafes].sort((a, b) => {
     const statusA = getMatchStatus(a, selectedAges);
     const statusB = getMatchStatus(b, selectedAges);
     const openA = isOpenToday(a.operatingHours) ? 'open' : 'closed';

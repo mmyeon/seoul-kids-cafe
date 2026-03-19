@@ -1,18 +1,18 @@
 /**
- * CafeCard 컴포넌트
+ * KidsCafeCard 컴포넌트
  *
  * 키즈카페 정보를 카드 형태로 표시합니다.
  * 매칭 상태, 이미지, 거리, 연령대, 운영시간, 주차 정보 등을 렌더링합니다.
  */
 
-import type { KidsCafe, MatchStatus } from '../types/index';
+import type { KidsCafe, MatchStatus } from '../../types/index';
 
 // ============================================================
 // Props 타입
 // ============================================================
 
-export interface CafeCardProps {
-  cafe: KidsCafe;
+export interface KidsCafeCardProps {
+  kidsCafe: KidsCafe;
   matchStatus: MatchStatus;
   distanceKm?: number;
   isOpen: boolean;
@@ -85,8 +85,8 @@ export function shouldShowPartialBadge(matchStatus: MatchStatus): boolean {
 }
 
 /**
- * URL이 안전한 https:// 프로토콜로 시작하는지 검증합니다.
- * 안전하지 않은 URL(javascript:, data: 등)을 차단합니다.
+ * URL이 안전한 프로토콜로 시작하는지 검증합니다.
+ * javascript:, data: 등의 위험한 프로토콜을 차단합니다.
  */
 export function isSafeUrl(url: string): boolean {
   return url.startsWith('https://') || url.startsWith('http://');
@@ -98,31 +98,31 @@ export function isSafeUrl(url: string): boolean {
 
 const PLACEHOLDER_IMAGE = '/placeholder-cafe.png';
 
-export default function CafeCard({
-  cafe,
+export default function KidsCafeCard({
+  kidsCafe,
   matchStatus,
   distanceKm,
   isOpen,
   onClick,
-}: CafeCardProps) {
+}: KidsCafeCardProps) {
   const opacityClass = getCardOpacity(matchStatus);
   const showPartialBadge = shouldShowPartialBadge(matchStatus);
   const distance = formatDistance(distanceKm);
-  const ageLabel = formatAgeRange(cafe.ageRange);
-  const parkingLabel = formatParking(cafe.parking);
-  const imageSrc = cafe.imageUrl ?? PLACEHOLDER_IMAGE;
+  const ageLabel = formatAgeRange(kidsCafe.ageRange);
+  const parkingLabel = formatParking(kidsCafe.parking);
+  const imageSrc = kidsCafe.imageUrl ?? PLACEHOLDER_IMAGE;
 
   return (
     <article
       className={`rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden cursor-pointer ${opacityClass}`}
       onClick={onClick}
-      aria-label={cafe.name}
+      aria-label={kidsCafe.name}
     >
       {/* 이미지 + 거리 */}
       <div className="relative">
         <img
           src={imageSrc}
-          alt={cafe.imageUrl ? `${cafe.name} 이미지` : '이미지 없음'}
+          alt={kidsCafe.imageUrl ? `${kidsCafe.name} 이미지` : '이미지 없음'}
           className="w-full h-40 object-cover"
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).src = PLACEHOLDER_IMAGE;
@@ -143,12 +143,12 @@ export default function CafeCard({
       {/* 카드 본문 */}
       <div className="p-4 space-y-1.5">
         {/* 카페명 */}
-        <h2 className="text-base font-bold text-gray-900 line-clamp-1">{cafe.name}</h2>
+        <h2 className="text-base font-bold text-gray-900 line-clamp-1">{kidsCafe.name}</h2>
 
         {/* 주소 */}
         <p className="text-sm text-gray-500 line-clamp-1">
           <span aria-hidden="true">📍 </span>
-          {cafe.address}
+          {kidsCafe.address}
         </p>
 
         {/* 연령대 */}
@@ -160,7 +160,7 @@ export default function CafeCard({
         {/* 운영시간 + 오늘 휴무 배지 */}
         <p className="text-sm text-gray-600 flex items-center gap-2">
           <span aria-hidden="true">⏰ </span>
-          {cafe.operatingHours}
+          {kidsCafe.operatingHours}
           {!isOpen && (
             <span className="inline-block bg-red-100 text-red-600 text-xs font-semibold px-2 py-0.5 rounded-full">
               오늘 휴무
@@ -174,10 +174,10 @@ export default function CafeCard({
           {parkingLabel}
         </p>
 
-        {/* 네이버/카카오 리뷰 링크 */}
-        {cafe.kakaoPlaceUrl && isSafeUrl(cafe.kakaoPlaceUrl) && (
+        {/* 카카오 리뷰 링크 */}
+        {kidsCafe.kakaoPlaceUrl && isSafeUrl(kidsCafe.kakaoPlaceUrl) && (
           <a
-            href={cafe.kakaoPlaceUrl}
+            href={kidsCafe.kakaoPlaceUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-sm text-yellow-600 font-medium hover:underline"
@@ -188,9 +188,9 @@ export default function CafeCard({
         )}
 
         {/* 예약하기 버튼 */}
-        {cafe.reservationUrl && isSafeUrl(cafe.reservationUrl) && (
+        {kidsCafe.reservationUrl && isSafeUrl(kidsCafe.reservationUrl) && (
           <a
-            href={cafe.reservationUrl}
+            href={kidsCafe.reservationUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-2 block w-full text-center rounded-lg bg-blue-500 text-white text-sm font-semibold py-2 hover:bg-blue-600 transition-colors"

@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import type { KakaoMapProps, KakaoMapInstance, KakaoMarker } from '../types/kakao-map';
 import {
   isValidCoordinate,
-  findCafeById,
+  findKidsCafeById,
   getMarkerZIndex,
   loadKakaoSdk,
 } from '../src/lib/kakao-map-utils';
@@ -14,7 +14,7 @@ export type { KakaoMapProps };
 const DEFAULT_CENTER = { lat: 37.5665, lng: 126.978 }; // 서울시청
 const DEFAULT_LEVEL = 8;
 
-export default function KakaoMap({ cafes, selectedKidsCafeId, onMarkerClick }: KakaoMapProps) {
+export default function KakaoMap({ kidsCafes, selectedKidsCafeId, onMarkerClick }: KakaoMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<KakaoMapInstance | null>(null);
   const markersRef = useRef<Map<string, KakaoMarker>>(new Map());
@@ -36,11 +36,11 @@ export default function KakaoMap({ cafes, selectedKidsCafeId, onMarkerClick }: K
 
       mapRef.current = map;
 
-      cafes.forEach((cafe) => {
-        if (!isValidCoordinate(cafe.lat, cafe.lng)) return;
+      kidsCafes.forEach((kidsCafe) => {
+        if (!isValidCoordinate(kidsCafe.lat, kidsCafe.lng)) return;
 
-        const position = new window.kakao.maps.LatLng(cafe.lat, cafe.lng);
-        const zIndex = getMarkerZIndex(cafe.id, selectedKidsCafeId);
+        const position = new window.kakao.maps.LatLng(kidsCafe.lat, kidsCafe.lng);
+        const zIndex = getMarkerZIndex(kidsCafe.id, selectedKidsCafeId);
 
         const marker = new window.kakao.maps.Marker({
           position,
@@ -49,10 +49,10 @@ export default function KakaoMap({ cafes, selectedKidsCafeId, onMarkerClick }: K
         });
 
         window.kakao.maps.event.addListener(marker, 'click', () => {
-          onMarkerClick(cafe.id);
+          onMarkerClick(kidsCafe.id);
         });
 
-        markers.set(cafe.id, marker);
+        markers.set(kidsCafe.id, marker);
       });
     });
 
@@ -62,21 +62,21 @@ export default function KakaoMap({ cafes, selectedKidsCafeId, onMarkerClick }: K
       mapRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cafes]);
+  }, [kidsCafes]);
 
   useEffect(() => {
     if (!mapRef.current || !selectedKidsCafeId) return;
 
-    const cafe = findCafeById(selectedKidsCafeId, cafes);
-    if (!cafe || !isValidCoordinate(cafe.lat, cafe.lng)) return;
+    const kidsCafe = findKidsCafeById(selectedKidsCafeId, kidsCafes);
+    if (!kidsCafe || !isValidCoordinate(kidsCafe.lat, kidsCafe.lng)) return;
 
-    const position = new window.kakao.maps.LatLng(cafe.lat, cafe.lng);
+    const position = new window.kakao.maps.LatLng(kidsCafe.lat, kidsCafe.lng);
     mapRef.current.setCenter(position);
 
-    markersRef.current.forEach((marker, cafeId) => {
-      marker.setZIndex(getMarkerZIndex(cafeId, selectedKidsCafeId));
+    markersRef.current.forEach((marker, kidsCafeId) => {
+      marker.setZIndex(getMarkerZIndex(kidsCafeId, selectedKidsCafeId));
     });
-  }, [selectedKidsCafeId, cafes]);
+  }, [selectedKidsCafeId, kidsCafes]);
 
   return (
     <div

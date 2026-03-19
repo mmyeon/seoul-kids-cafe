@@ -14,18 +14,18 @@ export function isValidCoordinate(lat: number, lng: number): boolean {
   return lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180;
 }
 
-export function findCafeById(
+export function findKidsCafeById(
   id: string,
-  cafes: KidsCafe[]
+  kidsCafes: KidsCafe[]
 ): KidsCafe | undefined {
-  return cafes.find((cafe) => cafe.id === id);
+  return kidsCafes.find((kidsCafe) => kidsCafe.id === id);
 }
 
 export function getMarkerZIndex(
-  cafeId: string,
-  selectedCafeId: string | undefined
+  kidsCafeId: string,
+  selectedKidsCafeId: string | undefined
 ): number {
-  return cafeId === selectedCafeId ? 10 : 1;
+  return kidsCafeId === selectedKidsCafeId ? 10 : 1;
 }
 
 export function loadKakaoSdk(appKey: string, onLoad: () => void): void {

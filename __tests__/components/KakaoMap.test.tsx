@@ -8,7 +8,7 @@
 import {
   buildSdkUrl,
   isValidCoordinate,
-  findCafeById,
+  findKidsCafeById,
   getMarkerZIndex,
 } from '../../src/lib/kakao-map-utils';
 import type { KidsCafe } from '../../types/index';
@@ -98,29 +98,29 @@ describe('isValidCoordinate', () => {
 
 describe('findCafeById', () => {
   it('일치하는 id가 있으면 해당 카페를 반환해야 한다', () => {
-    const result = findCafeById('cafe-002', cafes);
+    const result = findKidsCafeById('cafe-002', cafes);
     expect(result).toBeDefined();
     expect(result?.id).toBe('cafe-002');
     expect(result?.name).toBe('두 번째 키즈카페');
   });
 
   it('일치하는 id가 없으면 undefined를 반환해야 한다', () => {
-    const result = findCafeById('non-existent', cafes);
+    const result = findKidsCafeById('non-existent', cafes);
     expect(result).toBeUndefined();
   });
 
   it('빈 배열에서는 undefined를 반환해야 한다', () => {
-    const result = findCafeById('cafe-001', []);
+    const result = findKidsCafeById('cafe-001', []);
     expect(result).toBeUndefined();
   });
 
   it('첫 번째 카페를 올바르게 찾아야 한다', () => {
-    const result = findCafeById('cafe-001', cafes);
+    const result = findKidsCafeById('cafe-001', cafes);
     expect(result?.id).toBe('cafe-001');
   });
 
   it('마지막 카페를 올바르게 찾아야 한다', () => {
-    const result = findCafeById('cafe-003', cafes);
+    const result = findKidsCafeById('cafe-003', cafes);
     expect(result?.id).toBe('cafe-003');
   });
 });

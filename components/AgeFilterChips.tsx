@@ -6,6 +6,7 @@
  * 모바일에서 sticky 상단 고정으로 표시됩니다.
  */
 
+import { useCallback } from 'react';
 import type { AgeFilter } from '../types/index';
 
 // ============================================================
@@ -24,16 +25,7 @@ export interface AgeFilterChipsProps {
 /**
  * 나이 필터 옵션 순서 (under12m → 1세 → ... → 7세)
  */
-export const AGE_FILTER_OPTIONS: AgeFilter[] = [
-  'under12m',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-];
+export const AGE_FILTER_OPTIONS: AgeFilter[] = ['under12m', '1', '2', '3', '4', '5', '6', '7'];
 
 // ============================================================
 // 순수 헬퍼 함수 (테스트 가능)
@@ -42,9 +34,9 @@ export const AGE_FILTER_OPTIONS: AgeFilter[] = [
 /**
  * AgeFilter 값을 사용자에게 표시할 한국어 레이블로 변환합니다.
  */
-export function getChipLabel(filter: AgeFilter): string {
-  if (filter === 'under12m') return '12개월 미만';
-  return `${filter}세`;
+export function getChipLabel(age: AgeFilter): string {
+  if (age === 'under12m') return '12개월 미만';
+  return `${age}세`;
 }
 
 /**
@@ -72,9 +64,12 @@ export function toggleAgeFilter(filter: AgeFilter, selected: AgeFilter[]): AgeFi
 // ============================================================
 
 export default function AgeFilterChips({ selected, onChange }: AgeFilterChipsProps) {
-  const handleChipClick = (filter: AgeFilter) => {
-    onChange(toggleAgeFilter(filter, selected));
-  };
+  const handleChipClick = useCallback(
+    (filter: AgeFilter) => {
+      onChange(toggleAgeFilter(filter, selected));
+    },
+    [onChange, selected]
+  );
 
   return (
     <div className="sticky top-0 z-10 bg-white py-3 px-4 overflow-x-auto">

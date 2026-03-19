@@ -12,7 +12,7 @@ import {
   getCardOpacity,
   shouldShowPartialBadge,
   isSafeUrl,
-} from '../../components/CafeCard';
+} from '../../components/KidsCafeCard';
 import type { KidsCafe, MatchStatus } from '../../types/index';
 
 // ============================================================
