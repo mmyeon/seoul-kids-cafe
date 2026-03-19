@@ -18,13 +18,6 @@ export default function KakaoMap({ cafes, selectedKidsCafeId, onMarkerClick }: K
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<KakaoMapInstance | null>(null);
   const markersRef = useRef<Map<string, KakaoMarker>>(new Map());
-  // Store callback in a ref so event listeners always invoke the latest version
-  // without triggering map re-initialization on every parent re-render.
-  const onMarkerClickRef = useRef<(id: string) => void>(onMarkerClick);
-
-  useEffect(() => {
-    onMarkerClickRef.current = onMarkerClick;
-  }, [onMarkerClick]);
 
   useEffect(() => {
     const appKey = process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY ?? '';
@@ -56,7 +49,7 @@ export default function KakaoMap({ cafes, selectedKidsCafeId, onMarkerClick }: K
         });
 
         window.kakao.maps.event.addListener(marker, 'click', () => {
-          onMarkerClickRef.current(cafe.id);
+          onMarkerClick(cafe.id);
         });
 
         markers.set(cafe.id, marker);
@@ -68,7 +61,7 @@ export default function KakaoMap({ cafes, selectedKidsCafeId, onMarkerClick }: K
       markers.clear();
       mapRef.current = null;
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cafes]);
 
   useEffect(() => {
