@@ -1,4 +1,5 @@
-import { parseAgeRange, getMatchStatus, sortKidsCafes } from '../../src/lib/ageFilter';
+import { parseAgeRange, getMatchStatus } from '../../src/lib/ageFilter';
+import { sortKidsCafes } from '../../src/lib/cafeSort';
 import type { KidsCafe, AgeFilter } from '../../types/index';
 
 // ============================================================
