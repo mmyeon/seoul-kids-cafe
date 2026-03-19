@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react';
+import { renderHook } from '@testing-library/react';
 import { useGeolocation } from '../../src/lib/useGeolocation';
 
 const mockGetCurrentPosition = jest.fn();

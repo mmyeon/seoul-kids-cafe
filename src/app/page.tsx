@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import AgeFilterChips from '../../components/AgeFilterChips';
 import CafeListSection from '../../components/CafeListSection';
@@ -37,13 +37,6 @@ export default function Home() {
     [cafesState.cafes, selectedAges, userLocation],
   );
 
-  const handleAgeFilterChange = useCallback(
-    (ages: typeof selectedAges) => {
-      setAges(ages);
-    },
-    [setAges],
-  );
-
   const showDistrictFallback =
     geolocation.status === 'denied' || geolocation.status === 'unsupported';
 
@@ -63,7 +56,7 @@ export default function Home() {
       )}
 
       {/* 나이 필터 (sticky) */}
-      <AgeFilterChips selected={selectedAges} onChange={handleAgeFilterChange} />
+      <AgeFilterChips selected={selectedAges} onChange={setAges} />
 
       {/* 본문: 데스크탑은 사이드바 레이아웃, 모바일은 단일 뷰 */}
       <main className="flex flex-1 overflow-hidden">
