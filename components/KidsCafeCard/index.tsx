@@ -45,7 +45,12 @@ export default function KidsCafeCard({
             className="w-full h-40 object-cover"
           />
         ) : (
-          <div className="w-full h-40 bg-gray-200 animate-pulse" aria-hidden="true" />
+          <div
+            className="w-full h-40 bg-gray-100 flex items-center justify-center"
+            aria-hidden="true"
+          >
+            <span className="text-gray-400 text-sm">이미지 없음</span>
+          </div>
         )}
         {distance && (
           <span className="absolute top-2 right-2 bg-white/80 text-xs font-medium px-2 py-0.5 rounded-full">

@@ -48,9 +48,29 @@ describe('extractKakaoPlaceUrl', () => {
 describe('extractKakaoImageUrl', () => {
   it('카카오 이미지 검색 응답에서 이미지 URL을 추출해야 한다', () => {
     const response = {
-      documents: [{ image_url: 'https://example.com/image.jpg' }],
+      documents: [{ image_url: 'https://t1.daumcdn.net/news/image.jpg' }],
     };
-    expect(extractKakaoImageUrl(response)).toBe('https://example.com/image.jpg');
+    expect(extractKakaoImageUrl(response)).toBe('https://t1.daumcdn.net/news/image.jpg');
+  });
+
+  it('네이버 CDN URL은 건너뛰고 다른 URL을 반환해야 한다', () => {
+    const response = {
+      documents: [
+        { image_url: 'https://postfiles.pstatic.net/blocked.jpg' },
+        { image_url: 'https://t1.daumcdn.net/news/image.jpg' },
+      ],
+    };
+    expect(extractKakaoImageUrl(response)).toBe('https://t1.daumcdn.net/news/image.jpg');
+  });
+
+  it('모든 결과가 네이버 CDN이면 undefined를 반환해야 한다', () => {
+    const response = {
+      documents: [
+        { image_url: 'https://postfiles.pstatic.net/blocked1.jpg' },
+        { image_url: 'https://dthumb-phinf.pstatic.net/blocked2.jpg' },
+      ],
+    };
+    expect(extractKakaoImageUrl(response)).toBeUndefined();
   });
 
   it('검색 결과가 없으면 undefined를 반환해야 한다', () => {

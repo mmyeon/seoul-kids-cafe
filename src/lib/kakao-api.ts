@@ -14,7 +14,16 @@ export function buildKakaoLocalSearchUrl(cafeName: string): string {
  * 카카오 이미지 검색 URL 생성
  */
 export function buildKakaoImageSearchUrl(cafeName: string): string {
-  return `${KAKAO_IMAGE_SEARCH_BASE}?query=${encodeURIComponent(cafeName)}&size=1`;
+  return `${KAKAO_IMAGE_SEARCH_BASE}?query=${encodeURIComponent(cafeName)}&size=5`;
+}
+
+const BLOCKED_IMAGE_DOMAINS = ['pstatic.net', 'naver.net'];
+
+/**
+ * 핫링크 차단 도메인 여부 확인
+ */
+export function isBlockedImageDomain(url: string): boolean {
+  return BLOCKED_IMAGE_DOMAINS.some((domain) => url.includes(domain));
 }
 
 type KakaoLocalSearchResponse = {
@@ -34,11 +43,15 @@ export function extractKakaoPlaceUrl(response: KakaoLocalSearchResponse): string
 }
 
 /**
- * 카카오 이미지 검색 응답에서 이미지 URL 추출
+ * 카카오 이미지 검색 응답에서 이미지 URL 추출 (핫링크 차단 도메인 제외)
  */
 export function extractKakaoImageUrl(response: KakaoImageSearchResponse): string | undefined {
   if (!response?.documents?.length) return undefined;
-  return response.documents[0].image_url || undefined;
+  const doc = response.documents.find((d) => {
+    const url = d.image_url as string;
+    return url && !isBlockedImageDomain(url);
+  });
+  return (doc?.image_url as string) || undefined;
 }
 
 /**

@@ -9,9 +9,14 @@ import {
 } from '../lib/kidsCafeCard';
 
 export type { KidsCafeCardProps };
-export { formatAgeRange, formatDistance, formatParking, getCardOpacity, shouldShowPartialBadge, isSafeUrl };
-
-const PLACEHOLDER_IMAGE = '/placeholder-cafe.png';
+export {
+  formatAgeRange,
+  formatDistance,
+  formatParking,
+  getCardOpacity,
+  shouldShowPartialBadge,
+  isSafeUrl,
+};
 
 export default function KidsCafeCard({
   kidsCafe,
@@ -25,7 +30,6 @@ export default function KidsCafeCard({
   const distance = formatDistance(distanceKm);
   const ageLabel = formatAgeRange(kidsCafe.ageRange);
   const parkingLabel = formatParking(kidsCafe.parking);
-  const imageSrc = kidsCafe.imageUrl ?? PLACEHOLDER_IMAGE;
 
   return (
     <article
@@ -35,8 +39,8 @@ export default function KidsCafeCard({
     >
       <div className="relative">
         <img
-          src={imageSrc}
-          alt={kidsCafe.imageUrl ? `${kidsCafe.name} 이미지` : '이미지 없음'}
+          src={kidsCafe.imageUrl}
+          alt={`${kidsCafe.name} 이미지 없음`}
           className="w-full h-40 object-cover"
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).src = PLACEHOLDER_IMAGE;
