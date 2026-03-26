@@ -1,4 +1,4 @@
-import type { KidsCafeCardProps } from '../src/lib/kidsCafeCard';
+import type { KidsCafeCardProps } from '../../src/lib/kidsCafeCard';
 import {
   formatAgeRange,
   formatDistance,
@@ -6,12 +6,17 @@ import {
   getCardOpacity,
   shouldShowPartialBadge,
   isSafeUrl,
-} from '../src/lib/kidsCafeCard';
+} from '../../src/lib/kidsCafeCard';
 
 export type { KidsCafeCardProps };
-export { formatAgeRange, formatDistance, formatParking, getCardOpacity, shouldShowPartialBadge, isSafeUrl };
-
-const PLACEHOLDER_IMAGE = '/placeholder-cafe.png';
+export {
+  formatAgeRange,
+  formatDistance,
+  formatParking,
+  getCardOpacity,
+  shouldShowPartialBadge,
+  isSafeUrl,
+};
 
 export default function KidsCafeCard({
   kidsCafe,
@@ -25,7 +30,6 @@ export default function KidsCafeCard({
   const distance = formatDistance(distanceKm);
   const ageLabel = formatAgeRange(kidsCafe.ageRange);
   const parkingLabel = formatParking(kidsCafe.parking);
-  const imageSrc = kidsCafe.imageUrl ?? PLACEHOLDER_IMAGE;
 
   return (
     <article
@@ -34,14 +38,15 @@ export default function KidsCafeCard({
       aria-label={kidsCafe.name}
     >
       <div className="relative">
-        <img
-          src={imageSrc}
-          alt={kidsCafe.imageUrl ? `${kidsCafe.name} 이미지` : '이미지 없음'}
-          className="w-full h-40 object-cover"
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).src = PLACEHOLDER_IMAGE;
-          }}
-        />
+        {kidsCafe.imageUrl ? (
+          <img
+            src={kidsCafe.imageUrl}
+            alt={`${kidsCafe.name} 이미지`}
+            className="w-full h-40 object-cover"
+          />
+        ) : (
+          <div className="w-full h-40 bg-gray-200 animate-pulse" aria-hidden="true" />
+        )}
         {distance && (
           <span className="absolute top-2 right-2 bg-white/80 text-xs font-medium px-2 py-0.5 rounded-full">
             {distance}

@@ -11,6 +11,7 @@ import { useAgeFilter } from '../lib/useAgeFilter';
 import { useCafeSelection } from '../lib/useCafeSelection';
 import { buildCafeListItems } from '../lib/cafeListUtils';
 import type { UserLocation } from '../lib/cafeListUtils';
+import KidsCafeCardSkeleton from '../../components/KidsCafeCard/Skeleton';
 
 // KakaoMap은 SSR 불가 컴포넌트이므로 dynamic import 사용
 const KakaoMap = dynamic(() => import('../../components/KakaoMap'), { ssr: false });
@@ -34,7 +35,7 @@ export default function Home() {
 
   const cafeListItems = useMemo(
     () => buildCafeListItems(cafesState.cafes, selectedAges, userLocation),
-    [cafesState.cafes, selectedAges, userLocation],
+    [cafesState.cafes, selectedAges, userLocation]
   );
 
   const showDistrictFallback =
@@ -49,10 +50,7 @@ export default function Home() {
 
       {/* 위치 거부 시 자치구 선택 fallback */}
       {showDistrictFallback && (
-        <DistrictFallback
-          selectedDistrict={selectedDistrict}
-          onSelect={setSelectedDistrict}
-        />
+        <DistrictFallback selectedDistrict={selectedDistrict} onSelect={setSelectedDistrict} />
       )}
 
       {/* 나이 필터 (sticky) */}
@@ -68,8 +66,10 @@ export default function Home() {
           aria-label="카페 목록"
         >
           {cafesState.status === 'loading' && (
-            <div className="flex items-center justify-center py-20 text-gray-400">
-              <p>카페 정보를 불러오는 중...</p>
+            <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <KidsCafeCardSkeleton key={i} />
+              ))}
             </div>
           )}
           {cafesState.status === 'error' && (
