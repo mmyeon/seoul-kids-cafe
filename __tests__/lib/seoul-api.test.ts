@@ -62,7 +62,7 @@ describe('parseSeoulKidsCafe', () => {
     const result = parseSeoulKidsCafe(rawCafe);
 
     expect(result.name).toBe('테스트 키즈카페');
-    expect(result.address).toBe('서울특별시 강남구 테헤란로 123 3층');
+    expect(result.address).toBe('서울특별시 강남구 테헤란로 123');
     expect(result.lat).toBe(37.5665);
     expect(result.lng).toBe(126.978);
     expect(result.ageRange).toEqual({ minAge: 0, maxAge: 7 });

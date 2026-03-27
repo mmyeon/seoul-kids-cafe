@@ -8,13 +8,7 @@ import {
 } from '../lib/kidsCafeCard';
 
 export type { KidsCafeCardProps };
-export {
-  formatAgeRange,
-  formatDistance,
-  getCardOpacity,
-  shouldShowPartialBadge,
-  isSafeUrl,
-};
+export { formatAgeRange, formatDistance, getCardOpacity, shouldShowPartialBadge, isSafeUrl };
 
 export default function KidsCafeCard({
   kidsCafe,

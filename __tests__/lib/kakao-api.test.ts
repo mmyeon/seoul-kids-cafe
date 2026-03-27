@@ -10,12 +10,35 @@ import {
 import type { KidsCafe } from '../../types/index';
 
 describe('buildKakaoLocalSearchUrl', () => {
-  it('카페명으로 카카오 로컬 검색 URL을 생성해야 한다', () => {
-    const url = buildKakaoLocalSearchUrl('테스트 키즈카페');
-    expect(url).toContain('https://dapi.kakao.com/v2/local/search/keyword.json');
-    expect(url).toContain('size=1');
-    const decoded = decodeURIComponent(url);
-    expect(decoded).toContain('테스트 키즈카페');
+  it('주소로 카카오 로컬 검색 URL을 생성해야 한다', () => {
+    const url = buildKakaoLocalSearchUrl('서울특별시 양천구 신정로 123');
+    const parsed = new URL(url);
+    expect(parsed.origin + parsed.pathname).toBe('https://dapi.kakao.com/v2/local/search/keyword.json');
+    expect(parsed.searchParams.get('size')).toBe('1');
+    expect(parsed.searchParams.get('query')).toBe('서울특별시 양천구 신정로 123');
+  });
+
+  it('좌표가 있으면 x, y, radius 파라미터를 포함해야 한다', () => {
+    const url = buildKakaoLocalSearchUrl('서울특별시 양천구 신정로 123', { lat: 37.5665, lng: 126.978 });
+    const parsed = new URL(url);
+    expect(parsed.searchParams.get('x')).toBe('126.978');
+    expect(parsed.searchParams.get('y')).toBe('37.5665');
+    expect(parsed.searchParams.get('radius')).toBe('300');
+  });
+
+  it('좌표가 0,0이면 좌표 파라미터를 포함하지 않아야 한다', () => {
+    const url = buildKakaoLocalSearchUrl('서울특별시 양천구 신정로 123', { lat: 0, lng: 0 });
+    const parsed = new URL(url);
+    expect(parsed.searchParams.has('x')).toBe(false);
+    expect(parsed.searchParams.has('y')).toBe(false);
+    expect(parsed.searchParams.has('radius')).toBe(false);
+  });
+
+  it('coords가 없으면 좌표 파라미터를 포함하지 않아야 한다', () => {
+    const url = buildKakaoLocalSearchUrl('서울특별시 양천구 신정로 123');
+    const parsed = new URL(url);
+    expect(parsed.searchParams.has('x')).toBe(false);
+    expect(parsed.searchParams.has('y')).toBe(false);
   });
 });
 
