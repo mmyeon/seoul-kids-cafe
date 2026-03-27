@@ -17,12 +17,15 @@ export function parseAgeRange(ageRangeStr: string): { minAge: number; maxAge: nu
   const parts = ageRangeStr.split('~');
   if (parts.length !== 2) return { minAge: 0, maxAge: 0 };
 
-  const minAge = parseInt(parts[0].replace(/[^0-9]/g, ''), 10);
-  const maxAge = parseInt(parts[1].replace(/[^0-9]/g, ''), 10);
+  const parseAgePart = (part: string): number => {
+    if (part.includes('개월')) return 0;
+    const num = parseInt(part.replace(/[^0-9]/g, ''), 10);
+    return isNaN(num) ? 0 : num;
+  };
 
   return {
-    minAge: isNaN(minAge) ? 0 : minAge,
-    maxAge: isNaN(maxAge) ? 0 : maxAge,
+    minAge: parseAgePart(parts[0]),
+    maxAge: parseAgePart(parts[1]),
   };
 }
 

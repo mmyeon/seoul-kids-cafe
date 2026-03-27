@@ -72,12 +72,12 @@ describe('getMatchStatus', () => {
   });
 
   it('shouldReturnFullWhenUnder12mIsSelectedAndCafeStartsAt0', () => {
-    const selected: AgeFilter[] = ['under12m'];
+    const selected: AgeFilter[] = ['0'];
     expect(getMatchStatus(cafe07, selected)).toBe('full');
   });
 
   it('shouldReturnNoneWhenUnder12mIsSelectedAndCafeStartsAt1', () => {
-    const selected: AgeFilter[] = ['under12m'];
+    const selected: AgeFilter[] = ['0'];
     expect(getMatchStatus(cafe13, selected)).toBe('none');
   });
 

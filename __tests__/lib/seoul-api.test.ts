@@ -21,6 +21,26 @@ describe('parseAgeRange', () => {
   it('"~" 구분자가 없으면 0으로 처리해야 한다', () => {
     expect(parseAgeRange('7세이하')).toEqual({ minAge: 0, maxAge: 0 });
   });
+
+  it('"6개월 ~ 7세" 형식: 개월은 0세로 처리해야 한다', () => {
+    expect(parseAgeRange('6개월 ~ 7세')).toEqual({ minAge: 0, maxAge: 7 });
+  });
+
+  it('"0개월 ~ 7세" 형식: 0개월도 0세로 처리해야 한다', () => {
+    expect(parseAgeRange('0개월 ~ 7세')).toEqual({ minAge: 0, maxAge: 7 });
+  });
+
+  it('"6개월 ~ 12개월" 형식: 전부 개월이면 { 0, 0 }이어야 한다', () => {
+    expect(parseAgeRange('6개월 ~ 12개월')).toEqual({ minAge: 0, maxAge: 0 });
+  });
+
+  it('"12개월 미만" 형식: 0세로 처리해야 한다', () => {
+    expect(parseAgeRange('12개월 미만')).toEqual({ minAge: 0, maxAge: 0 });
+  });
+
+  it('"12개월 미만 ~ 7세" 형식: minAge는 0세로 처리해야 한다', () => {
+    expect(parseAgeRange('12개월 미만 ~ 7세')).toEqual({ minAge: 0, maxAge: 7 });
+  });
 });
 
 describe('parseSeoulKidsCafe', () => {

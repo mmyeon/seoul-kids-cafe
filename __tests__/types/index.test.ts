@@ -77,20 +77,20 @@ describe('KidsCafe 타입', () => {
 
 describe('AgeFilter 타입', () => {
   it('유효한 나이 필터 값을 모두 허용해야 한다', () => {
-    const filters: AgeFilter[] = ['under12m', '1', '2', '3', '4', '5', '6', '7'];
+    const filters: AgeFilter[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'];
 
-    expect(filters).toHaveLength(8);
-    expect(filters[0]).toBe('under12m');
+    expect(filters).toHaveLength(14);
+    expect(filters[0]).toBe('0');
     expect(filters[1]).toBe('1');
-    expect(filters[7]).toBe('7');
+    expect(filters[13]).toBe('13');
   });
 
   it('각 나이 필터 값이 올바른 리터럴 타입이어야 한다', () => {
-    const under12m: AgeFilter = 'under12m';
+    const age0: AgeFilter = '0';
     const age1: AgeFilter = '1';
     const age7: AgeFilter = '7';
 
-    expect(under12m).toBe('under12m');
+    expect(age0).toBe('0');
     expect(age1).toBe('1');
     expect(age7).toBe('7');
   });

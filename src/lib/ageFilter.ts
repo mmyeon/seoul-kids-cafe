@@ -2,8 +2,7 @@ import type { AgeFilter, KidsCafe, MatchStatus } from '../../types/index';
 
 const DEFAULT_AGE_RANGE = { minAge: 0, maxAge: 7 };
 
-const ageFilterToYear = (filter: AgeFilter): number =>
-  filter === 'under12m' ? 0 : parseInt(filter, 10);
+const ageFilterToYear = (filter: AgeFilter): number => parseInt(filter, 10);
 
 export const parseAgeRange = (text: string): { minAge: number; maxAge: number } => {
   if (!text) return { ...DEFAULT_AGE_RANGE };
