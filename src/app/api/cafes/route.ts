@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { fetchSeoulKidsCafes } from '../../../lib/seoul-api';
 import { enrichKidsCafeWithKakaoData } from '../../../lib/kakao-api';
-import { getUmppaImageUrl } from '../../../lib/umppa-images';
+import { getUmppaImageUrl, getUmppaReservationUrl } from '../../../lib/umppa-data';
 import type { KidsCafe } from '../../../../types/index';
 
 export async function GET(): Promise<NextResponse> {
@@ -21,6 +21,7 @@ export async function GET(): Promise<NextResponse> {
     const cafesWithImages: KidsCafe[] = kidsCafes.map((cafe) => ({
       ...cafe,
       imageUrl: getUmppaImageUrl(cafe.id),
+      reservationUrl: getUmppaReservationUrl(cafe.id),
     }));
 
     if (!kakaoRestApiKey) {

@@ -50,12 +50,12 @@ export type KidsCafe = {
   operatingHours: string;
   /** 전화번호 */
   phone: string;
-  /** 예약 URL (선택) */
-  reservationUrl?: string;
-  /** 카카오 플레이스 URL (선택) */
+  /** 예약 URL (null = 예약 시스템 없음) */
+  reservationUrl: string | null;
+  /** 카카오 플레이스 URL */
   kakaoPlaceUrl?: string;
-  /** 대표 이미지 URL (선택) */
-  imageUrl?: string;
+  /** 대표 이미지 URL */
+  imageUrl: string;
 };
 
 // ============================================================
@@ -66,7 +66,21 @@ export type KidsCafe = {
  * 나이 필터 옵션
  * - '0'~'13': 만 0세~13세 ('0'은 12개월 미만)
  */
-export type AgeFilter = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12' | '13';
+export type AgeFilter =
+  | '0'
+  | '1'
+  | '2'
+  | '3'
+  | '4'
+  | '5'
+  | '6'
+  | '7'
+  | '8'
+  | '9'
+  | '10'
+  | '11'
+  | '12'
+  | '13';
 
 /**
  * 카페 카드와 필터 조건의 매칭 상태

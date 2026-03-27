@@ -29,10 +29,12 @@ export function parseAgeRange(ageRangeStr: string): { minAge: number; maxAge: nu
   };
 }
 
+type ParsedKidsCafe = Omit<KidsCafe, 'imageUrl' | 'reservationUrl'>;
+
 /**
- * 서울시 원본 데이터를 KidsCafe 타입으로 변환
+ * 서울시 원본 데이터를 파싱 (imageUrl, reservationUrl은 umppa enrichment 단계에서 추가)
  */
-export function parseSeoulKidsCafe(raw: SeoulKidsCafeRaw): KidsCafe {
+export function parseSeoulKidsCafe(raw: SeoulKidsCafeRaw): ParsedKidsCafe {
   const lat = parseFloat(raw.Y_CRDNT_VALUE);
   const lng = parseFloat(raw.X_CRDNT_VALUE);
   const ageRange = parseAgeRange(raw.POSBL_AGRDE);
@@ -67,7 +69,7 @@ type SeoulApiResponse = {
 /**
  * 서울시 키즈카페 API 호출 및 파싱
  */
-export async function fetchSeoulKidsCafes(apiKey: string): Promise<KidsCafe[]> {
+export async function fetchSeoulKidsCafes(apiKey: string): Promise<ParsedKidsCafe[]> {
   const url = buildSeoulApiUrl(apiKey, 1, 1000);
   const response = await fetch(url, {
     next: { revalidate: 86400 },
