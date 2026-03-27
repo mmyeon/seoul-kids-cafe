@@ -62,8 +62,8 @@ describe('getMatchStatus', () => {
   const cafe13 = makeCafe({ ageRange: { minAge: 1, maxAge: 3 } });
   const cafe46 = makeCafe({ ageRange: { minAge: 4, maxAge: 6 } });
 
-  it('shouldReturnNoneWhenNoFiltersSelected', () => {
-    expect(getMatchStatus(cafe07, [])).toBe('none');
+  it('shouldReturnFullWhenNoFiltersSelected', () => {
+    expect(getMatchStatus(cafe07, [])).toBe('full');
   });
 
   it('shouldReturnFullWhenAllSelectedAgesAreInsideRange', () => {
@@ -224,7 +224,7 @@ describe('sortKidsCafes', () => {
 
   it('shouldReturnOriginalOrderWhenNoFiltersSelected', () => {
     const result = sortKidsCafes([fullMatchOpenCafe, partialMatchOpenCafe], []);
-    // All are 'none', no user location → original order preserved
+    // All are 'full' (no filter = show all), no user location → original order preserved
     expect(result.map((c) => c.id)).toEqual(['full-open', 'partial-open']);
   });
 });

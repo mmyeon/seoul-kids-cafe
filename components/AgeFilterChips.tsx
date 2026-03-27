@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { AgeFilter } from '../types/index';
 import {
   AGE_FILTER_OPTIONS,
@@ -17,6 +17,29 @@ export interface AgeFilterChipsProps {
 }
 
 export default function AgeFilterChips({ selected, onChange }: AgeFilterChipsProps) {
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const checkScroll = () => {
+      setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+      setCanScrollLeft(el.scrollLeft > 0);
+    };
+
+    const id = requestAnimationFrame(checkScroll);
+    el.addEventListener('scroll', checkScroll);
+    window.addEventListener('resize', checkScroll);
+    return () => {
+      cancelAnimationFrame(id);
+      el.removeEventListener('scroll', checkScroll);
+      window.removeEventListener('resize', checkScroll);
+    };
+  }, []);
+
   const handleChipClick = useCallback(
     (filter: AgeFilter) => {
       onChange(toggleAgeFilter(filter, selected));
@@ -25,28 +48,46 @@ export default function AgeFilterChips({ selected, onChange }: AgeFilterChipsPro
   );
 
   return (
-    <div className="sticky top-0 z-10 bg-white py-3 px-4 overflow-x-auto">
-      <div className="flex gap-2 min-w-max">
-        {AGE_FILTER_OPTIONS.map((filter) => {
-          const active = isChipSelected(filter, selected);
-          return (
-            <button
-              key={filter}
-              type="button"
-              onClick={() => handleChipClick(filter)}
-              aria-pressed={active}
-              className={[
-                'px-4 py-1.5 rounded-full text-sm font-medium border transition-colors whitespace-nowrap',
-                active
-                  ? 'bg-blue-500 text-white border-blue-500'
-                  : 'bg-white text-gray-700 border-gray-300 hover:border-blue-400 hover:text-blue-500',
-              ].join(' ')}
-            >
-              {getChipLabel(filter)}
-            </button>
-          );
-        })}
+    <div className="top-0 z-10 bg-white sticky">
+      <div ref={scrollRef} className="py-3 px-4 overflow-x-auto">
+        <div className="w-fit min-w-max">
+          <div className="flex gap-2">
+            {AGE_FILTER_OPTIONS.map((filter) => {
+              const active = isChipSelected(filter, selected);
+              return (
+                <button
+                  key={filter}
+                  type="button"
+                  onClick={() => handleChipClick(filter)}
+                  aria-pressed={active}
+                  className={[
+                    'px-4 py-1.5 rounded-full text-sm font-medium border transition-colors whitespace-nowrap',
+                    active
+                      ? 'bg-blue-500 text-white border-blue-500'
+                      : 'bg-white text-gray-700 border-gray-300 hover:border-blue-400 hover:text-blue-500',
+                  ].join(' ')}
+                >
+                  {getChipLabel(filter)}
+                </button>
+              );
+            })}
+          </div>
+          {selected.length === 0 && (
+            <div className="relative mt-2">
+              <div className="absolute -top-1.5 left-5 w-3 h-3 bg-blue-50 border-l border-t border-blue-200 rotate-45" />
+              <div className="bg-blue-50 border border-blue-200 text-blue-600 text-xs px-3 py-2 rounded-lg">
+                나이를 선택하면 맞춤 카페를 찾아드려요
+              </div>
+            </div>
+          )}
+        </div>
       </div>
+      {canScrollLeft && (
+        <div className="pointer-events-none absolute left-0 top-0 h-full w-12 bg-linear-to-r from-white to-transparent z-20" />
+      )}
+      {canScrollRight && (
+        <div className="pointer-events-none absolute right-0 top-0 h-full w-12 bg-linear-to-l from-white to-transparent z-20" />
+      )}
     </div>
   );
 }
