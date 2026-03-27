@@ -8,13 +8,7 @@ import {
 } from '../../src/lib/kidsCafeCard';
 
 export type { KidsCafeCardProps };
-export {
-  formatAgeRange,
-  formatDistance,
-  getCardOpacity,
-  shouldShowPartialBadge,
-  isSafeUrl,
-};
+export { formatAgeRange, formatDistance, getCardOpacity, shouldShowPartialBadge, isSafeUrl };
 
 export default function KidsCafeCard({
   kidsCafe,
@@ -96,17 +90,29 @@ export default function KidsCafeCard({
           </a>
         )}
 
-        {kidsCafe.reservationUrl && isSafeUrl(kidsCafe.reservationUrl) && (
-          <a
-            href={kidsCafe.reservationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 block w-full text-center rounded-lg bg-blue-500 text-white text-sm font-semibold py-2 hover:bg-blue-600 transition-colors"
-            onClick={(e) => e.stopPropagation()}
-          >
-            예약하기
-          </a>
-        )}
+        <div className="flex gap-2 mt-2">
+          {kidsCafe.phone?.trim() && (
+            <a
+              href={`tel:${kidsCafe.phone.trim()}`}
+              className={`flex items-center justify-center gap-1 rounded-lg border border-gray-300 text-gray-700 text-sm font-semibold py-2 hover:bg-gray-50 transition-colors ${kidsCafe.reservationUrl && isSafeUrl(kidsCafe.reservationUrl) ? 'flex-1' : 'w-full'}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              📞 문의하기
+            </a>
+          )}
+
+          {kidsCafe.reservationUrl && isSafeUrl(kidsCafe.reservationUrl) && (
+            <a
+              href={kidsCafe.reservationUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center justify-center rounded-lg bg-blue-400 text-white text-sm font-semibold py-2 hover:bg-blue-500 transition-colors ${kidsCafe.phone?.trim() ? 'flex-1' : 'w-full'}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              예약하기
+            </a>
+          )}
+        </div>
       </div>
     </article>
   );
