@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { fetchSeoulKidsCafes } from '../../../lib/seoul-api';
 import { enrichKidsCafeWithKakaoData } from '../../../lib/kakao-api';
+import { getUmppaImageUrl } from '../../../lib/umppa-images';
 import type { KidsCafe } from '../../../../types/index';
 
 export async function GET(): Promise<NextResponse> {
@@ -17,20 +18,23 @@ export async function GET(): Promise<NextResponse> {
   try {
     const kidsCafes = await fetchSeoulKidsCafes(seoulApiKey);
 
+    const cafesWithImages: KidsCafe[] = kidsCafes.map((cafe) => ({
+      ...cafe,
+      imageUrl: getUmppaImageUrl(cafe.id),
+    }));
+
     if (!kakaoRestApiKey) {
-      return NextResponse.json(kidsCafes);
+      return NextResponse.json(cafesWithImages);
     }
 
     const results = await Promise.allSettled(
-      kidsCafes.map((kidsCafe) =>
-        enrichKidsCafeWithKakaoData(kidsCafe, {
-          restApiKey: kakaoRestApiKey,
-        })
+      cafesWithImages.map((cafe) =>
+        enrichKidsCafeWithKakaoData(cafe, { restApiKey: kakaoRestApiKey })
       )
     );
 
     const enrichedKidsCafes: KidsCafe[] = results.map((result, index) =>
-      result.status === 'fulfilled' ? result.value : kidsCafes[index]
+      result.status === 'fulfilled' ? result.value : cafesWithImages[index]
     );
 
     return NextResponse.json(enrichedKidsCafes);

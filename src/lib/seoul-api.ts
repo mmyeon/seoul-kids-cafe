@@ -1,4 +1,4 @@
-import type { SeoulKidsCafeRaw, KidsCafe } from '../../../types/index';
+import type { SeoulKidsCafeRaw, KidsCafe } from '../../types/index';
 
 /**
  * 서울시 API URL 생성

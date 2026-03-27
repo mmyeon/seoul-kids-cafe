@@ -38,14 +38,17 @@ export default function KidsCafeCard({
       aria-label={kidsCafe.name}
     >
       <div className="relative">
-        <img
-          src={kidsCafe.imageUrl}
-          alt={`${kidsCafe.name} 이미지 없음`}
-          className="w-full h-40 object-cover"
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).src = PLACEHOLDER_IMAGE;
-          }}
-        />
+        {kidsCafe.imageUrl ? (
+          <img
+            src={kidsCafe.imageUrl}
+            alt={`${kidsCafe.name} 이미지`}
+            className="w-full h-40 object-cover"
+          />
+        ) : (
+          <div className="w-full h-40 bg-gray-100 flex items-center justify-center text-gray-400 text-sm">
+            이미지 없음
+          </div>
+        )}
         {distance && (
           <span className="absolute top-2 right-2 bg-white/80 text-xs font-medium px-2 py-0.5 rounded-full">
             {distance}
