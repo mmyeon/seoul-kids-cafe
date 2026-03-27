@@ -9,7 +9,6 @@
 import {
   formatAgeRange,
   formatDistance,
-  formatParking,
   getCardOpacity,
   shouldShowPartialBadge,
   isSafeUrl,
@@ -74,28 +73,6 @@ describe('formatDistance', () => {
 
   it('shouldReturnZeroPointZeroKmWhenDistanceIsZero', () => {
     expect(formatDistance(0)).toBe('0.0km');
-  });
-});
-
-// ============================================================
-// formatParking 테스트
-// ============================================================
-
-describe('formatParking', () => {
-  it('shouldReturnParkingAvailableWhenStatusIsAvailable', () => {
-    expect(formatParking('available')).toBe('주차 가능');
-  });
-
-  it('shouldReturnParkingUnavailableWhenStatusIsUnavailable', () => {
-    expect(formatParking('unavailable')).toBe('주차 불가');
-  });
-
-  it('shouldReturnNoInfoWhenStatusIsUnknown', () => {
-    expect(formatParking('unknown')).toBe('주차 정보 없음');
-  });
-
-  it('shouldReturnNoInfoWhenStatusIsUndefined', () => {
-    expect(formatParking(undefined)).toBe('주차 정보 없음');
   });
 });
 

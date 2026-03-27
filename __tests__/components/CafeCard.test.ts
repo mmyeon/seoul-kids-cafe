@@ -8,7 +8,6 @@
 import {
   formatAgeRange,
   formatDistance,
-  formatParking,
   getCardOpacity,
   shouldShowPartialBadge,
   isSafeUrl,
@@ -73,28 +72,6 @@ describe('formatDistance', () => {
 
   it('거리가 0이면 0.0km를 반환해야 한다', () => {
     expect(formatDistance(0)).toBe('0.0km');
-  });
-});
-
-// ============================================================
-// formatParking 테스트
-// ============================================================
-
-describe('formatParking', () => {
-  it('parking이 available이면 주차 가능을 반환해야 한다', () => {
-    expect(formatParking('available')).toBe('주차 가능');
-  });
-
-  it('parking이 unavailable이면 주차 불가를 반환해야 한다', () => {
-    expect(formatParking('unavailable')).toBe('주차 불가');
-  });
-
-  it('parking이 unknown이면 주차 정보 없음을 반환해야 한다', () => {
-    expect(formatParking('unknown')).toBe('주차 정보 없음');
-  });
-
-  it('parking이 undefined이면 주차 정보 없음을 반환해야 한다', () => {
-    expect(formatParking(undefined)).toBe('주차 정보 없음');
   });
 });
 

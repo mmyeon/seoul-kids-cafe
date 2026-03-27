@@ -38,12 +38,6 @@ export function formatDistance(distanceKm: number | undefined): string {
   return `${distanceKm.toFixed(1)}km`;
 }
 
-export function formatParking(parking: KidsCafe['parking']): string {
-  if (parking === 'available') return '주차 가능';
-  if (parking === 'unavailable') return '주차 불가';
-  return '주차 정보 없음';
-}
-
 export function getCardOpacity(matchStatus: MatchStatus): string {
   if (matchStatus === 'full') return 'opacity-100';
   if (matchStatus === 'partial') return 'opacity-50';

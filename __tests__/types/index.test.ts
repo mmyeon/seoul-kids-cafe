@@ -55,7 +55,7 @@ describe('KidsCafe 타입', () => {
     expect(cafe.ageRange.maxAge).toBe(84);
   });
 
-  it('선택적 필드(kakaoPlaceUrl, imageUrl, parking)를 포함할 수 있어야 한다', () => {
+  it('선택적 필드(kakaoPlaceUrl, imageUrl)를 포함할 수 있어야 한다', () => {
     const cafe: KidsCafe = {
       id: 'cafe-002',
       name: '테스트 키즈카페2',
@@ -68,42 +68,10 @@ describe('KidsCafe 타입', () => {
       reservationUrl: 'https://example.com/reserve2',
       kakaoPlaceUrl: 'https://place.map.kakao.com/456',
       imageUrl: 'https://example.com/image2.jpg',
-      parking: 'available',
     };
 
     expect(cafe.kakaoPlaceUrl).toBe('https://place.map.kakao.com/456');
     expect(cafe.imageUrl).toBe('https://example.com/image2.jpg');
-    expect(cafe.parking).toBe('available');
-  });
-
-  it('parking 필드는 available, unavailable, unknown 값만 허용해야 한다', () => {
-    const withAvailable: KidsCafe = {
-      id: 'cafe-003',
-      name: '카페3',
-      address: '서울',
-      lat: 37.5,
-      lng: 127.0,
-      ageRange: { minAge: 0, maxAge: 36 },
-      operatingHours: '09:00~18:00',
-      phone: '02-0000-0000',
-      reservationUrl: 'https://example.com',
-      parking: 'available',
-    };
-
-    const withUnavailable: KidsCafe = {
-      ...withAvailable,
-      id: 'cafe-004',
-      parking: 'unavailable',
-    };
-    const withUnknown: KidsCafe = {
-      ...withAvailable,
-      id: 'cafe-005',
-      parking: 'unknown',
-    };
-
-    expect(withAvailable.parking).toBe('available');
-    expect(withUnavailable.parking).toBe('unavailable');
-    expect(withUnknown.parking).toBe('unknown');
   });
 });
 

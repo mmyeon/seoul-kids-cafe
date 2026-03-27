@@ -56,8 +56,6 @@ export type KidsCafe = {
   kakaoPlaceUrl?: string;
   /** 대표 이미지 URL (선택) */
   imageUrl?: string;
-  /** 주차 가능 여부 (선택) */
-  parking?: 'available' | 'unavailable' | 'unknown';
 };
 
 // ============================================================

@@ -2,7 +2,6 @@ import type { KidsCafeCardProps } from '../../src/lib/kidsCafeCard';
 import {
   formatAgeRange,
   formatDistance,
-  formatParking,
   getCardOpacity,
   shouldShowPartialBadge,
   isSafeUrl,
@@ -12,7 +11,6 @@ export type { KidsCafeCardProps };
 export {
   formatAgeRange,
   formatDistance,
-  formatParking,
   getCardOpacity,
   shouldShowPartialBadge,
   isSafeUrl,
@@ -29,7 +27,6 @@ export default function KidsCafeCard({
   const showPartialBadge = shouldShowPartialBadge(matchStatus);
   const distance = formatDistance(distanceKm);
   const ageLabel = formatAgeRange(kidsCafe.ageRange);
-  const parkingLabel = formatParking(kidsCafe.parking);
 
   return (
     <article
@@ -85,11 +82,6 @@ export default function KidsCafeCard({
               오늘 휴무
             </span>
           )}
-        </p>
-
-        <p className="text-sm text-gray-600">
-          <span aria-hidden="true">🅿️ </span>
-          {parkingLabel}
         </p>
 
         {kidsCafe.kakaoPlaceUrl && isSafeUrl(kidsCafe.kakaoPlaceUrl) && (
