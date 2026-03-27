@@ -46,8 +46,14 @@ describe('parseSeoulKidsCafe', () => {
     expect(result.lat).toBe(37.5665);
     expect(result.lng).toBe(126.978);
     expect(result.ageRange).toEqual({ minAge: 0, maxAge: 7 });
-    expect(result.operatingHours).toBe('화~일요일');
+    expect(result.operatingHours).toBe('화 ~ 일');
     expect(result.phone).toBe('02-1234-5678');
+  });
+
+  it('"서울형 키즈카페" prefix를 제거해야 한다', () => {
+    const withPrefix: SeoulKidsCafeRaw = { ...rawCafe, FCLTY_NM: '서울형 키즈카페 마포구청' };
+    const result = parseSeoulKidsCafe(withPrefix);
+    expect(result.name).toBe('마포구청');
   });
 
   it('FCLTY_ID가 있으면 id로 사용해야 한다', () => {

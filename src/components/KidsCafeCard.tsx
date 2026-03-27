@@ -50,7 +50,7 @@ export default function KidsCafeCard({
           </div>
         )}
         {distance && (
-          <span className="absolute top-2 right-2 bg-white/80 text-xs font-medium px-2 py-0.5 rounded-full">
+          <span className="absolute top-2 right-2 bg-black/70 text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm">
             {distance}
           </span>
         )}

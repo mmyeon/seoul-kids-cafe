@@ -1,4 +1,5 @@
 import type { SeoulKidsCafeRaw, KidsCafe } from '../../types/index';
+import { normalizeOperatingHours } from './kidsCafeCard';
 
 /**
  * 서울시 API URL 생성
@@ -41,12 +42,12 @@ export function parseSeoulKidsCafe(raw: SeoulKidsCafeRaw): KidsCafe {
 
   return {
     id,
-    name: raw.FCLTY_NM,
+    name: raw.FCLTY_NM.replace(/^서울형\s*키즈카페\s*/i, '').trim(),
     address,
     lat: isNaN(lat) ? 0 : lat,
     lng: isNaN(lng) ? 0 : lng,
     ageRange,
-    operatingHours: raw.OPEN_WEEK,
+    operatingHours: normalizeOperatingHours(raw.OPEN_WEEK),
     phone: raw.CTTPC,
   };
 }

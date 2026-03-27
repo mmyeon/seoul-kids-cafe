@@ -61,7 +61,7 @@ export default function AgeFilterChips({ selected, onChange }: AgeFilterChipsPro
                   onClick={() => handleChipClick(filter)}
                   aria-pressed={active}
                   className={[
-                    'px-4 py-1.5 rounded-full text-sm font-medium border transition-colors whitespace-nowrap',
+                    'px-4 py-1.5 rounded-full text-sm font-medium border transition-colors whitespace-nowrap cursor-pointer',
                     active
                       ? 'bg-blue-500 text-white border-blue-500'
                       : 'bg-white text-gray-700 border-gray-300 hover:border-blue-400 hover:text-blue-500',

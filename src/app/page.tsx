@@ -45,7 +45,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-gray-50">
       {/* 헤더 */}
       <header className="bg-white border-b border-gray-200 px-4 py-3">
-        <h1 className="text-lg font-bold text-gray-900">서울 키즈카페 탐색</h1>
+        <h1 className="text-lg font-bold text-gray-900">서울형 키즈카페 목록</h1>
       </header>
 
       {/* 위치 거부 시 자치구 선택 fallback */}

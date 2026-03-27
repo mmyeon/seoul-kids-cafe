@@ -35,28 +35,22 @@ const baseCafe: KidsCafe = {
 // ============================================================
 
 describe('formatAgeRange', () => {
-  it('minAge가 0이면 0-12개월로 표시해야 한다', () => {
-    const cafe: KidsCafe = { ...baseCafe, ageRange: { minAge: 0, maxAge: 84 } };
+  it('"0 ~ 7세" 형식으로 표시해야 한다', () => {
+    const cafe: KidsCafe = { ...baseCafe, ageRange: { minAge: 0, maxAge: 7 } };
     const result = formatAgeRange(cafe.ageRange);
-    expect(result).toContain('0-12개월');
+    expect(result).toBe('0 ~ 7세');
   });
 
-  it('minAge가 12 이상이면 만 N세 형식으로 표시해야 한다', () => {
-    const cafe: KidsCafe = { ...baseCafe, ageRange: { minAge: 12, maxAge: 84 } };
+  it('"1 ~ 6세" 형식으로 표시해야 한다', () => {
+    const cafe: KidsCafe = { ...baseCafe, ageRange: { minAge: 1, maxAge: 6 } };
     const result = formatAgeRange(cafe.ageRange);
-    expect(result).toContain('1세');
+    expect(result).toBe('1 ~ 6세');
   });
 
-  it('maxAge를 세 단위로 올바르게 표시해야 한다', () => {
-    const cafe: KidsCafe = { ...baseCafe, ageRange: { minAge: 0, maxAge: 84 } };
+  it('minAge와 maxAge가 같으면 단일 나이를 표시해야 한다', () => {
+    const cafe: KidsCafe = { ...baseCafe, ageRange: { minAge: 5, maxAge: 5 } };
     const result = formatAgeRange(cafe.ageRange);
-    expect(result).toContain('7세');
-  });
-
-  it('minAge와 maxAge가 같은 개월 수이면 단일 값을 표시해야 한다', () => {
-    const cafe: KidsCafe = { ...baseCafe, ageRange: { minAge: 24, maxAge: 24 } };
-    const result = formatAgeRange(cafe.ageRange);
-    expect(result).toContain('2세');
+    expect(result).toBe('5세');
   });
 });
 

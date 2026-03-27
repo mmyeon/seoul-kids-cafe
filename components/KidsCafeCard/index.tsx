@@ -53,7 +53,7 @@ export default function KidsCafeCard({
           </div>
         )}
         {distance && (
-          <span className="absolute top-2 right-2 bg-white/80 text-xs font-medium px-2 py-0.5 rounded-full">
+          <span className="absolute top-2 right-2 bg-black/70 text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm">
             {distance}
           </span>
         )}
@@ -74,10 +74,10 @@ export default function KidsCafeCard({
 
         <p className="text-sm text-gray-600">
           <span aria-hidden="true">🎂 </span>
-          {ageLabel} 이용 가능
+          {ageLabel} (연 나이)
         </p>
 
-        <p className="text-sm text-gray-600 flex items-center gap-2">
+        <p className="text-sm text-gray-600">
           <span aria-hidden="true">⏰ </span>
           {kidsCafe.operatingHours}
           {!isOpen && (
