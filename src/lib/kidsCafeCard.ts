@@ -35,7 +35,7 @@ export function normalizeOperatingHours(raw: string): string {
 
 export function formatDistance(distanceKm: number | undefined): string {
   if (distanceKm === undefined) return '';
-  return `${distanceKm.toFixed(1)}km`;
+  return `${distanceKm.toFixed(1)}km 거리`;
 }
 
 export function getCardOpacity(matchStatus: MatchStatus): string {
