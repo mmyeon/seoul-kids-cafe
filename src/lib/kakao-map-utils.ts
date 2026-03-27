@@ -4,7 +4,7 @@ export const KAKAO_SDK_ID = 'kakao-maps-sdk';
 
 export function buildSdkUrl(appKey: string): string {
   if (!appKey) return '';
-  return `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(appKey)}&libraries=services`;
+  return `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(appKey)}&libraries=services&autoload=false`;
 }
 
 export function isValidCoordinate(lat: number, lng: number): boolean {
@@ -38,7 +38,7 @@ export function loadKakaoSdk(appKey: string, onLoad: () => void): void {
 
   const existing = document.getElementById(KAKAO_SDK_ID);
   if (existing) {
-    existing.addEventListener('load', onLoad);
+    existing.addEventListener('load', () => window.kakao.maps.load(onLoad));
     return;
   }
 
@@ -49,6 +49,6 @@ export function loadKakaoSdk(appKey: string, onLoad: () => void): void {
   script.id = KAKAO_SDK_ID;
   script.src = url;
   script.async = true;
-  script.addEventListener('load', onLoad);
+  script.addEventListener('load', () => window.kakao.maps.load(onLoad));
   document.head.appendChild(script);
 }
