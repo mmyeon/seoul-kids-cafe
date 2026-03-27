@@ -16,6 +16,7 @@ export default function KidsCafeCard({
   distanceKm,
   isOpen,
   onClick,
+  isSelected,
 }: KidsCafeCardProps) {
   const opacityClass = getCardOpacity(matchStatus);
   const showPartialBadge = shouldShowPartialBadge(matchStatus);
@@ -24,7 +25,9 @@ export default function KidsCafeCard({
 
   return (
     <article
-      className={`rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden cursor-pointer ${opacityClass}`}
+      className={`rounded-2xl bg-white shadow-sm overflow-hidden cursor-pointer ${opacityClass} border-2 ${
+        isSelected ? 'border-blue-500' : 'border-gray-200'
+      }`}
       onClick={onClick}
       aria-label={kidsCafe.name}
     >

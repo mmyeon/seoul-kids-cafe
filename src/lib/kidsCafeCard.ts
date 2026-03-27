@@ -6,6 +6,7 @@ export interface KidsCafeCardProps {
   distanceKm?: number;
   isOpen: boolean;
   onClick?: () => void;
+  isSelected?: boolean;
 }
 
 export function formatAgeRange(ageRange: KidsCafe['ageRange']): string {

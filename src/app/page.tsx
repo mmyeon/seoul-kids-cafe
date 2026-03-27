@@ -42,7 +42,7 @@ export default function Home() {
     geolocation.status === 'denied' || geolocation.status === 'unsupported';
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col h-screen overflow-hidden">
       {/* 헤더 */}
       <header className="bg-white border-b border-gray-200 px-4 py-3">
         <h1 className="text-lg font-bold text-gray-900">서울형 키즈카페 목록</h1>
@@ -57,12 +57,12 @@ export default function Home() {
       <AgeFilterChips selected={selectedAges} onChange={setAges} />
 
       {/* 본문: 데스크탑은 사이드바 레이아웃, 모바일은 단일 뷰 */}
-      <main className="flex flex-1 overflow-hidden">
+      <main className="flex flex-1 overflow-hidden p-4 gap-4">
         {/* 카드 리스트 영역 */}
         <section
           className={`${
             viewMode === 'map' ? 'hidden' : 'flex-1'
-          } md:flex md:flex-col md:w-1/2 md:overflow-y-auto`}
+          } overflow-y-auto p-2 md:flex md:flex-col md:w-1/2`}
           aria-label="카페 목록"
         >
           {cafesState.status === 'loading' && (
@@ -88,9 +88,7 @@ export default function Home() {
 
         {/* 지도 영역 */}
         <section
-          className={`${
-            viewMode === 'list' ? 'hidden' : 'flex-1'
-          } md:flex md:sticky md:top-0 md:w-1/2 md:h-screen`}
+          className={`${viewMode === 'list' ? 'hidden' : 'flex-1'} md:flex md:flex-1 md:w-1/2`}
           aria-label="지도"
         >
           <KakaoMap

@@ -34,21 +34,16 @@ export default function CafeListSection({
   }
 
   return (
-    <div ref={listRef} className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2">
+    <div ref={listRef} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       {items.map(({ cafe, matchStatus, distanceKm }) => (
-        <div
-          key={cafe.id}
-          data-cafe-id={cafe.id}
-          className={`transition-all duration-200 ${
-            selectedCafeId === cafe.id ? 'ring-2 ring-blue-500 rounded-2xl' : ''
-          }`}
-        >
+        <div key={cafe.id} data-cafe-id={cafe.id}>
           <KidsCafeCard
             kidsCafe={cafe}
             matchStatus={matchStatus}
             distanceKm={distanceKm ?? undefined}
             isOpen={isOpenToday(cafe.operatingHours)}
             onClick={() => onCardClick(cafe.id)}
+            isSelected={selectedCafeId === cafe.id}
           />
         </div>
       ))}
