@@ -1,8 +1,5 @@
 import { NextResponse } from 'next/server';
-import { fetchSeoulKidsCafes } from '../../../lib/seoul-api';
-import { enrichKidsCafeWithKakaoData } from '../../../lib/kakao-api';
-import { getUmppaImageUrl, getUmppaReservationUrl } from '../../../lib/umppa-data';
-import type { KidsCafe } from '../../../../types/index';
+import { getEnrichedCafes } from '../../../lib/cafe-data';
 
 export async function GET(): Promise<NextResponse> {
   const seoulApiKey = process.env.SEOUL_API_KEY;
@@ -14,31 +11,16 @@ export async function GET(): Promise<NextResponse> {
   }
 
   const kakaoRestApiKey = process.env.KAKAO_REST_API_KEY;
+  if (!kakaoRestApiKey) {
+    return NextResponse.json(
+      { error: 'KAKAO_REST_API_KEY 환경변수가 설정되지 않았습니다.' },
+      { status: 500 }
+    );
+  }
 
   try {
-    const kidsCafes = await fetchSeoulKidsCafes(seoulApiKey);
-
-    const cafesWithImages: KidsCafe[] = kidsCafes.map((cafe) => ({
-      ...cafe,
-      imageUrl: getUmppaImageUrl(cafe.id),
-      reservationUrl: getUmppaReservationUrl(cafe.id),
-    }));
-
-    if (!kakaoRestApiKey) {
-      return NextResponse.json(cafesWithImages);
-    }
-
-    const results = await Promise.allSettled(
-      cafesWithImages.map((cafe) =>
-        enrichKidsCafeWithKakaoData(cafe, { restApiKey: kakaoRestApiKey })
-      )
-    );
-
-    const enrichedKidsCafes: KidsCafe[] = results.map((result, index) =>
-      result.status === 'fulfilled' ? result.value : cafesWithImages[index]
-    );
-
-    return NextResponse.json(enrichedKidsCafes);
+    const cafes = await getEnrichedCafes(seoulApiKey, kakaoRestApiKey);
+    return NextResponse.json(cafes);
   } catch (error) {
     console.error('[GET /api/cafes] 처리 중 오류 발생:', error);
     return NextResponse.json(
