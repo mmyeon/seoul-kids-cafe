@@ -98,18 +98,16 @@ describe('AgeFilter 타입', () => {
 
 describe('MatchStatus 타입', () => {
   it('유효한 매칭 상태 값을 모두 허용해야 한다', () => {
-    const statuses: MatchStatus[] = ['full', 'partial', 'none'];
+    const statuses: MatchStatus[] = ['full', 'none'];
 
-    expect(statuses).toHaveLength(3);
+    expect(statuses).toHaveLength(2);
   });
 
   it('각 매칭 상태 값이 올바른 리터럴 타입이어야 한다', () => {
     const full: MatchStatus = 'full';
-    const partial: MatchStatus = 'partial';
     const none: MatchStatus = 'none';
 
     expect(full).toBe('full');
-    expect(partial).toBe('partial');
     expect(none).toBe('none');
   });
 });

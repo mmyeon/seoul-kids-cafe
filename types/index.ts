@@ -84,8 +84,7 @@ export type AgeFilter =
 
 /**
  * 카페 카드와 필터 조건의 매칭 상태
- * - full: 완전 일치
- * - partial: 부분 일치
- * - none: 불일치
+ * - full: 선택한 나이가 모두 카페 연령 범위에 포함
+ * - none: 하나 이상의 선택 나이가 범위 밖
  */
-export type MatchStatus = 'full' | 'partial' | 'none';
+export type MatchStatus = 'full' | 'none';

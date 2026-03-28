@@ -81,9 +81,9 @@ describe('getMatchStatus', () => {
     expect(getMatchStatus(cafe13, selected)).toBe('none');
   });
 
-  it('shouldReturnPartialWhenSomeSelectedAgesAreOutsideRange', () => {
+  it('shouldReturnNoneWhenSomeSelectedAgesAreOutsideRange', () => {
     const selected: AgeFilter[] = ['1', '2', '5'];
-    expect(getMatchStatus(cafe13, selected)).toBe('partial');
+    expect(getMatchStatus(cafe13, selected)).toBe('none');
   });
 
   it('shouldReturnNoneWhenNoSelectedAgesAreInsideRange', () => {
@@ -96,9 +96,9 @@ describe('getMatchStatus', () => {
     expect(getMatchStatus(cafe46, selected)).toBe('full');
   });
 
-  it('shouldReturnPartialWhenOneOfTwoAgesMatches', () => {
+  it('shouldReturnNoneWhenOneOfTwoAgesMatches', () => {
     const selected: AgeFilter[] = ['3', '4'];
-    expect(getMatchStatus(cafe46, selected)).toBe('partial');
+    expect(getMatchStatus(cafe46, selected)).toBe('none');
   });
 });
 
@@ -172,7 +172,7 @@ describe('sortKidsCafes', () => {
     expect(result[1].id).toBe('full-closed');
   });
 
-  it('shouldPlaceFullMatchBeforePartialMatch', () => {
+  it('shouldPlaceFullMatchBeforeNoneMatch', () => {
     const result = sortKidsCafes(
       [partialMatchOpenCafe, fullMatchOpenCafe],
       selectedAges,
@@ -181,25 +181,16 @@ describe('sortKidsCafes', () => {
     expect(result[1].id).toBe('partial-open');
   });
 
-  it('shouldPlacePartialMatchOpenBeforePartialMatchClosed', () => {
-    const result = sortKidsCafes([partialMatchClosedCafe, partialMatchOpenCafe], selectedAges);
-    expect(result[0].id).toBe('partial-open');
-    expect(result[1].id).toBe('partial-closed');
-  });
-
-  it('shouldFollowFullPriority1234Order', () => {
+  it('shouldPlaceFullMatchesBeforeAllNoneMatches', () => {
     const result = sortKidsCafes(
       [noMatchCafe, partialMatchClosedCafe, partialMatchOpenCafe, fullMatchClosedCafe, fullMatchOpenCafe],
       selectedAges,
     );
     const ids = result.map((c) => c.id);
-    expect(ids).toEqual([
-      'full-open',
-      'full-closed',
-      'partial-open',
-      'partial-closed',
-      'no-match',
-    ]);
+    expect(ids[0]).toBe('full-open');
+    expect(ids[1]).toBe('full-closed');
+    // 나머지 3개는 none 그룹 (순서 무관)
+    expect(ids.slice(2)).toEqual(expect.arrayContaining(['partial-open', 'partial-closed', 'no-match']));
   });
 
   it('shouldSortByDistanceWithinSameGroup', () => {

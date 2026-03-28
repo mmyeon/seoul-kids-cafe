@@ -9,7 +9,6 @@ import {
   formatAgeRange,
   formatDistance,
   getCardOpacity,
-  shouldShowPartialBadge,
   isSafeUrl,
 } from '../../components/KidsCafeCard';
 import type { KidsCafe, MatchStatus } from '../../types/index';
@@ -84,30 +83,8 @@ describe('getCardOpacity', () => {
     expect(getCardOpacity('full')).toBe('opacity-100');
   });
 
-  it('matchStatus가 partial이면 opacity-50을 반환해야 한다', () => {
-    expect(getCardOpacity('partial')).toBe('opacity-50');
-  });
-
   it('matchStatus가 none이면 opacity-30을 반환해야 한다', () => {
     expect(getCardOpacity('none')).toBe('opacity-30');
-  });
-});
-
-// ============================================================
-// shouldShowPartialBadge 테스트
-// ============================================================
-
-describe('shouldShowPartialBadge', () => {
-  it('matchStatus가 partial이면 true를 반환해야 한다', () => {
-    expect(shouldShowPartialBadge('partial')).toBe(true);
-  });
-
-  it('matchStatus가 full이면 false를 반환해야 한다', () => {
-    expect(shouldShowPartialBadge('full')).toBe(false);
-  });
-
-  it('matchStatus가 none이면 false를 반환해야 한다', () => {
-    expect(shouldShowPartialBadge('none')).toBe(false);
   });
 });
 

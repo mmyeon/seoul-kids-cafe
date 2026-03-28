@@ -40,13 +40,7 @@ export function formatDistance(distanceKm: number | undefined): string {
 }
 
 export function getCardOpacity(matchStatus: MatchStatus): string {
-  if (matchStatus === 'full') return 'opacity-100';
-  if (matchStatus === 'partial') return 'opacity-50';
-  return 'opacity-30';
-}
-
-export function shouldShowPartialBadge(matchStatus: MatchStatus): boolean {
-  return matchStatus === 'partial';
+  return matchStatus === 'full' ? 'opacity-100' : 'opacity-30';
 }
 
 export function isSafeUrl(url: string): boolean {

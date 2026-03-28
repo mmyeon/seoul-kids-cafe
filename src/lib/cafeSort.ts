@@ -5,8 +5,7 @@ import { haversineKm } from './distance';
 
 const SORT_PRIORITY: Record<MatchStatus, Record<'open' | 'closed', number>> = {
   full: { open: 0, closed: 1 },
-  partial: { open: 2, closed: 3 },
-  none: { open: 4, closed: 4 },
+  none: { open: 2, closed: 2 },
 };
 
 export function sortKidsCafes(

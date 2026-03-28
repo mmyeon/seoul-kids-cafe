@@ -51,7 +51,5 @@ export const getMatchStatus = (kidsCafe: KidsCafe, selectedAges: AgeFilter[]): M
 
   const matched = selectedAges.filter((age) => isAgeInRange(age, kidsCafe.ageRange));
 
-  if (matched.length === selectedAges.length) return 'full';
-  if (matched.length > 0) return 'partial';
-  return 'none';
+  return matched.length === selectedAges.length ? 'full' : 'none';
 };

@@ -3,12 +3,11 @@ import {
   formatAgeRange,
   formatDistance,
   getCardOpacity,
-  shouldShowPartialBadge,
   isSafeUrl,
 } from '../../src/lib/kidsCafeCard';
 
 export type { KidsCafeCardProps };
-export { formatAgeRange, formatDistance, getCardOpacity, shouldShowPartialBadge, isSafeUrl };
+export { formatAgeRange, formatDistance, getCardOpacity, isSafeUrl };
 
 export default function KidsCafeCard({
   kidsCafe,
@@ -19,7 +18,6 @@ export default function KidsCafeCard({
   isSelected,
 }: KidsCafeCardProps) {
   const opacityClass = getCardOpacity(matchStatus);
-  const showPartialBadge = shouldShowPartialBadge(matchStatus);
   const distance = formatDistance(distanceKm);
   const ageLabel = formatAgeRange(kidsCafe.ageRange);
 
@@ -51,11 +49,7 @@ export default function KidsCafeCard({
             {distance}
           </span>
         )}
-        {showPartialBadge && (
-          <span className="absolute top-2 left-2 bg-yellow-400 text-xs font-semibold px-2 py-0.5 rounded-full">
-            부분 매칭
-          </span>
-        )}
+
       </div>
 
       <div className="p-4 space-y-1.5">
