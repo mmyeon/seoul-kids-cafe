@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import AgeFilterChips from '../../components/AgeFilterChips';
 import CafeListSection from '../../components/CafeListSection';
-import DistrictFallback from '../../components/DistrictFallback';
+const LocationBanner = dynamic(() => import('../../components/LocationBanner'), { ssr: false });
 import { useGeolocation } from '../lib/useGeolocation';
 import { useCafes } from '../lib/useCafes';
 import { useAgeFilter } from '../lib/useAgeFilter';
@@ -34,12 +34,13 @@ export default function Home() {
   }, [geolocation.status, geolocation.position]);
 
   const cafeListItems = useMemo(
-    () => buildCafeListItems(cafesState.cafes, selectedAges, userLocation),
-    [cafesState.cafes, selectedAges, userLocation]
+    () => buildCafeListItems(cafesState.cafes, selectedAges, userLocation, selectedDistrict),
+    [cafesState.cafes, selectedAges, userLocation, selectedDistrict]
   );
 
-  const showDistrictFallback =
-    geolocation.status === 'denied' || geolocation.status === 'unsupported';
+  function handleChangeDistrict() {
+    setSelectedDistrict(null);
+  }
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
@@ -48,10 +49,14 @@ export default function Home() {
         <h1 className="text-lg font-bold text-gray-900">서울형 키즈카페 목록</h1>
       </header>
 
-      {/* 위치 거부 시 자치구 선택 fallback */}
-      {showDistrictFallback && (
-        <DistrictFallback selectedDistrict={selectedDistrict} onSelect={setSelectedDistrict} />
-      )}
+      {/* 위치 배너 */}
+      <LocationBanner
+        status={geolocation.status}
+        selectedDistrict={selectedDistrict}
+        onRequestPermission={geolocation.requestPermission}
+        onSelectDistrict={setSelectedDistrict}
+        onChangeDistrict={handleChangeDistrict}
+      />
 
       {/* 나이 필터 (sticky) */}
       <AgeFilterChips selected={selectedAges} onChange={setAges} />

@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 
-export type GeolocationStatus = 'loading' | 'granted' | 'denied' | 'error' | 'unsupported';
+export type GeolocationStatus = 'idle' | 'loading' | 'granted' | 'denied' | 'error' | 'unsupported';
 
 export type GeolocationPosition = {
   lat: number;
@@ -15,22 +15,28 @@ export type GeolocationState = {
   error: string | null;
 };
 
+export type GeolocationResult = GeolocationState & {
+  requestPermission: () => void;
+};
+
 function getInitialStatus(): GeolocationStatus {
   if (typeof navigator === 'undefined' || !navigator.geolocation) {
     return 'unsupported';
   }
-  return 'loading';
+  return 'idle';
 }
 
-export function useGeolocation(): GeolocationState {
+export function useGeolocation(): GeolocationResult {
   const [state, setState] = useState<GeolocationState>(() => ({
     status: getInitialStatus(),
     position: null,
     error: null,
   }));
 
-  useEffect(() => {
+  const requestPermission = useCallback(() => {
     if (!navigator.geolocation) return;
+
+    setState((s) => ({ ...s, status: 'loading' }));
 
     navigator.geolocation.getCurrentPosition(
       (pos) => {
@@ -47,5 +53,5 @@ export function useGeolocation(): GeolocationState {
     );
   }, []);
 
-  return state;
+  return { ...state, requestPermission };
 }

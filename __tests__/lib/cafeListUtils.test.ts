@@ -4,22 +4,24 @@ import type { KidsCafe, AgeFilter } from '../../types/index';
 const makeCafe = (overrides: Partial<KidsCafe> = {}): KidsCafe => ({
   id: 'cafe-1',
   name: '테스트 카페',
-  address: '서울시 강남구',
+  address: '서울시 강남구 테헤란로 1',
   lat: 37.5665,
   lng: 126.978,
   ageRange: { minAge: 0, maxAge: 7 },
   operatingHours: '월~일',
   phone: '02-1234-5678',
+  reservationUrl: null,
+  imageUrl: '',
   ...overrides,
 });
 
 describe('computeDistance', () => {
-  it('shouldReturnNullWhenUserLocationNotProvided', () => {
+  it('사용자 위치가 없으면 null을 반환한다', () => {
     const result = computeDistance(makeCafe(), null);
     expect(result).toBeNull();
   });
 
-  it('shouldReturnDistanceInKmWhenUserLocationProvided', () => {
+  it('사용자 위치와 카페 위치가 같으면 거리 0을 반환한다', () => {
     const cafe = makeCafe({ lat: 37.5665, lng: 126.978 });
     const userLocation = { lat: 37.5665, lng: 126.978 };
 
@@ -28,7 +30,7 @@ describe('computeDistance', () => {
     expect(result).toBe(0);
   });
 
-  it('shouldReturnPositiveDistanceForDifferentLocations', () => {
+  it('서로 다른 위치면 양수 거리를 반환한다', () => {
     const cafe = makeCafe({ lat: 37.5665, lng: 126.978 });
     const userLocation = { lat: 37.4979, lng: 127.0276 };
 
@@ -40,12 +42,12 @@ describe('computeDistance', () => {
 });
 
 describe('buildCafeListItems', () => {
-  it('shouldReturnEmptyArrayWhenNoCafes', () => {
+  it('카페 목록이 비어있으면 빈 배열을 반환한다', () => {
     const result = buildCafeListItems([], [], null);
     expect(result).toEqual([]);
   });
 
-  it('shouldIncludeMatchStatusForEachCafe', () => {
+  it('각 카페 아이템에 나이 매칭 상태를 포함한다', () => {
     const cafes = [makeCafe({ id: '1', ageRange: { minAge: 0, maxAge: 3 } })];
     const selectedAges: AgeFilter[] = ['1'];
 
@@ -54,7 +56,7 @@ describe('buildCafeListItems', () => {
     expect(result[0].matchStatus).toBe('full');
   });
 
-  it('shouldIncludeNullDistanceWhenNoUserLocation', () => {
+  it('사용자 위치가 없으면 거리를 null로 반환한다', () => {
     const cafes = [makeCafe()];
 
     const result = buildCafeListItems(cafes, [], null);
@@ -62,7 +64,7 @@ describe('buildCafeListItems', () => {
     expect(result[0].distanceKm).toBeNull();
   });
 
-  it('shouldIncludeDistanceWhenUserLocationProvided', () => {
+  it('사용자 위치가 있으면 거리를 계산해 포함한다', () => {
     const cafes = [makeCafe({ lat: 37.5665, lng: 126.978 })];
     const userLocation = { lat: 37.4979, lng: 127.0276 };
 
@@ -72,7 +74,26 @@ describe('buildCafeListItems', () => {
     expect(result[0].distanceKm!).toBeGreaterThan(0);
   });
 
-  it('shouldSortCafesByMatchStatusAndOpenStatus', () => {
+  it('선택한 자치구에 해당하는 카페만 필터링한다', () => {
+    const gangnamCafe = makeCafe({ id: '1', address: '서울시 강남구 테헤란로 1' });
+    const mapooCafe = makeCafe({ id: '2', address: '서울시 마포구 독막로 1' });
+
+    const result = buildCafeListItems([gangnamCafe, mapooCafe], [], null, '강남구');
+
+    expect(result).toHaveLength(1);
+    expect(result[0].cafe.id).toBe('1');
+  });
+
+  it('자치구 선택이 없으면 전체 카페를 반환한다', () => {
+    const gangnamCafe = makeCafe({ id: '1', address: '서울시 강남구 테헤란로 1' });
+    const mapooCafe = makeCafe({ id: '2', address: '서울시 마포구 독막로 1' });
+
+    const result = buildCafeListItems([gangnamCafe, mapooCafe], [], null, null);
+
+    expect(result).toHaveLength(2);
+  });
+
+  it('나이 매칭 상태와 영업 여부 순으로 정렬한다', () => {
     const fullMatchCafe = makeCafe({
       id: '1',
       ageRange: { minAge: 1, maxAge: 3 },

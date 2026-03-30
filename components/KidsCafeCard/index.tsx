@@ -49,7 +49,13 @@ export default function KidsCafeCard({
             {distance}
           </span>
         )}
-
+        <span
+          className={`absolute top-2 left-2 text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm ${
+            isOpen ? 'bg-green-600 text-white' : 'bg-red-500 text-white'
+          }`}
+        >
+          {isOpen ? '영업중' : '오늘 휴무'}
+        </span>
       </div>
 
       <div className="p-4 space-y-1.5">
@@ -68,11 +74,6 @@ export default function KidsCafeCard({
         <p className="text-sm text-gray-600">
           <span aria-hidden="true">⏰ </span>
           {kidsCafe.operatingHours}
-          {!isOpen && (
-            <span className="inline-block bg-red-100 text-red-600 text-xs font-semibold px-2 py-0.5 rounded-full">
-              오늘 휴무
-            </span>
-          )}
         </p>
 
         {kidsCafe.kakaoPlaceUrl && isSafeUrl(kidsCafe.kakaoPlaceUrl) && (

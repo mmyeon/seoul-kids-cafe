@@ -38,6 +38,6 @@ export function sortKidsCafes(
       return distA - distB;
     }
 
-    return 0;
+    return a.name.localeCompare(b.name, 'ko');
   });
 }
