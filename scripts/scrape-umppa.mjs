@@ -103,6 +103,11 @@ async function scrapeAllPages(fcltyStle) {
 
 async function main() {
   console.log('=== umppa 스크래퍼 시작 (이미지 + 예약 링크) ===');
+  const outputArg = process.argv.find((a) => a.startsWith('--output='));
+  const outputPath = outputArg
+    ? new URL(`../${outputArg.replace('--output=', '')}`, import.meta.url).pathname
+    : new URL('../src/data/umppa-data.json', import.meta.url).pathname;
+
   const all = {};
 
   for (const fcltyStle of FCLTY_STLES) {

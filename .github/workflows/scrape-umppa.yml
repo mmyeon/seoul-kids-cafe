@@ -1,0 +1,50 @@
+name: Scrape Umppa Daily
+
+on:
+  schedule:
+    - cron: '0 17 * * *' # 매일 UTC 17:00 = KST 02:00
+  workflow_dispatch: # GitHub UI에서 수동 실행 가능
+
+jobs:
+  update-images:
+    name: 이미지 URL 자동 업데이트
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 의존성 설치
+        run: npm ci
+
+      - name: umppa 이미지 스크래핑
+        run: node scripts/scrape-umppa.mjs --output=src/data/umppa-data-pending.json
+
+      - name: 변경사항 머지 및 자동 커밋
+        run: node scripts/check-umppa-changes.mjs
+
+  check-seoul-api:
+    name: 서울시 API 형식 변경 감지
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 서울시 API 형식 검증
+        run: node scripts/check-seoul-api-format.mjs
+        env:
+          SEOUL_API_KEY: ${{ secrets.SEOUL_API_KEY }}
