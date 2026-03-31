@@ -15,6 +15,7 @@ import KidsCafeCardSkeleton from '../../components/KidsCafeCard/Skeleton';
 
 // KakaoMap은 SSR 불가 컴포넌트이므로 dynamic import 사용
 const KakaoMap = dynamic(() => import('../../components/KakaoMap'), { ssr: false });
+const WelcomeModal = dynamic(() => import('../../components/WelcomeModal'), { ssr: false });
 
 type ViewMode = 'list' | 'map';
 
@@ -44,6 +45,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
+      <WelcomeModal />
       {/* 헤더 */}
       <header className="bg-white border-b border-gray-200 px-4 py-3">
         <h1 className="text-lg font-bold text-gray-900">서울형 키즈카페 목록</h1>
