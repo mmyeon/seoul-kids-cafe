@@ -53,6 +53,7 @@ export default function Home() {
       <LocationBanner
         status={geolocation.status}
         selectedDistrict={selectedDistrict}
+        districts={cafesState.districts}
         onRequestPermission={geolocation.requestPermission}
         onSelectDistrict={setSelectedDistrict}
         onChangeDistrict={handleChangeDistrict}

@@ -1,4 +1,4 @@
-import { buildCafeListItems, computeDistance } from '../../src/lib/cafeListUtils';
+import { buildCafeListItems, computeDistance, extractDistricts } from '../../src/lib/cafeListUtils';
 import type { KidsCafe, AgeFilter } from '../../types/index';
 
 const makeCafe = (overrides: Partial<KidsCafe> = {}): KidsCafe => ({
@@ -13,6 +13,35 @@ const makeCafe = (overrides: Partial<KidsCafe> = {}): KidsCafe => ({
   reservationUrl: null,
   imageUrl: '',
   ...overrides,
+});
+
+describe('extractDistricts', () => {
+  it('카페 주소에서 중복 없이 가나다순으로 자치구를 추출한다', () => {
+    const cafes = [
+      makeCafe({ address: '서울시 강남구 테헤란로 1' }),
+      makeCafe({ address: '서울시 마포구 독막로 1' }),
+      makeCafe({ address: '서울시 강남구 역삼로 2' }),
+    ];
+
+    const result = extractDistricts(cafes);
+
+    expect(result).toEqual(['강남구', '마포구']);
+  });
+
+  it('카페 목록이 비어있으면 빈 배열을 반환한다', () => {
+    expect(extractDistricts([])).toEqual([]);
+  });
+
+  it('주소에 구 정보가 없는 카페는 무시한다', () => {
+    const cafes = [
+      makeCafe({ address: '서울시 강남구 테헤란로 1' }),
+      makeCafe({ address: '주소 없음' }),
+    ];
+
+    const result = extractDistricts(cafes);
+
+    expect(result).toEqual(['강남구']);
+  });
 });
 
 describe('computeDistance', () => {

@@ -7,6 +7,7 @@ import type { GeolocationStatus } from '../../src/lib/useGeolocation';
 const defaultProps = {
   status: 'idle' as GeolocationStatus,
   selectedDistrict: null,
+  districts: ['강남구', '마포구'],
   onRequestPermission: jest.fn(),
   onSelectDistrict: jest.fn(),
   onChangeDistrict: jest.fn(),
@@ -82,5 +83,12 @@ describe('LocationBanner', () => {
     render(<LocationBanner {...defaultProps} status="unsupported" selectedDistrict={null} />);
 
     expect(screen.getByRole('combobox', { name: /자치구 선택/ })).toBeInTheDocument();
+  });
+
+  it('드롭다운에 전달받은 자치구 목록을 표시한다', () => {
+    render(<LocationBanner {...defaultProps} status="denied" selectedDistrict={null} />);
+
+    expect(screen.getByRole('option', { name: '강남구' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: '마포구' })).toBeInTheDocument();
   });
 });

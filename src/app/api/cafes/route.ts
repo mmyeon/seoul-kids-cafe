@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getEnrichedCafes } from '../../../lib/cafe-data';
+import { extractDistricts } from '../../../lib/cafeListUtils';
 
 export async function GET(): Promise<NextResponse> {
   const seoulApiKey = process.env.SEOUL_API_KEY;
@@ -20,7 +21,8 @@ export async function GET(): Promise<NextResponse> {
 
   try {
     const cafes = await getEnrichedCafes(seoulApiKey, kakaoRestApiKey);
-    return NextResponse.json(cafes);
+    const districts = extractDistricts(cafes);
+    return NextResponse.json({ cafes, districts });
   } catch (error) {
     console.error('[GET /api/cafes] 처리 중 오류 발생:', error);
     return NextResponse.json(

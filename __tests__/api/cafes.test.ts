@@ -65,7 +65,7 @@ const mockKakaoLocalResponse = {
 };
 
 describe('GET /api/cafes', () => {
-  it('정상적인 요청에 키즈카페 목록을 반환해야 한다', async () => {
+  it('정상적인 요청에 키즈카페 목록과 자치구 목록을 반환해야 한다', async () => {
     mockFetch
       .mockResolvedValueOnce({
         ok: true,
@@ -80,9 +80,10 @@ describe('GET /api/cafes', () => {
     const data = await response.json();
 
     expect(response.status).toBe(200);
-    expect(Array.isArray(data)).toBe(true);
-    expect(data).toHaveLength(1);
-    expect(data[0].name).toBe('강남 키즈카페');
+    expect(Array.isArray(data.cafes)).toBe(true);
+    expect(data.cafes).toHaveLength(1);
+    expect(data.cafes[0].name).toBe('강남 키즈카페');
+    expect(data.districts).toEqual(['강남구']);
   });
 
   it('umppa 이미지와 Kakao 플레이스 URL이 병합되어 반환되어야 한다', async () => {
@@ -99,11 +100,11 @@ describe('GET /api/cafes', () => {
     const response = await GET();
     const data = await response.json();
 
-    expect(data[0].kakaoPlaceUrl).toBe('https://place.map.kakao.com/123');
-    expect(data[0].imageUrl).toBe(
+    expect(data.cafes[0].kakaoPlaceUrl).toBe('https://place.map.kakao.com/123');
+    expect(data.cafes[0].imageUrl).toBe(
       'https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/1/test.jpg'
     );
-    expect(data[0].reservationUrl).toContain('GN260101');
+    expect(data.cafes[0].reservationUrl).toContain('GN260101');
   });
 
   it('Kakao API 실패 시 umppa 이미지는 그대로 반환해야 한다 (fallback)', async () => {
@@ -118,9 +119,9 @@ describe('GET /api/cafes', () => {
     const data = await response.json();
 
     expect(response.status).toBe(200);
-    expect(data[0].name).toBe('강남 키즈카페');
-    expect(data[0].kakaoPlaceUrl).toBeUndefined();
-    expect(data[0].imageUrl).toBe(
+    expect(data.cafes[0].name).toBe('강남 키즈카페');
+    expect(data.cafes[0].kakaoPlaceUrl).toBeUndefined();
+    expect(data.cafes[0].imageUrl).toBe(
       'https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/1/test.jpg'
     );
   });
