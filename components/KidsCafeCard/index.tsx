@@ -49,13 +49,11 @@ export default function KidsCafeCard({
             {distance}
           </span>
         )}
-        <span
-          className={`absolute top-2 left-2 text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm ${
-            isOpen ? 'bg-green-600 text-white' : 'bg-red-500 text-white'
-          }`}
-        >
-          {isOpen ? '영업중' : '오늘 휴무'}
-        </span>
+        {!isOpen && (
+          <span className="absolute top-2 left-2 text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm bg-red-500 text-white">
+            오늘 휴무
+          </span>
+        )}
       </div>
 
       <div className="p-4 space-y-1.5">
@@ -84,7 +82,7 @@ export default function KidsCafeCard({
             className="inline-flex items-center gap-1 text-sm text-yellow-600 font-medium hover:underline"
             onClick={(e) => e.stopPropagation()}
           >
-            ⭐ 카카오 리뷰 보기 →
+            ⭐ 카카오맵에서 리뷰 보기 →
           </a>
         )}
 
