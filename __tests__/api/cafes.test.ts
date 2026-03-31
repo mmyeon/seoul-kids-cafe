@@ -16,10 +16,7 @@ jest.mock('../../src/lib/umppa-data', () => ({
     id === 'GN260101'
       ? 'https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/1/test.jpg'
       : undefined,
-  getUmppaReservationUrl: (id: string) =>
-    id === 'GN260101'
-      ? 'https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GN260101&q_fcltyStle=2001'
-      : undefined,
+  getUmppaDetailUrl: (_id: string) => null,
 }));
 
 // 환경변수 설정
@@ -104,7 +101,6 @@ describe('GET /api/cafes', () => {
     expect(data.cafes[0].imageUrl).toBe(
       'https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/1/test.jpg'
     );
-    expect(data.cafes[0].reservationUrl).toContain('GN260101');
   });
 
   it('Kakao API 실패 시 umppa 이미지는 그대로 반환해야 한다 (fallback)', async () => {

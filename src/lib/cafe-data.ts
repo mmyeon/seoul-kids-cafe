@@ -1,7 +1,7 @@
 import { cacheLife } from 'next/cache';
 import { fetchSeoulKidsCafes } from './seoul-api';
 import { enrichKidsCafeWithKakaoData } from './kakao-api';
-import { getUmppaImageUrl, getUmppaReservationUrl } from './umppa-data';
+import { getUmppaImageUrl, getUmppaDetailUrl } from './umppa-data';
 import type { KidsCafe } from '../../types/index';
 
 /**
@@ -17,23 +17,21 @@ export async function getEnrichedCafes(
 
   const kidsCafes = await fetchSeoulKidsCafes(seoulApiKey);
 
-  const cafesWithImages: KidsCafe[] = kidsCafes.map((cafe) => ({
+  const kidsCafesInfo: KidsCafe[] = kidsCafes.map((cafe) => ({
     ...cafe,
     imageUrl: getUmppaImageUrl(cafe.id),
-    reservationUrl: getUmppaReservationUrl(cafe.id),
+    detailUrl: getUmppaDetailUrl(cafe.id),
   }));
 
   if (!kakaoRestApiKey) {
-    return cafesWithImages;
+    return kidsCafesInfo;
   }
 
   const results = await Promise.allSettled(
-    cafesWithImages.map((cafe) =>
-      enrichKidsCafeWithKakaoData(cafe, { restApiKey: kakaoRestApiKey })
-    )
+    kidsCafesInfo.map((cafe) => enrichKidsCafeWithKakaoData(cafe, { restApiKey: kakaoRestApiKey }))
   );
 
   return results.map((result, index) =>
-    result.status === 'fulfilled' ? result.value : cafesWithImages[index]
+    result.status === 'fulfilled' ? result.value : kidsCafesInfo[index]
   );
 }

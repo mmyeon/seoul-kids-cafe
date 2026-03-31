@@ -92,22 +92,22 @@ export default function KidsCafeCard({
           {kidsCafe.phone?.trim() && (
             <a
               href={`tel:${kidsCafe.phone.trim()}`}
-              className={`flex items-center justify-center gap-1 rounded-lg border border-gray-300 text-gray-700 text-sm font-semibold py-2 hover:bg-gray-50 transition-colors ${kidsCafe.reservationUrl && isSafeUrl(kidsCafe.reservationUrl) ? 'flex-1' : 'w-full'}`}
+              className="flex-1 flex items-center justify-center gap-1 rounded-lg border border-gray-300 text-gray-700 text-sm font-semibold py-2 hover:bg-gray-50 transition-colors"
               onClick={(e) => e.stopPropagation()}
             >
               📞 문의하기
             </a>
           )}
 
-          {kidsCafe.reservationUrl && isSafeUrl(kidsCafe.reservationUrl) && (
+          {isSafeUrl(kidsCafe.detailUrl) && (
             <a
-              href={kidsCafe.reservationUrl}
+              href={kidsCafe.detailUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center justify-center rounded-lg bg-blue-400 text-white text-sm font-semibold py-2 hover:bg-blue-500 transition-colors ${kidsCafe.phone?.trim() ? 'flex-1' : 'w-full'}`}
+              className="flex-1 flex items-center justify-center rounded-lg bg-blue-500 text-white text-sm font-semibold py-2 hover:bg-blue-600 transition-colors"
               onClick={(e) => e.stopPropagation()}
             >
-              예약하기
+              🕐 이용안내
             </a>
           )}
         </div>

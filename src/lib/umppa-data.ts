@@ -2,7 +2,6 @@ import umppaData from '../data/umppa-data.json';
 
 type UmppaEntry = {
   imageUrl: string;
-  reservationUrl: string | null;
 };
 
 const data = umppaData as Record<string, UmppaEntry>;
@@ -17,6 +16,7 @@ export function getUmppaImageUrl(fcltyId: string): string {
   return getUmppaEntry(fcltyId).imageUrl;
 }
 
-export function getUmppaReservationUrl(fcltyId: string): string | null {
-  return getUmppaEntry(fcltyId).reservationUrl;
+
+export function getUmppaDetailUrl(fcltyId: string): string {
+  return `https://umppa.seoul.go.kr/icare/user/kidsCafe/BD_selectKidsCafeView.do?q_fcltyId=${fcltyId}&q_fcltyStle=2001`;
 }

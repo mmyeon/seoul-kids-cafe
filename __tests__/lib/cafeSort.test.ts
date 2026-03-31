@@ -10,7 +10,6 @@ const makeCafe = (overrides: Partial<KidsCafe> = {}): KidsCafe => ({
   ageRange: { minAge: 0, maxAge: 7 },
   operatingHours: '월~일',
   phone: '02-1234-5678',
-  reservationUrl: null,
   imageUrl: '',
   ...overrides,
 });

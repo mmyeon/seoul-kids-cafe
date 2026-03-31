@@ -50,12 +50,12 @@ export type KidsCafe = {
   operatingHours: string;
   /** 전화번호 */
   phone: string;
-  /** 예약 URL (null = 예약 시스템 없음) */
-  reservationUrl: string | null;
   /** 카카오 플레이스 URL */
   kakaoPlaceUrl?: string;
   /** 대표 이미지 URL */
   imageUrl: string;
+  /** umppa 상세 페이지 URL */
+  detailUrl: string;
 };
 
 // ============================================================

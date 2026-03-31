@@ -44,7 +44,6 @@ describe('KidsCafe 타입', () => {
       ageRange: { minAge: 0, maxAge: 84 },
       operatingHours: '10:00~20:00',
       phone: '02-1234-5678',
-      reservationUrl: 'https://example.com/reserve',
     };
 
     expect(cafe.id).toBe('cafe-001');
@@ -65,7 +64,6 @@ describe('KidsCafe 타입', () => {
       ageRange: { minAge: 12, maxAge: 60 },
       operatingHours: '10:00~20:00',
       phone: '02-9876-5432',
-      reservationUrl: 'https://example.com/reserve2',
       kakaoPlaceUrl: 'https://place.map.kakao.com/456',
       imageUrl: 'https://example.com/image2.jpg',
     };
