@@ -22,13 +22,11 @@ async function fetchPage(fcltyStle, currPage) {
 }
 
 /**
- * HTML에서 fcltyId → { imageUrl, reservationUrl } 매핑 추출
+ * HTML에서 fcltyId → { imageUrl } 매핑 추출
  *
  * 방식:
  * - fcltyId: q_fcltyId=XXX 패턴을 순서대로 deduplicate
  * - imageUrl: /icare/upload/ 경로의 이미지를 순서대로 수집
- * - reservationUrl: class="lg_btn">예약 버튼의 href를 순서대로 수집
- *   (표준 umppa URL과 외부 예약 사이트 URL 모두 처리)
  */
 function extractCafesFromHtml(html) {
   // 1. fcltyId 추출 (중복 제거, 순서 유지)
@@ -53,23 +51,11 @@ function extractCafesFromHtml(html) {
     imageUrls.push(rawUrl.startsWith('http') ? rawUrl : `https://umppa.seoul.go.kr${rawUrl}`);
   }
 
-  // 3. 예약 신청 버튼 URL 추출
-  //    class="lg_btn"에 target 등 추가 속성이 붙는 외부 URL 케이스도 함께 처리
-  const reservationUrls = [];
-  const reserveRegex = /href="([^"]+)"[^>]*class="lg_btn"[^>]*>예약/g;
-  while ((m = reserveRegex.exec(html)) !== null) {
-    const rawUrl = m[1];
-    reservationUrls.push(rawUrl.startsWith('http') ? rawUrl : `https://umppa.seoul.go.kr${rawUrl}`);
-  }
-
-  // 4. fcltyId, imageUrl, reservationUrl을 순서대로 묶음
+  // 3. fcltyId, imageUrl을 순서대로 묶음
   const result = {};
   const count = Math.min(uniqueFcltyIds.length, imageUrls.length);
   for (let i = 0; i < count; i++) {
-    result[uniqueFcltyIds[i]] = {
-      imageUrl: imageUrls[i],
-      reservationUrl: reservationUrls[i] ?? null,
-    };
+    result[uniqueFcltyIds[i]] = { imageUrl: imageUrls[i] };
   }
   return result;
 }
@@ -102,7 +88,8 @@ async function scrapeAllPages(fcltyStle) {
 }
 
 async function main() {
-  console.log('=== umppa 스크래퍼 시작 (이미지 + 예약 링크) ===');
+  console.log('=== umppa 스크래퍼 시작 (이미지) ===');
+
   const outputArg = process.argv.find((a) => a.startsWith('--output='));
   const outputPath = outputArg
     ? new URL(`../${outputArg.replace('--output=', '')}`, import.meta.url).pathname
@@ -122,7 +109,6 @@ async function main() {
   const dataDir = new URL('../src/data', import.meta.url).pathname;
   mkdirSync(dataDir, { recursive: true });
 
-  const outputPath = new URL('../src/data/umppa-data.json', import.meta.url).pathname;
   writeFileSync(outputPath, JSON.stringify(all, null, 2) + '\n');
   console.log(`저장 완료: ${outputPath}`);
 }

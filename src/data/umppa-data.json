@@ -1,498 +1,374 @@
 {
   "DJ230901": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/10/5/c3f8273f-83a9-446a-8987-1c7a0ba378ae.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DJ230901&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/10/5/c3f8273f-83a9-446a-8987-1c7a0ba378ae.jpg"
   },
   "JN251201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/2/4/249ebe66-6105-44ab-80fa-2b46b9ad6647.jpg",
-    "reservationUrl": "https://craftmuseum.seoul.go.kr/chimsm/exhibit/plan/view/178"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/2/4/249ebe66-6105-44ab-80fa-2b46b9ad6647.jpg"
   },
   "GJ240401": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/20/96e82cb2-aed9-4536-a7cd-78eca02971d1.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GJ240401&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/20/96e82cb2-aed9-4536-a7cd-78eca02971d1.jpg"
   },
   "YC231201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/5/b4c417f8-e963-45f4-af0f-fc480da3c823.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=YC231201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/5/b4c417f8-e963-45f4-af0f-fc480da3c823.jpg"
   },
   "DJ250901": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/9/24/cb7b445b-5b60-45c3-a88e-219c58fa06bc.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DJ250901&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/9/24/cb7b445b-5b60-45c3-a88e-219c58fa06bc.jpg"
   },
   "GJ251101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/11/26/ec6b5af3-a3c1-4c34-8d00-44e52fb9cd34.png",
-    "reservationUrl": "https://www.seoulchildrensmuseum.org"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/11/26/ec6b5af3-a3c1-4c34-8d00-44e52fb9cd34.png"
   },
   "GJ260101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/29/5048495c-38ec-4aaa-afd0-1762d851b7f5.jpg",
-    "reservationUrl": "https://arisu.seoul.go.kr/home/sub?menukey=7534"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/29/5048495c-38ec-4aaa-afd0-1762d851b7f5.jpg"
   },
   "GS241101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/7/2/7818adf4-678f-402f-973a-8036a034f9e4.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GS241101&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/7/2/7818adf4-678f-402f-973a-8036a034f9e4.jpg"
   },
   "NW240901": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/10/16/65cd17e4-de25-4df4-80eb-46144d44f2e8.jpg",
-    "reservationUrl": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S251118144705678859"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/10/16/65cd17e4-de25-4df4-80eb-46144d44f2e8.jpg"
   },
   "SP260101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/23/56f1140d-9da1-40e7-93e7-f4a2f996b3cb.jpg",
-    "reservationUrl": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S260323093950320861"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/23/56f1140d-9da1-40e7-93e7-f4a2f996b3cb.jpg"
   },
   "GN251201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/12/31/ab466e09-eaaa-4388-918e-a13f70e0e0c7.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GN251201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/12/31/ab466e09-eaaa-4388-918e-a13f70e0e0c7.jpg"
   },
   "GN240902": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/9/24/ad323bee-1025-48b4-8404-943867e3830b.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GN240902&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/9/24/ad323bee-1025-48b4-8404-943867e3830b.jpg"
   },
   "GD230201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/2/15/8c6ad9ce-f24c-4417-8c39-c28f5c429d59.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GD230201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/2/15/8c6ad9ce-f24c-4417-8c39-c28f5c429d59.jpg"
   },
   "GD250601": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/9/10/00e3b76e-5d92-443b-a13e-7b56bfe31af1.jpeg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GD250601&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/9/10/00e3b76e-5d92-443b-a13e-7b56bfe31af1.jpeg"
   },
   "GD250101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/2/25/7d97e391-75a7-43af-a49f-06b4f9a3a2d8.jpeg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GD250101&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/2/25/7d97e391-75a7-43af-a49f-06b4f9a3a2d8.jpeg"
   },
   "GD230202": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/3/20/78b23e13-6977-4d96-877a-19c4d291daa4.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GD230202&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/3/20/78b23e13-6977-4d96-877a-19c4d291daa4.jpg"
   },
   "GD231201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/1/16/e65ecf4b-6a57-47f6-8c76-8e59fcf0aa56.png",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GD231201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/1/16/e65ecf4b-6a57-47f6-8c76-8e59fcf0aa56.png"
   },
   "GD240101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/2/19/afc7359a-a37b-48fd-910d-1a8b053efd54.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GD240101&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/2/19/afc7359a-a37b-48fd-910d-1a8b053efd54.jpg"
   },
   "GB230601": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/10/31/813748e2-05b2-46ca-ac0e-16580c3864b3.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GB230601&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/10/31/813748e2-05b2-46ca-ac0e-16580c3864b3.jpg"
   },
   "GB251001": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/11/7/0fbbefa8-e8ef-41bf-81e2-26327bbc3fa5.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GB251001&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/11/7/0fbbefa8-e8ef-41bf-81e2-26327bbc3fa5.jpg"
   },
   "GS230801": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/9/15/f073a47a-5906-4f11-bcf9-b742411618b3.png",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GS230801&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/9/15/f073a47a-5906-4f11-bcf9-b742411618b3.png"
   },
   "GS240802": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/8/28/5d432175-7fd3-427d-acbe-13bf657e2e9f.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GS240802&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/8/28/5d432175-7fd3-427d-acbe-13bf657e2e9f.jpg"
   },
   "GS241201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/12/31/3341d5dc-985f-4e62-b32f-dd33b6a2f82d.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GS241201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/12/31/3341d5dc-985f-4e62-b32f-dd33b6a2f82d.jpg"
   },
   "GA240101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/11/19/1a2d7eb8-7af2-43c1-8eaa-cea5c80d009c.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GA240101&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/11/19/1a2d7eb8-7af2-43c1-8eaa-cea5c80d009c.jpg"
   },
   "GA241201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/8/21/f6088217-e4c8-4b32-9cac-e82feb2faa8b.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GA241201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/8/21/f6088217-e4c8-4b32-9cac-e82feb2faa8b.jpg"
   },
   "GA241203": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/8/8/b14ccab5-0a09-4f4f-968c-29c29b9eeae8.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GA241203&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/8/8/b14ccab5-0a09-4f4f-968c-29c29b9eeae8.jpg"
   },
   "GA250301": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/4/19/4903f29a-1213-46a2-8196-b7d57824e362.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GA250301&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/4/19/4903f29a-1213-46a2-8196-b7d57824e362.jpg"
   },
   "GA250401": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/7/29/20cdaa29-46ca-42e4-b7dd-975a9d6e8ebb.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GA250401&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/7/29/20cdaa29-46ca-42e4-b7dd-975a9d6e8ebb.jpg"
   },
   "GA251101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/12/20/109dd754-19e0-443b-904f-b1d3699ff02f.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GA251101&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/12/20/109dd754-19e0-443b-904f-b1d3699ff02f.jpg"
   },
   "GJ230202": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/2/28/d43e98d6-d3b9-4736-a589-930723b52d53.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GJ230202&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/2/28/d43e98d6-d3b9-4736-a589-930723b52d53.jpg"
   },
   "GJ240902": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/10/23/bdc9ff62-34de-42a5-aea0-01512908f488.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GJ240902&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/10/23/bdc9ff62-34de-42a5-aea0-01512908f488.jpg"
   },
   "GJ240903": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/10/23/4f8cfee1-aa9f-407a-b9c1-56fe192fda6a.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GJ240903&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/10/23/4f8cfee1-aa9f-407a-b9c1-56fe192fda6a.jpg"
   },
   "GJ241001": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/10/21/2d3bec39-852b-4034-8ab5-67cf60db01a3.jpg",
-    "reservationUrl": "http://palgakdangcafe.com/"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/10/21/2d3bec39-852b-4034-8ab5-67cf60db01a3.jpg"
   },
   "GR241001": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/10/29/ee1a34e9-19bc-4bb1-b015-52e5fd6bf96c.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GR241001&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/10/29/ee1a34e9-19bc-4bb1-b015-52e5fd6bf96c.jpg"
   },
   "GR250201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/2/24/58f5da27-4317-4ccd-91db-0a1ca434e172.png",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GR250201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/2/24/58f5da27-4317-4ccd-91db-0a1ca434e172.png"
   },
   "GR250505": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/25/c5b3b513-da45-4d33-81df-6082ac8d4fbf.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=GR250505&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/25/c5b3b513-da45-4d33-81df-6082ac8d4fbf.jpg"
   },
   "KC240902": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/3/12/18d47eae-0df3-4ae5-8648-b291d1fe8d63.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=KC240902&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/3/12/18d47eae-0df3-4ae5-8648-b291d1fe8d63.jpg"
   },
   "KC240901": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/9/26/b86f72a9-97eb-4169-b7e1-ac8d948ec5b7.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=KC240901&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/9/26/b86f72a9-97eb-4169-b7e1-ac8d948ec5b7.jpg"
   },
   "NW240701": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/7/15/db36ac79-7cd5-4e2f-9779-aab9011b905c.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=NW240701&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/7/15/db36ac79-7cd5-4e2f-9779-aab9011b905c.jpg"
   },
   "NW260302": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/20/020891e7-a980-437c-ad6d-fb3179bdc5b1.png",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=NW260302&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/20/020891e7-a980-437c-ad6d-fb3179bdc5b1.png"
   },
   "DB231001": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/12/9ac9f001-90c1-4ccc-a20f-681b98ab0a1d.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DB241103&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/12/9ac9f001-90c1-4ccc-a20f-681b98ab0a1d.jpg"
   },
   "DB241103": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/12/27/70005b44-28c2-41e2-af6d-848bf0a5c663.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DB241101&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/12/27/70005b44-28c2-41e2-af6d-848bf0a5c663.jpg"
   },
   "DB241101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/5/15/988d7db5-851c-410f-8a64-822de7966eb2.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DB241102&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/5/15/988d7db5-851c-410f-8a64-822de7966eb2.jpg"
   },
   "DB241102": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/12/24/c299684d-cd30-41e1-ae1e-484dadc404f1.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DB250401&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/12/24/c299684d-cd30-41e1-ae1e-484dadc404f1.jpg"
   },
   "DB250401": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/5/7/13a84e08-c41b-455d-aafa-02e8540292b8.jpg",
-    "reservationUrl": null
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/5/7/13a84e08-c41b-455d-aafa-02e8540292b8.jpg"
   },
   "DB231201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/2/4/110cf71f-7052-4dc7-aef3-445b2e7fc6ac.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DB231201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/2/4/110cf71f-7052-4dc7-aef3-445b2e7fc6ac.jpg"
   },
   "DB231202": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/11/25/d016fd6d-fd3c-487e-ace4-cb6124494d7c.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DB231202&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/11/25/d016fd6d-fd3c-487e-ace4-cb6124494d7c.jpg"
   },
   "DM250102": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/10/15/0708e3e2-c73f-452d-a7d4-6ed36094c2c7.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DM250102&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/10/15/0708e3e2-c73f-452d-a7d4-6ed36094c2c7.jpg"
   },
   "DM250301": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/3/13/142d4697-a150-4aa2-a481-e53af58967d8.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DM250301&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/3/13/142d4697-a150-4aa2-a481-e53af58967d8.jpg"
   },
   "DM250103": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/2/8/20450be3-7c59-4924-be9d-e854cc2df951.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DM250103&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/2/8/20450be3-7c59-4924-be9d-e854cc2df951.jpg"
   },
   "DM250901": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/10/14/3f9c7efc-f23e-4ce1-9ab1-189c1bab7eda.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DM250901&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/10/14/3f9c7efc-f23e-4ce1-9ab1-189c1bab7eda.jpg"
   },
   "DM250304": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/3/12/9b38586e-c90b-4ca3-a1de-83955574df73.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DM250304&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/3/12/9b38586e-c90b-4ca3-a1de-83955574df73.jpg"
   },
   "DJ260201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/2/13/58f7acf4-7605-466a-a168-00a0455bdc63.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DJ260201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/2/13/58f7acf4-7605-466a-a168-00a0455bdc63.jpg"
   },
   "DJ251003": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/10/1/c92b010e-8031-4a1a-9260-18a015a4d929.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DJ251003&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/10/1/c92b010e-8031-4a1a-9260-18a015a4d929.jpg"
   },
   "DJ241203": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/12/31/ec8abda9-5e3b-46f4-b9a9-b99ab7da82c7.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DJ241203&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/12/31/ec8abda9-5e3b-46f4-b9a9-b99ab7da82c7.jpg"
   },
   "DJ241201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/1/2/209a5840-855c-480d-b20f-d42b1f5442bc.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DJ241201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/1/2/209a5840-855c-480d-b20f-d42b1f5442bc.jpg"
   },
   "DJ241202": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/12/27/57706bfb-2270-4bed-b96a-5cfaac2fc9c9.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DJ241202&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/12/27/57706bfb-2270-4bed-b96a-5cfaac2fc9c9.jpg"
   },
   "DJ221102": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/8/4/eaa8991f-a8d1-48fd-bfaf-91f7e2b262c1.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DJ221102&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/8/4/eaa8991f-a8d1-48fd-bfaf-91f7e2b262c1.jpg"
   },
   "DJ241008": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/3/6/6ca689c4-2cd7-45e9-a13c-27bc3e292408.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DJ241008&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/3/6/6ca689c4-2cd7-45e9-a13c-27bc3e292408.jpg"
   },
   "DJ260205": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/2/12/43dcae7c-e7ed-4ecc-991c-10209a6c67b2.png",
-    "reservationUrl": null
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/2/12/43dcae7c-e7ed-4ecc-991c-10209a6c67b2.png"
   },
   "DJ241006": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/11/7/24e6db7f-d54a-4bb5-9c6a-cd1442e202de.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DJ241006&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/11/7/24e6db7f-d54a-4bb5-9c6a-cd1442e202de.jpg"
   },
   "DJ230701": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/8/4/c47df8b9-c49b-48e0-9c93-47fe99f4d99e.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DJ230701&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/8/4/c47df8b9-c49b-48e0-9c93-47fe99f4d99e.jpg"
   },
   "DJ241204": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/2/5/f3396b89-4732-43f7-b3ba-7d967a666a3b.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DJ241204&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/2/5/f3396b89-4732-43f7-b3ba-7d967a666a3b.jpg"
   },
   "DJ241004": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/11/12/32663962-6afb-4a8f-8596-ec338ef2ad90.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DJ241004&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/11/12/32663962-6afb-4a8f-8596-ec338ef2ad90.jpg"
   },
   "DJ240701": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/8/23/95aac10a-2e16-4ca8-97e2-445acfe81c7e.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DJ240701&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/8/23/95aac10a-2e16-4ca8-97e2-445acfe81c7e.jpg"
   },
   "MP230802": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/6/658e55bf-6d3f-4696-bde5-01ff382892cd.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=MP230802&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/6/658e55bf-6d3f-4696-bde5-01ff382892cd.jpg"
   },
   "MP251201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/22/aab1df4e-3976-48ad-a256-bf320e4c127b.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=MP251201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/22/aab1df4e-3976-48ad-a256-bf320e4c127b.jpg"
   },
   "MP260201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/13/4fa2d4f1-d46f-4cd6-bc69-b9a119aea2c1.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=MP260201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/13/4fa2d4f1-d46f-4cd6-bc69-b9a119aea2c1.jpg"
   },
   "SM240501": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/8/8/ce58ffbe-2bc2-4cd7-829f-db1e95e46994.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SM240501&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/8/8/ce58ffbe-2bc2-4cd7-829f-db1e95e46994.jpg"
   },
   "SM251101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/11/29/e998bc06-9524-40ad-9579-f34741380ff2.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SM251101&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/11/29/e998bc06-9524-40ad-9579-f34741380ff2.jpg"
   },
   "SM241101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/11/27/7ccc8b1b-4b75-49db-967c-9720fae1a0b7.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SM241101&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/11/27/7ccc8b1b-4b75-49db-967c-9720fae1a0b7.jpg"
   },
   "SM250101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/9/18/82ba363c-8200-4536-af40-1dc93bf4c494.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SM250101&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/9/18/82ba363c-8200-4536-af40-1dc93bf4c494.jpg"
   },
   "SM250102": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/2/5/61ce86d8-60f9-4956-a86d-aaa7c1aa5fb3.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SM250102&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/2/5/61ce86d8-60f9-4956-a86d-aaa7c1aa5fb3.jpg"
   },
   "SM260101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/2/20/a0043f7e-832f-463e-9cd4-2231f536724f.png",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SM260101&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/2/20/a0043f7e-832f-463e-9cd4-2231f536724f.png"
   },
   "SC231001": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/3/15/9353f44d-49e2-4a0e-a280-abda29051109.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SC231001&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/3/15/9353f44d-49e2-4a0e-a280-abda29051109.jpg"
   },
   "SC251201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/12/13/babe1aeb-a583-4862-8b0d-f755f99cbab2.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SC251201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/12/13/babe1aeb-a583-4862-8b0d-f755f99cbab2.jpg"
   },
   "SC231201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/3/15/446a7f0d-88f5-4ac7-b819-7e43adafb289.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SC231201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/3/15/446a7f0d-88f5-4ac7-b819-7e43adafb289.jpg"
   },
   "SC240404": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/9/9/6629315e-6373-4764-81bd-0cc2568b0fe3.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SC240404&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/9/9/6629315e-6373-4764-81bd-0cc2568b0fe3.jpg"
   },
   "SC240801": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/8/30/f7d81049-f0ac-4d68-9f35-11c66d0e3191.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SC240801&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/8/30/f7d81049-f0ac-4d68-9f35-11c66d0e3191.jpg"
   },
   "SD221201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/9/26/c7623498-6e2e-440d-815e-a4518b84b61e.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SD221201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/9/26/c7623498-6e2e-440d-815e-a4518b84b61e.jpg"
   },
   "SD240701": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/7/24/429f7fcd-1d22-4117-99fd-71e8042cc9ee.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SD240701&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/7/24/429f7fcd-1d22-4117-99fd-71e8042cc9ee.jpg"
   },
   "SB240201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/4/12/c981b7b3-70e0-4cc5-afad-0ce8bd3dea8e.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SB240201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/4/12/c981b7b3-70e0-4cc5-afad-0ce8bd3dea8e.jpg"
   },
   "SB251201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/24/f9d51107-22a7-470b-abfd-c02000ecadf1.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SB251201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/24/f9d51107-22a7-470b-abfd-c02000ecadf1.jpg"
   },
   "SB240903": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/10/19/0c548197-6b23-482b-a8f8-5fe7232861e7.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SB240903&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/10/19/0c548197-6b23-482b-a8f8-5fe7232861e7.jpg"
   },
   "SB240702": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/7/31/c72020da-1c29-4856-8fcc-2d9f2e36b059.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SB240702&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/7/31/c72020da-1c29-4856-8fcc-2d9f2e36b059.jpg"
   },
   "SB240801": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/8/13/5b7b01ef-3366-4e8f-a082-546f2b80ba60.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SB240801&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/8/13/5b7b01ef-3366-4e8f-a082-546f2b80ba60.jpg"
   },
   "SB240902": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/1/31/bb4e6a70-4625-40e9-8218-94352ee01572.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SB240902&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/1/31/bb4e6a70-4625-40e9-8218-94352ee01572.jpg"
   },
   "SB260302": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/24/753b6cb1-bb9b-44f3-9baa-c2df7d550a5e.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SB260302&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/24/753b6cb1-bb9b-44f3-9baa-c2df7d550a5e.jpg"
   },
   "SP240401": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/4/16/0f9a9a3b-3b6b-4fce-bd11-52d039defd3a.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SP240401&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/4/16/0f9a9a3b-3b6b-4fce-bd11-52d039defd3a.jpg"
   },
   "SP250301": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/3/6/a1b74780-6a0e-47d1-a0b8-d6d1db5e49ec.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SP250301&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/3/6/a1b74780-6a0e-47d1-a0b8-d6d1db5e49ec.jpg"
   },
   "SP250401": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/4/24/5f3b5094-f94b-4ab0-885b-c66c4ec3aab2.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SP250401&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/4/24/5f3b5094-f94b-4ab0-885b-c66c4ec3aab2.jpg"
   },
   "SP250402": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/4/24/3fac8521-3c79-464d-94c0-f00c06bffb9f.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SP250402&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/4/24/3fac8521-3c79-464d-94c0-f00c06bffb9f.jpg"
   },
   "SP251101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/11/21/2567e326-5eef-4b5b-a36e-a242ef70a37e.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SP251101&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/11/21/2567e326-5eef-4b5b-a36e-a242ef70a37e.jpg"
   },
   "SP260102": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/24/b50d010c-59ce-4860-9b40-f3a19f26cc84.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=SP260102&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/24/b50d010c-59ce-4860-9b40-f3a19f26cc84.jpg"
   },
   "YC260201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/16/f6df446f-cc8b-4219-8c6f-280c43ad0903.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=YC260201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/16/f6df446f-cc8b-4219-8c6f-280c43ad0903.jpg"
   },
   "YC251204": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/10/0fe82632-75f1-419f-aca7-eac50eb5bdaa.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=YC251204&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/10/0fe82632-75f1-419f-aca7-eac50eb5bdaa.jpg"
   },
   "YC251003": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/10/28/a9d56193-c197-4649-877a-767010580b81.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=YC251003&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/10/28/a9d56193-c197-4649-877a-767010580b81.jpg"
   },
   "YC250501": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/7/11/adf27d01-2f87-4483-bdef-9f147e2aeb91.png",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=YC250501&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/7/11/adf27d01-2f87-4483-bdef-9f147e2aeb91.png"
   },
   "YC250603": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/6/26/ec01de40-4efd-48b7-a4d5-d77ab2434133.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=YC250603&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/6/26/ec01de40-4efd-48b7-a4d5-d77ab2434133.jpg"
   },
   "YC250202": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/3/10/c6f05bcb-370e-4313-8086-59a0c6279706.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=YC250202&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/3/10/c6f05bcb-370e-4313-8086-59a0c6279706.jpg"
   },
   "YC250201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/3/26/e36d39eb-e7e7-4cd0-b55d-5ba3c9332891.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=YC250201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/3/26/e36d39eb-e7e7-4cd0-b55d-5ba3c9332891.jpg"
   },
   "YC231206": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/12/9/f3e8cbde-fe58-47db-8c96-13871f21d57f.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=YC231206&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/12/9/f3e8cbde-fe58-47db-8c96-13871f21d57f.jpg"
   },
   "YC221101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2022/11/9/10d8e844-5b89-48cd-8e5b-22dc8bde6f08.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=YC221101&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2022/11/9/10d8e844-5b89-48cd-8e5b-22dc8bde6f08.jpg"
   },
   "YF231001": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/12/e8bdec58-d277-4fe6-9229-e89639b2e65c.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=YF231001&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/12/e8bdec58-d277-4fe6-9229-e89639b2e65c.jpg"
   },
   "YF241001": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/12/01aeb498-bedb-492c-a7bb-a72e711d055d.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=YF241001&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/12/01aeb498-bedb-492c-a7bb-a72e711d055d.jpg"
   },
   "YF260101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/25/2535966a-dcbb-47ee-9a7c-313278efdcc2.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=YF260101&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/25/2535966a-dcbb-47ee-9a7c-313278efdcc2.jpg"
   },
   "YS231001": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/10/11/156656d5-11ca-4dcc-9229-82c4cbab21a9.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=YS231001&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/10/11/156656d5-11ca-4dcc-9229-82c4cbab21a9.jpg"
   },
   "YS241201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/12/31/8b9b3928-4d41-4f06-8cb0-7b43d828d74b.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=YS241201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/12/31/8b9b3928-4d41-4f06-8cb0-7b43d828d74b.jpg"
   },
   "EP250501": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/6/4/a006b92b-681e-4a1e-87ce-0ecda0fb3f9d.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=EP250501&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/6/4/a006b92b-681e-4a1e-87ce-0ecda0fb3f9d.jpg"
   },
   "EP250301": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/8/5/5fc55d7d-8fbb-4db2-82ad-11b75d8ed0c1.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=EP250301&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/8/5/5fc55d7d-8fbb-4db2-82ad-11b75d8ed0c1.jpg"
   },
   "EP250601": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/1/39ef9599-43d9-4b67-b521-abb786950570.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=EP250601&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/1/39ef9599-43d9-4b67-b521-abb786950570.jpg"
   },
   "EP260302": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/17/8d369f25-cd0d-4e7b-953e-51ca8aa8ba19.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=EP260302&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/17/8d369f25-cd0d-4e7b-953e-51ca8aa8ba19.jpg"
   },
   "JN220501": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/10/12/cc7e6615-0445-4635-a805-c3e82ce6c2f6.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=JN220501&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2023/10/12/cc7e6615-0445-4635-a805-c3e82ce6c2f6.jpg"
   },
   "JG250301": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/3/25/0b064b1c-6a95-494b-9ec5-ed9e8d528dcd.png",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=JG250301&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/3/25/0b064b1c-6a95-494b-9ec5-ed9e8d528dcd.png"
   },
   "JG240301": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/4/22/3d586de7-3a6c-4a86-8594-acde9ebe751b.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=JG240301&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/4/22/3d586de7-3a6c-4a86-8594-acde9ebe751b.jpg"
   },
   "JG250701": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/8/11/ceeddfa5-88a5-4d48-894a-8ff503cf900b.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=JG250701&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/8/11/ceeddfa5-88a5-4d48-894a-8ff503cf900b.jpg"
   },
   "JG251201": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/12/6/bb2c1ae7-9430-4d43-aa40-fd1704175260.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=JG251201&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/12/6/bb2c1ae7-9430-4d43-aa40-fd1704175260.jpg"
   },
   "JR240501": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/6/1/a1b4353d-50f1-4762-882c-98c91fd48880.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=JR240501&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/6/1/a1b4353d-50f1-4762-882c-98c91fd48880.jpg"
   },
   "JR220801": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2022/8/31/8686dffb-411a-4760-a2bd-1acb2e7fa252.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=JR220801&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2022/8/31/8686dffb-411a-4760-a2bd-1acb2e7fa252.jpg"
   },
   "JR251102": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/2/13/18b37df9-7486-4f94-b04e-f23e8f6c6d97.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=JR251102&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/2/13/18b37df9-7486-4f94-b04e-f23e8f6c6d97.jpg"
   },
   "JR250401": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/4/25/47217bd6-4e79-4787-b22a-e69466be41eb.jpeg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=JR250401&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/4/25/47217bd6-4e79-4787-b22a-e69466be41eb.jpeg"
   },
   "JR251101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/12/30/3145f366-a6a0-43ab-b11a-e3457c66af28.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=JR251101&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/12/30/3145f366-a6a0-43ab-b11a-e3457c66af28.jpg"
   },
   "JR250504": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/2/5/c01bea29-99c5-4caa-af88-1ea719b191a7.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=JR250504&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/2/5/c01bea29-99c5-4caa-af88-1ea719b191a7.jpg"
   },
   "JR260301": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/23/47b1398a-23ed-4251-bf28-695e9d24877c.jpg",
-    "reservationUrl": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=JR260301&q_fcltyStle=2001"
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/3/23/47b1398a-23ed-4251-bf28-695e9d24877c.jpg"
   }
 }
