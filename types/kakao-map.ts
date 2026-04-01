@@ -1,8 +1,9 @@
-import type { KidsCafe } from './index';
+import type { KidsCafe, AgeFilter } from './index';
 
 export interface KakaoMapProps {
   kidsCafes: KidsCafe[];
   selectedKidsCafeId?: string;
+  selectedAges: AgeFilter[];
   onMarkerClick: (id: string) => void;
 }
 
@@ -13,11 +14,25 @@ export interface KakaoLatLng {
 
 export interface KakaoMapInstance {
   setCenter: (latlng: KakaoLatLng) => void;
+  setLevel: (level: number) => void;
+}
+
+export interface KakaoMarkerImage {}
+
+export interface KakaoSize {
+  width: number;
+  height: number;
+}
+
+export interface KakaoPoint {
+  x: number;
+  y: number;
 }
 
 export interface KakaoMarker {
   setMap: (map: KakaoMapInstance | null) => void;
   setZIndex: (zIndex: number) => void;
+  setImage: (image: KakaoMarkerImage) => void;
 }
 
 declare global {
@@ -34,7 +49,15 @@ declare global {
           position: KakaoLatLng;
           map?: KakaoMapInstance;
           zIndex?: number;
+          image?: KakaoMarkerImage;
         }) => KakaoMarker;
+        MarkerImage: new (
+          src: string,
+          size: KakaoSize,
+          options?: { offset?: KakaoPoint }
+        ) => KakaoMarkerImage;
+        Size: new (width: number, height: number) => KakaoSize;
+        Point: new (x: number, y: number) => KakaoPoint;
         event: {
           addListener: (target: KakaoMarker, type: string, handler: () => void) => void;
         };

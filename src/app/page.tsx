@@ -23,7 +23,7 @@ export default function Home() {
   const geolocation = useGeolocation();
   const cafesState = useCafes();
   const { selectedAges, setAges } = useAgeFilter();
-  const { selectedCafeId, selectCafe } = useCafeSelection();
+  const { selectedCafeId, selectCafe, clearSelection } = useCafeSelection();
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
 
@@ -38,6 +38,11 @@ export default function Home() {
     () => buildCafeListItems(cafesState.cafes, selectedAges, userLocation, selectedDistrict),
     [cafesState.cafes, selectedAges, userLocation, selectedDistrict]
   );
+
+  function handleAgeChange(ages: Parameters<typeof setAges>[0]) {
+    setAges(ages);
+    clearSelection();
+  }
 
   function handleChangeDistrict() {
     setSelectedDistrict(null);
@@ -62,7 +67,7 @@ export default function Home() {
       />
 
       {/* 나이 필터 (sticky) */}
-      <AgeFilterChips selected={selectedAges} onChange={setAges} />
+      <AgeFilterChips selected={selectedAges} onChange={handleAgeChange} />
 
       {/* 본문: 데스크탑은 사이드바 레이아웃, 모바일은 단일 뷰 */}
       <main className="flex flex-1 overflow-hidden p-4 gap-4">
@@ -102,6 +107,7 @@ export default function Home() {
           <KakaoMap
             kidsCafes={cafesState.cafes}
             selectedKidsCafeId={selectedCafeId ?? undefined}
+            selectedAges={selectedAges}
             onMarkerClick={selectCafe}
           />
         </section>
