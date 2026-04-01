@@ -42,8 +42,11 @@ describe('KidsCafe 타입', () => {
       lat: 37.5665,
       lng: 126.978,
       ageRange: { minAge: 0, maxAge: 84 },
+      birthYearRange: { younger: 2018, older: 2025 },
       operatingHours: '10:00~20:00',
       phone: '02-1234-5678',
+      imageUrl: '',
+      detailUrl: '',
     };
 
     expect(cafe.id).toBe('cafe-001');
@@ -54,7 +57,7 @@ describe('KidsCafe 타입', () => {
     expect(cafe.ageRange.maxAge).toBe(84);
   });
 
-  it('선택적 필드(kakaoPlaceUrl, imageUrl)를 포함할 수 있어야 한다', () => {
+  it('선택적 필드(kakaoPlaceUrl)를 포함할 수 있어야 한다', () => {
     const cafe: KidsCafe = {
       id: 'cafe-002',
       name: '테스트 키즈카페2',
@@ -62,10 +65,12 @@ describe('KidsCafe 타입', () => {
       lat: 37.5665,
       lng: 126.978,
       ageRange: { minAge: 12, maxAge: 60 },
+      birthYearRange: { younger: 2020, older: 2024 },
       operatingHours: '10:00~20:00',
       phone: '02-9876-5432',
       kakaoPlaceUrl: 'https://place.map.kakao.com/456',
       imageUrl: 'https://example.com/image2.jpg',
+      detailUrl: 'https://umppa.seoul.go.kr/cafe-002',
     };
 
     expect(cafe.kakaoPlaceUrl).toBe('https://place.map.kakao.com/456');

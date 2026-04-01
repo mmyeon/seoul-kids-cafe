@@ -15,6 +15,10 @@ export function formatAgeRange(ageRange: KidsCafe['ageRange']): string {
   return `${minAge} ~ ${maxAge}세`;
 }
 
+export function formatBirthYearRange(range: { younger: number; older: number }): string {
+  return `${range.younger}년생 ~ ${range.older}년생`;
+}
+
 const FULL_DAY_TO_SHORT: Record<string, string> = {
   월요일: '월',
   화요일: '화',

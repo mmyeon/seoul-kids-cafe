@@ -66,6 +66,9 @@ describe('mergeKakaoData', () => {
     ageRange: { minAge: 0, maxAge: 84 },
     operatingHours: '10:00~20:00',
     phone: '02-1234-5678',
+    birthYearRange: { younger: 2018, older: 2025 },
+    imageUrl: 'https://example.com/image.jpg',
+    detailUrl: 'https://umppa.com/cafe-001',
   };
 
   it('카카오 플레이스 URL이 있으면 카페에 병합해야 한다', () => {

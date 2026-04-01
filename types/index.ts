@@ -46,6 +46,8 @@ export type KidsCafe = {
   lng: number;
   /** 이용 가능 연령 범위 (개월 수 기준) */
   ageRange: { minAge: number; maxAge: number };
+  /** umppa 기준 출생연도 범위 */
+  birthYearRange: { younger: number; older: number };
   /** 운영일 */
   operatingHours: string;
   /** 전화번호 */

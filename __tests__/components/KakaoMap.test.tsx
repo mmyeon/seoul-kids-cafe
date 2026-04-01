@@ -24,8 +24,11 @@ const baseCafe: KidsCafe = {
   lat: 37.5665,
   lng: 126.978,
   ageRange: { minAge: 0, maxAge: 84 },
+  birthYearRange: { younger: 2018, older: 2025 },
   operatingHours: '10:00~20:00',
   phone: '02-1234-5678',
+  imageUrl: '',
+  detailUrl: '',
 };
 
 const cafes: KidsCafe[] = [

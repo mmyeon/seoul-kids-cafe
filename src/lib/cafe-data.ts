@@ -1,7 +1,7 @@
 import { cacheLife } from 'next/cache';
 import { fetchSeoulKidsCafes } from './seoul-api';
 import { enrichKidsCafeWithKakaoData } from './kakao-api';
-import { getUmppaImageUrl, getUmppaDetailUrl } from './umppa-data';
+import { getUmppaImageUrl, getUmppaDetailUrl, getUmppaBirthYearRange } from './umppa-data';
 import type { KidsCafe } from '../../types/index';
 
 /**
@@ -21,6 +21,7 @@ export async function getEnrichedCafes(
     ...cafe,
     imageUrl: getUmppaImageUrl(cafe.id),
     detailUrl: getUmppaDetailUrl(cafe.id),
+    birthYearRange: getUmppaBirthYearRange(cafe.id) ?? { younger: 0, older: 0 },
   }));
 
   if (!kakaoRestApiKey) {

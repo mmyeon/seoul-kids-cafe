@@ -13,8 +13,11 @@ const makeCafe = (overrides: Partial<KidsCafe> = {}): KidsCafe => ({
   lat: 37.5665,
   lng: 126.978,
   ageRange: { minAge: 0, maxAge: 7 },
+  birthYearRange: { younger: 2018, older: 2025 },
   operatingHours: '화~일요일',
   phone: '02-0000-0000',
+  imageUrl: '',
+  detailUrl: '',
   ...overrides,
 });
 

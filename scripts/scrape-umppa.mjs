@@ -22,11 +22,12 @@ async function fetchPage(fcltyStle, currPage) {
 }
 
 /**
- * HTML에서 fcltyId → { imageUrl } 매핑 추출
+ * HTML에서 fcltyId → { imageUrl, birthYearYounger, birthYearOlder } 매핑 추출
  *
  * 방식:
  * - fcltyId: q_fcltyId=XXX 패턴을 순서대로 deduplicate
  * - imageUrl: /icare/upload/ 경로의 이미지를 순서대로 수집
+ * - birthYear: "YYYY년생 ~ YYYY년생" 패턴을 순서대로 수집
  */
 function extractCafesFromHtml(html) {
   // 1. fcltyId 추출 (중복 제거, 순서 유지)
@@ -51,11 +52,23 @@ function extractCafesFromHtml(html) {
     imageUrls.push(rawUrl.startsWith('http') ? rawUrl : `https://umppa.seoul.go.kr${rawUrl}`);
   }
 
-  // 3. fcltyId, imageUrl을 순서대로 묶음
+  // 3. 출생연도 범위 추출 (예: "2022년생 ~ 2016년생")
+  const birthYearPairs = [];
+  const birthYearRegex = /(\d{4})년생\s*~\s*(\d{4})년생/g;
+  while ((m = birthYearRegex.exec(html)) !== null) {
+    const a = parseInt(m[1], 10);
+    const b = parseInt(m[2], 10);
+    birthYearPairs.push({ birthYearYounger: Math.max(a, b), birthYearOlder: Math.min(a, b) });
+  }
+
+  // 4. fcltyId, imageUrl, birthYear를 순서대로 묶음
   const result = {};
   const count = Math.min(uniqueFcltyIds.length, imageUrls.length);
   for (let i = 0; i < count; i++) {
-    result[uniqueFcltyIds[i]] = { imageUrl: imageUrls[i] };
+    result[uniqueFcltyIds[i]] = {
+      imageUrl: imageUrls[i],
+      ...(birthYearPairs[i] ?? {}),
+    };
   }
   return result;
 }

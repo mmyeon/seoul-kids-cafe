@@ -87,10 +87,9 @@ describe('parseSeoulKidsCafe', () => {
     expect(result.address).toBe('서울특별시 강남구 테헤란로 123');
   });
 
-  it('kakaoPlaceUrl과 imageUrl은 undefined여야 한다 (원본에 없는 경우)', () => {
+  it('kakaoPlaceUrl은 undefined여야 한다 (원본에 없는 경우)', () => {
     const result = parseSeoulKidsCafe(rawCafe);
     expect(result.kakaoPlaceUrl).toBeUndefined();
-    expect(result.imageUrl).toBeUndefined();
   });
 
   it('위도/경도가 유효하지 않으면 0으로 처리해야 한다', () => {

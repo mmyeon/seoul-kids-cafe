@@ -1,13 +1,14 @@
 import type { KidsCafeCardProps } from '../../src/lib/kidsCafeCard';
 import {
   formatAgeRange,
+  formatBirthYearRange,
   formatDistance,
   getCardOpacity,
   isSafeUrl,
 } from '../../src/lib/kidsCafeCard';
 
 export type { KidsCafeCardProps };
-export { formatAgeRange, formatDistance, getCardOpacity, isSafeUrl };
+export { formatAgeRange, formatBirthYearRange, formatDistance, getCardOpacity, isSafeUrl };
 
 export default function KidsCafeCard({
   kidsCafe,
@@ -19,7 +20,9 @@ export default function KidsCafeCard({
 }: KidsCafeCardProps) {
   const opacityClass = getCardOpacity(matchStatus);
   const distance = formatDistance(distanceKm);
-  const ageLabel = formatAgeRange(kidsCafe.ageRange);
+  const ageLabel = kidsCafe.birthYearRange
+    ? formatBirthYearRange(kidsCafe.birthYearRange)
+    : formatAgeRange(kidsCafe.ageRange);
 
   return (
     <article
@@ -66,7 +69,7 @@ export default function KidsCafeCard({
 
         <p className="text-sm text-gray-600">
           <span aria-hidden="true">🎂 </span>
-          {ageLabel} (연 나이)
+          {ageLabel}
         </p>
 
         <p className="text-sm text-gray-600">

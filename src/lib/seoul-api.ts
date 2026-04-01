@@ -29,7 +29,7 @@ export function parseAgeRange(ageRangeStr: string): { minAge: number; maxAge: nu
   };
 }
 
-type ParsedKidsCafe = Omit<KidsCafe, 'imageUrl'>;
+type ParsedKidsCafe = Omit<KidsCafe, 'imageUrl' | 'detailUrl' | 'birthYearRange'>;
 
 /**
  * 서울시 원본 데이터를 파싱 (imageUrl은 umppa enrichment 단계에서 추가)
