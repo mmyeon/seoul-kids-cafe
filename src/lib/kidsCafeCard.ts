@@ -16,7 +16,7 @@ export function formatAgeRange(ageRange: KidsCafe['ageRange']): string {
 }
 
 export function formatBirthYearRange(range: { younger: number; older: number }): string {
-  return `${range.younger}년생 ~ ${range.older}년생`;
+  return `${range.older}년생 ~ ${range.younger}년생`;
 }
 
 const FULL_DAY_TO_SHORT: Record<string, string> = {
