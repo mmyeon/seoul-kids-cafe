@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { KidsCafeCardProps } from '../../src/lib/kidsCafeCard';
 import {
   formatAgeRange,
@@ -32,12 +33,15 @@ export default function KidsCafeCard({
       onClick={onClick}
       aria-label={kidsCafe.name}
     >
-      <div className="relative">
+      <div className="relative h-45 bg-gray-100">
         {kidsCafe.imageUrl ? (
-          <img
+          <Image
             src={kidsCafe.imageUrl}
             alt={`${kidsCafe.name} 이미지`}
-            className="w-full h-40 object-cover"
+            fill
+            className="object-cover"
+            sizes="(max-width: 640px) 100vw, 50vw"
+            quality={60}
           />
         ) : (
           <div
