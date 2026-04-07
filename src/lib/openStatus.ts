@@ -7,7 +7,7 @@ export function isOpenToday(operatingHours: string): boolean {
   const today = KO_DAYS_SHORT[koIndex];
 
   // Range detection: "화~일" or "월~토"
-  const rangeMatch = operatingHours.match(/([월화수목금토일])~([월화수목금토일])/);
+  const rangeMatch = operatingHours.match(/([월화수목금토일])\s*~\s*([월화수목금토일])/);
   if (rangeMatch) {
     const startIdx = KO_DAYS_SHORT.indexOf(rangeMatch[1] as (typeof KO_DAYS_SHORT)[number]);
     const endIdx = KO_DAYS_SHORT.indexOf(rangeMatch[2] as (typeof KO_DAYS_SHORT)[number]);

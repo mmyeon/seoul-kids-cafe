@@ -1,4 +1,5 @@
-import type { SeoulKidsCafeRaw, KidsCafe } from '../../../types/index';
+import type { SeoulKidsCafeRaw, KidsCafe } from '../../types/index';
+import { normalizeOperatingHours } from './kidsCafeCard';
 
 /**
  * 서울시 API URL 생성
@@ -16,37 +17,40 @@ export function parseAgeRange(ageRangeStr: string): { minAge: number; maxAge: nu
   const parts = ageRangeStr.split('~');
   if (parts.length !== 2) return { minAge: 0, maxAge: 0 };
 
-  const minAge = parseInt(parts[0].replace(/[^0-9]/g, ''), 10);
-  const maxAge = parseInt(parts[1].replace(/[^0-9]/g, ''), 10);
+  const parseAgePart = (part: string): number => {
+    if (part.includes('개월')) return 0;
+    const num = parseInt(part.replace(/[^0-9]/g, ''), 10);
+    return isNaN(num) ? 0 : num;
+  };
 
   return {
-    minAge: isNaN(minAge) ? 0 : minAge,
-    maxAge: isNaN(maxAge) ? 0 : maxAge,
+    minAge: parseAgePart(parts[0]),
+    maxAge: parseAgePart(parts[1]),
   };
 }
 
+type ParsedKidsCafe = Omit<KidsCafe, 'imageUrl' | 'detailUrl' | 'birthYearRange'>;
+
 /**
- * 서울시 원본 데이터를 KidsCafe 타입으로 변환
+ * 서울시 원본 데이터를 파싱 (imageUrl은 umppa enrichment 단계에서 추가)
  */
-export function parseSeoulKidsCafe(raw: SeoulKidsCafeRaw): KidsCafe {
+export function parseSeoulKidsCafe(raw: SeoulKidsCafeRaw): ParsedKidsCafe {
   const lat = parseFloat(raw.Y_CRDNT_VALUE);
   const lng = parseFloat(raw.X_CRDNT_VALUE);
   const ageRange = parseAgeRange(raw.POSBL_AGRDE);
 
-  const address = raw.DETAIL_ADRES
-    ? `${raw.BASS_ADRES} ${raw.DETAIL_ADRES}`.trim()
-    : raw.BASS_ADRES;
+  const address = raw.BASS_ADRES;
 
   const id = raw.FCLTY_ID || encodeURIComponent(`${raw.FCLTY_NM}|${raw.BASS_ADRES}`);
 
   return {
     id,
-    name: raw.FCLTY_NM,
+    name: raw.FCLTY_NM.replace(/^서울형\s*키즈카페\s*/i, '').trim(),
     address,
     lat: isNaN(lat) ? 0 : lat,
     lng: isNaN(lng) ? 0 : lng,
     ageRange,
-    operatingHours: raw.OPEN_WEEK,
+    operatingHours: normalizeOperatingHours(raw.OPEN_WEEK),
     phone: raw.CTTPC,
   };
 }
@@ -65,7 +69,7 @@ type SeoulApiResponse = {
 /**
  * 서울시 키즈카페 API 호출 및 파싱
  */
-export async function fetchSeoulKidsCafes(apiKey: string): Promise<KidsCafe[]> {
+export async function fetchSeoulKidsCafes(apiKey: string): Promise<ParsedKidsCafe[]> {
   const url = buildSeoulApiUrl(apiKey, 1, 1000);
   const response = await fetch(url, {
     next: { revalidate: 86400 },

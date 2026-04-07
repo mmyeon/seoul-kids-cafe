@@ -42,9 +42,11 @@ describe('KidsCafe 타입', () => {
       lat: 37.5665,
       lng: 126.978,
       ageRange: { minAge: 0, maxAge: 84 },
+      birthYearRange: { younger: 2018, older: 2025 },
       operatingHours: '10:00~20:00',
       phone: '02-1234-5678',
-      reservationUrl: 'https://example.com/reserve',
+      imageUrl: '',
+      detailUrl: '',
     };
 
     expect(cafe.id).toBe('cafe-001');
@@ -55,7 +57,7 @@ describe('KidsCafe 타입', () => {
     expect(cafe.ageRange.maxAge).toBe(84);
   });
 
-  it('선택적 필드(kakaoPlaceUrl, imageUrl, parking)를 포함할 수 있어야 한다', () => {
+  it('선택적 필드(kakaoPlaceUrl)를 포함할 수 있어야 한다', () => {
     const cafe: KidsCafe = {
       id: 'cafe-002',
       name: '테스트 키즈카페2',
@@ -63,66 +65,35 @@ describe('KidsCafe 타입', () => {
       lat: 37.5665,
       lng: 126.978,
       ageRange: { minAge: 12, maxAge: 60 },
+      birthYearRange: { younger: 2020, older: 2024 },
       operatingHours: '10:00~20:00',
       phone: '02-9876-5432',
-      reservationUrl: 'https://example.com/reserve2',
       kakaoPlaceUrl: 'https://place.map.kakao.com/456',
       imageUrl: 'https://example.com/image2.jpg',
-      parking: 'available',
+      detailUrl: 'https://umppa.seoul.go.kr/cafe-002',
     };
 
     expect(cafe.kakaoPlaceUrl).toBe('https://place.map.kakao.com/456');
     expect(cafe.imageUrl).toBe('https://example.com/image2.jpg');
-    expect(cafe.parking).toBe('available');
-  });
-
-  it('parking 필드는 available, unavailable, unknown 값만 허용해야 한다', () => {
-    const withAvailable: KidsCafe = {
-      id: 'cafe-003',
-      name: '카페3',
-      address: '서울',
-      lat: 37.5,
-      lng: 127.0,
-      ageRange: { minAge: 0, maxAge: 36 },
-      operatingHours: '09:00~18:00',
-      phone: '02-0000-0000',
-      reservationUrl: 'https://example.com',
-      parking: 'available',
-    };
-
-    const withUnavailable: KidsCafe = {
-      ...withAvailable,
-      id: 'cafe-004',
-      parking: 'unavailable',
-    };
-    const withUnknown: KidsCafe = {
-      ...withAvailable,
-      id: 'cafe-005',
-      parking: 'unknown',
-    };
-
-    expect(withAvailable.parking).toBe('available');
-    expect(withUnavailable.parking).toBe('unavailable');
-    expect(withUnknown.parking).toBe('unknown');
   });
 });
 
 describe('AgeFilter 타입', () => {
   it('유효한 나이 필터 값을 모두 허용해야 한다', () => {
-    const filters: AgeFilter[] = ['under12m', '1', '2', '3', '4', '5', '6', '7'];
+    const filters: AgeFilter[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'];
 
-    expect(filters).toHaveLength(8);
-    expect(filters[0]).toBe('under12m');
+    expect(filters).toHaveLength(14);
+    expect(filters[0]).toBe('0');
     expect(filters[1]).toBe('1');
-    expect(filters[7]).toBe('7');
+    expect(filters[13]).toBe('13');
   });
 
   it('각 나이 필터 값이 올바른 리터럴 타입이어야 한다', () => {
-    const under12m: AgeFilter = 'under12m';
+    const age0: AgeFilter = '0';
     const age1: AgeFilter = '1';
     const age7: AgeFilter = '7';
 
-    expect(under12m).toBe('under12m');
+    expect(age0).toBe('0');
     expect(age1).toBe('1');
     expect(age7).toBe('7');
   });
@@ -130,18 +101,16 @@ describe('AgeFilter 타입', () => {
 
 describe('MatchStatus 타입', () => {
   it('유효한 매칭 상태 값을 모두 허용해야 한다', () => {
-    const statuses: MatchStatus[] = ['full', 'partial', 'none'];
+    const statuses: MatchStatus[] = ['full', 'none'];
 
-    expect(statuses).toHaveLength(3);
+    expect(statuses).toHaveLength(2);
   });
 
   it('각 매칭 상태 값이 올바른 리터럴 타입이어야 한다', () => {
     const full: MatchStatus = 'full';
-    const partial: MatchStatus = 'partial';
     const none: MatchStatus = 'none';
 
     expect(full).toBe('full');
-    expect(partial).toBe('partial');
     expect(none).toBe('none');
   });
 });

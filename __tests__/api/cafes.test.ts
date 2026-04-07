@@ -10,6 +10,15 @@ import { GET } from '../../src/app/api/cafes/route';
 const mockFetch = jest.fn();
 global.fetch = mockFetch;
 
+// umppa-images 모킹
+jest.mock('../../src/lib/umppa-data', () => ({
+  getUmppaImageUrl: (id: string) =>
+    id === 'GN260101'
+      ? 'https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/1/test.jpg'
+      : undefined,
+  getUmppaDetailUrl: (_id: string) => null,
+}));
+
 // 환경변수 설정
 const ORIGINAL_ENV = process.env;
 
@@ -52,12 +61,8 @@ const mockKakaoLocalResponse = {
   documents: [{ place_url: 'https://place.map.kakao.com/123' }],
 };
 
-const mockKakaoImageResponse = {
-  documents: [{ image_url: 'https://cdn.example.com/image.jpg' }],
-};
-
 describe('GET /api/cafes', () => {
-  it('정상적인 요청에 키즈카페 목록을 반환해야 한다', async () => {
+  it('정상적인 요청에 키즈카페 목록과 자치구 목록을 반환해야 한다', async () => {
     mockFetch
       .mockResolvedValueOnce({
         ok: true,
@@ -66,22 +71,19 @@ describe('GET /api/cafes', () => {
       .mockResolvedValueOnce({
         ok: true,
         json: () => Promise.resolve(mockKakaoLocalResponse),
-      })
-      .mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve(mockKakaoImageResponse),
       });
 
     const response = await GET();
     const data = await response.json();
 
     expect(response.status).toBe(200);
-    expect(Array.isArray(data)).toBe(true);
-    expect(data).toHaveLength(1);
-    expect(data[0].name).toBe('강남 키즈카페');
+    expect(Array.isArray(data.cafes)).toBe(true);
+    expect(data.cafes).toHaveLength(1);
+    expect(data.cafes[0].name).toBe('강남 키즈카페');
+    expect(data.districts).toEqual(['강남구']);
   });
 
-  it('Kakao 데이터가 병합되어 반환되어야 한다', async () => {
+  it('umppa 이미지와 Kakao 플레이스 URL이 병합되어 반환되어야 한다', async () => {
     mockFetch
       .mockResolvedValueOnce({
         ok: true,
@@ -90,35 +92,34 @@ describe('GET /api/cafes', () => {
       .mockResolvedValueOnce({
         ok: true,
         json: () => Promise.resolve(mockKakaoLocalResponse),
-      })
-      .mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve(mockKakaoImageResponse),
       });
 
     const response = await GET();
     const data = await response.json();
 
-    expect(data[0].kakaoPlaceUrl).toBe('https://place.map.kakao.com/123');
-    expect(data[0].imageUrl).toBe('https://cdn.example.com/image.jpg');
+    expect(data.cafes[0].kakaoPlaceUrl).toBe('https://place.map.kakao.com/123');
+    expect(data.cafes[0].imageUrl).toBe(
+      'https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/1/test.jpg'
+    );
   });
 
-  it('Kakao API 실패 시 서울시 데이터만 반환해야 한다 (fallback)', async () => {
+  it('Kakao API 실패 시 umppa 이미지는 그대로 반환해야 한다 (fallback)', async () => {
     mockFetch
       .mockResolvedValueOnce({
         ok: true,
         json: () => Promise.resolve(mockSeoulApiResponse),
       })
-      .mockResolvedValueOnce({ ok: false, status: 500 })
       .mockResolvedValueOnce({ ok: false, status: 500 });
 
     const response = await GET();
     const data = await response.json();
 
     expect(response.status).toBe(200);
-    expect(data[0].name).toBe('강남 키즈카페');
-    expect(data[0].kakaoPlaceUrl).toBeUndefined();
-    expect(data[0].imageUrl).toBeUndefined();
+    expect(data.cafes[0].name).toBe('강남 키즈카페');
+    expect(data.cafes[0].kakaoPlaceUrl).toBeUndefined();
+    expect(data.cafes[0].imageUrl).toBe(
+      'https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/1/1/test.jpg'
+    );
   });
 
   it('SEOUL_API_KEY 미설정 시 500 에러를 반환해야 한다', async () => {

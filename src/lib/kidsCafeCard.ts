@@ -6,49 +6,45 @@ export interface KidsCafeCardProps {
   distanceKm?: number;
   isOpen: boolean;
   onClick?: () => void;
+  isSelected?: boolean;
 }
 
 export function formatAgeRange(ageRange: KidsCafe['ageRange']): string {
   const { minAge, maxAge } = ageRange;
-  const parts: string[] = [];
+  if (minAge === maxAge) return `${minAge}세`;
+  return `${minAge} ~ ${maxAge}세`;
+}
 
-  if (minAge === 0) {
-    parts.push('0-12개월');
+export function formatBirthYearRange(range: { younger: number; older: number }): string {
+  return `${range.older}년생 ~ ${range.younger}년생`;
+}
+
+const FULL_DAY_TO_SHORT: Record<string, string> = {
+  월요일: '월',
+  화요일: '화',
+  수요일: '수',
+  목요일: '목',
+  금요일: '금',
+  토요일: '토',
+  일요일: '일',
+};
+
+export function normalizeOperatingHours(raw: string): string {
+  if (!raw) return raw;
+  let result = raw;
+  for (const [full, short] of Object.entries(FULL_DAY_TO_SHORT)) {
+    result = result.replaceAll(full, short);
   }
-
-  const startAgeYears = minAge === 0 ? 1 : Math.floor(minAge / 12);
-  const endAgeYears = Math.floor(maxAge / 12);
-
-  if (startAgeYears === endAgeYears) {
-    parts.push(`${startAgeYears}세`);
-  } else if (startAgeYears <= endAgeYears) {
-    for (let age = startAgeYears; age <= endAgeYears; age++) {
-      parts.push(`${age}세`);
-    }
-  }
-
-  return parts.join(', ');
+  return result.replace(/\s*~\s*/g, ' ~ ');
 }
 
 export function formatDistance(distanceKm: number | undefined): string {
   if (distanceKm === undefined) return '';
-  return `${distanceKm.toFixed(1)}km`;
-}
-
-export function formatParking(parking: KidsCafe['parking']): string {
-  if (parking === 'available') return '주차 가능';
-  if (parking === 'unavailable') return '주차 불가';
-  return '주차 정보 없음';
+  return `${distanceKm.toFixed(1)}km 거리`;
 }
 
 export function getCardOpacity(matchStatus: MatchStatus): string {
-  if (matchStatus === 'full') return 'opacity-100';
-  if (matchStatus === 'partial') return 'opacity-50';
-  return 'opacity-30';
-}
-
-export function shouldShowPartialBadge(matchStatus: MatchStatus): boolean {
-  return matchStatus === 'partial';
+  return matchStatus === 'full' ? 'opacity-100' : 'opacity-30';
 }
 
 export function isSafeUrl(url: string): boolean {

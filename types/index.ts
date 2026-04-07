@@ -46,18 +46,18 @@ export type KidsCafe = {
   lng: number;
   /** 이용 가능 연령 범위 (개월 수 기준) */
   ageRange: { minAge: number; maxAge: number };
+  /** umppa 기준 출생연도 범위 */
+  birthYearRange: { younger: number; older: number };
   /** 운영일 */
   operatingHours: string;
   /** 전화번호 */
   phone: string;
-  /** 예약 URL (선택) */
-  reservationUrl?: string;
-  /** 카카오 플레이스 URL (선택) */
+  /** 카카오 플레이스 URL */
   kakaoPlaceUrl?: string;
-  /** 대표 이미지 URL (선택) */
-  imageUrl?: string;
-  /** 주차 가능 여부 (선택) */
-  parking?: 'available' | 'unavailable' | 'unknown';
+  /** 대표 이미지 URL */
+  imageUrl: string;
+  /** umppa 상세 페이지 URL */
+  detailUrl: string;
 };
 
 // ============================================================
@@ -66,15 +66,27 @@ export type KidsCafe = {
 
 /**
  * 나이 필터 옵션
- * - under12m: 12개월 미만
- * - '1'~'7': 만 1세~7세
+ * - '0'~'13': 만 0세~13세 ('0'은 12개월 미만)
  */
-export type AgeFilter = 'under12m' | '1' | '2' | '3' | '4' | '5' | '6' | '7';
+export type AgeFilter =
+  | '0'
+  | '1'
+  | '2'
+  | '3'
+  | '4'
+  | '5'
+  | '6'
+  | '7'
+  | '8'
+  | '9'
+  | '10'
+  | '11'
+  | '12'
+  | '13';
 
 /**
  * 카페 카드와 필터 조건의 매칭 상태
- * - full: 완전 일치
- * - partial: 부분 일치
- * - none: 불일치
+ * - full: 선택한 나이가 모두 카페 연령 범위에 포함
+ * - none: 하나 이상의 선택 나이가 범위 밖
  */
-export type MatchStatus = 'full' | 'partial' | 'none';
+export type MatchStatus = 'full' | 'none';

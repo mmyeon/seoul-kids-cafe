@@ -18,15 +18,15 @@ import type { AgeFilter } from '../../types/index';
 // ============================================================
 
 describe('AGE_FILTER_OPTIONS', () => {
-  it('8개의 나이 필터 옵션을 포함해야 한다', () => {
-    expect(AGE_FILTER_OPTIONS).toHaveLength(8);
+  it('14개의 나이 필터 옵션을 포함해야 한다', () => {
+    expect(AGE_FILTER_OPTIONS).toHaveLength(14);
   });
 
-  it('첫 번째 옵션은 under12m이어야 한다', () => {
-    expect(AGE_FILTER_OPTIONS[0]).toBe('under12m');
+  it('첫 번째 옵션은 0이어야 한다', () => {
+    expect(AGE_FILTER_OPTIONS[0]).toBe('0');
   });
 
-  it('나머지 옵션은 1세부터 7세까지 순서대로 있어야 한다', () => {
+  it('나머지 옵션은 1세부터 13세까지 순서대로 있어야 한다', () => {
     expect(AGE_FILTER_OPTIONS[1]).toBe('1');
     expect(AGE_FILTER_OPTIONS[2]).toBe('2');
     expect(AGE_FILTER_OPTIONS[3]).toBe('3');
@@ -34,6 +34,12 @@ describe('AGE_FILTER_OPTIONS', () => {
     expect(AGE_FILTER_OPTIONS[5]).toBe('5');
     expect(AGE_FILTER_OPTIONS[6]).toBe('6');
     expect(AGE_FILTER_OPTIONS[7]).toBe('7');
+    expect(AGE_FILTER_OPTIONS[8]).toBe('8');
+    expect(AGE_FILTER_OPTIONS[9]).toBe('9');
+    expect(AGE_FILTER_OPTIONS[10]).toBe('10');
+    expect(AGE_FILTER_OPTIONS[11]).toBe('11');
+    expect(AGE_FILTER_OPTIONS[12]).toBe('12');
+    expect(AGE_FILTER_OPTIONS[13]).toBe('13');
   });
 });
 
@@ -42,8 +48,8 @@ describe('AGE_FILTER_OPTIONS', () => {
 // ============================================================
 
 describe('getChipLabel', () => {
-  it('under12m에 대해 "12개월 미만"을 반환해야 한다', () => {
-    expect(getChipLabel('under12m')).toBe('12개월 미만');
+  it('"0"에 대해 "0세"를 반환해야 한다', () => {
+    expect(getChipLabel('0')).toBe('0세');
   });
 
   it('"1"에 대해 "1세"를 반환해야 한다', () => {
@@ -57,7 +63,7 @@ describe('getChipLabel', () => {
   it('모든 AgeFilter 값에 대해 한국어 레이블을 반환해야 한다', () => {
     const labels = AGE_FILTER_OPTIONS.map(getChipLabel);
     expect(labels).toEqual([
-      '12개월 미만',
+      '0세',
       '1세',
       '2세',
       '3세',
@@ -65,6 +71,12 @@ describe('getChipLabel', () => {
       '5세',
       '6세',
       '7세',
+      '8세',
+      '9세',
+      '10세',
+      '11세',
+      '12세',
+      '13세',
     ]);
   });
 });
@@ -86,12 +98,12 @@ describe('isChipSelected', () => {
 
   it('선택된 목록이 비어 있으면 false를 반환해야 한다', () => {
     const selected: AgeFilter[] = [];
-    expect(isChipSelected('under12m', selected)).toBe(false);
+    expect(isChipSelected('0', selected)).toBe(false);
   });
 
-  it('under12m이 선택된 목록에 있으면 true를 반환해야 한다', () => {
-    const selected: AgeFilter[] = ['under12m', '2'];
-    expect(isChipSelected('under12m', selected)).toBe(true);
+  it('"0"이 선택된 목록에 있으면 true를 반환해야 한다', () => {
+    const selected: AgeFilter[] = ['0', '2'];
+    expect(isChipSelected('0', selected)).toBe(true);
   });
 });
 
@@ -114,8 +126,8 @@ describe('toggleAgeFilter', () => {
 
   it('빈 목록에 필터를 추가해야 한다', () => {
     const selected: AgeFilter[] = [];
-    const result = toggleAgeFilter('under12m', selected);
-    expect(result).toEqual(['under12m']);
+    const result = toggleAgeFilter('0', selected);
+    expect(result).toEqual(['0']);
   });
 
   it('마지막 남은 필터를 제거하면 빈 배열을 반환해야 한다', () => {

@@ -21,6 +21,26 @@ describe('parseAgeRange', () => {
   it('"~" 구분자가 없으면 0으로 처리해야 한다', () => {
     expect(parseAgeRange('7세이하')).toEqual({ minAge: 0, maxAge: 0 });
   });
+
+  it('"6개월 ~ 7세" 형식: 개월은 0세로 처리해야 한다', () => {
+    expect(parseAgeRange('6개월 ~ 7세')).toEqual({ minAge: 0, maxAge: 7 });
+  });
+
+  it('"0개월 ~ 7세" 형식: 0개월도 0세로 처리해야 한다', () => {
+    expect(parseAgeRange('0개월 ~ 7세')).toEqual({ minAge: 0, maxAge: 7 });
+  });
+
+  it('"6개월 ~ 12개월" 형식: 전부 개월이면 { 0, 0 }이어야 한다', () => {
+    expect(parseAgeRange('6개월 ~ 12개월')).toEqual({ minAge: 0, maxAge: 0 });
+  });
+
+  it('"12개월 미만" 형식: 0세로 처리해야 한다', () => {
+    expect(parseAgeRange('12개월 미만')).toEqual({ minAge: 0, maxAge: 0 });
+  });
+
+  it('"12개월 미만 ~ 7세" 형식: minAge는 0세로 처리해야 한다', () => {
+    expect(parseAgeRange('12개월 미만 ~ 7세')).toEqual({ minAge: 0, maxAge: 7 });
+  });
 });
 
 describe('parseSeoulKidsCafe', () => {
@@ -42,12 +62,18 @@ describe('parseSeoulKidsCafe', () => {
     const result = parseSeoulKidsCafe(rawCafe);
 
     expect(result.name).toBe('테스트 키즈카페');
-    expect(result.address).toBe('서울특별시 강남구 테헤란로 123 3층');
+    expect(result.address).toBe('서울특별시 강남구 테헤란로 123');
     expect(result.lat).toBe(37.5665);
     expect(result.lng).toBe(126.978);
     expect(result.ageRange).toEqual({ minAge: 0, maxAge: 7 });
-    expect(result.operatingHours).toBe('화~일요일');
+    expect(result.operatingHours).toBe('화 ~ 일');
     expect(result.phone).toBe('02-1234-5678');
+  });
+
+  it('"서울형 키즈카페" prefix를 제거해야 한다', () => {
+    const withPrefix: SeoulKidsCafeRaw = { ...rawCafe, FCLTY_NM: '서울형 키즈카페 마포구청' };
+    const result = parseSeoulKidsCafe(withPrefix);
+    expect(result.name).toBe('마포구청');
   });
 
   it('FCLTY_ID가 있으면 id로 사용해야 한다', () => {
@@ -61,10 +87,9 @@ describe('parseSeoulKidsCafe', () => {
     expect(result.address).toBe('서울특별시 강남구 테헤란로 123');
   });
 
-  it('kakaoPlaceUrl과 imageUrl은 undefined여야 한다 (원본에 없는 경우)', () => {
+  it('kakaoPlaceUrl은 undefined여야 한다 (원본에 없는 경우)', () => {
     const result = parseSeoulKidsCafe(rawCafe);
     expect(result.kakaoPlaceUrl).toBeUndefined();
-    expect(result.imageUrl).toBeUndefined();
   });
 
   it('위도/경도가 유효하지 않으면 0으로 처리해야 한다', () => {

@@ -2,8 +2,7 @@ import type { AgeFilter, KidsCafe, MatchStatus } from '../../types/index';
 
 const DEFAULT_AGE_RANGE = { minAge: 0, maxAge: 7 };
 
-const ageFilterToYear = (filter: AgeFilter): number =>
-  filter === 'under12m' ? 0 : parseInt(filter, 10);
+const ageFilterToYear = (filter: AgeFilter): number => parseInt(filter, 10);
 
 export const parseAgeRange = (text: string): { minAge: number; maxAge: number } => {
   if (!text) return { ...DEFAULT_AGE_RANGE };
@@ -48,11 +47,9 @@ const isAgeInRange = (
 };
 
 export const getMatchStatus = (kidsCafe: KidsCafe, selectedAges: AgeFilter[]): MatchStatus => {
-  if (selectedAges.length === 0) return 'none';
+  if (selectedAges.length === 0) return 'full';
 
   const matched = selectedAges.filter((age) => isAgeInRange(age, kidsCafe.ageRange));
 
-  if (matched.length === selectedAges.length) return 'full';
-  if (matched.length > 0) return 'partial';
-  return 'none';
+  return matched.length === selectedAges.length ? 'full' : 'none';
 };

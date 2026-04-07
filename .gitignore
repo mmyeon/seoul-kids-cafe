@@ -39,6 +39,17 @@ yarn-error.log*
 #playwright mcp
 .playwright-mcp
 
+# agent skills (reinstallable via skills-lock.json)
+.agents/skills/
+.kiro/skills/
+.claude/skills/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# superpowers
+.superpowers
+
+# git worktrees
+.worktrees

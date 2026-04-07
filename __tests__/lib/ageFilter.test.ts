@@ -13,8 +13,11 @@ const makeCafe = (overrides: Partial<KidsCafe> = {}): KidsCafe => ({
   lat: 37.5665,
   lng: 126.978,
   ageRange: { minAge: 0, maxAge: 7 },
+  birthYearRange: { younger: 2018, older: 2025 },
   operatingHours: '화~일요일',
   phone: '02-0000-0000',
+  imageUrl: '',
+  detailUrl: '',
   ...overrides,
 });
 
@@ -62,8 +65,8 @@ describe('getMatchStatus', () => {
   const cafe13 = makeCafe({ ageRange: { minAge: 1, maxAge: 3 } });
   const cafe46 = makeCafe({ ageRange: { minAge: 4, maxAge: 6 } });
 
-  it('shouldReturnNoneWhenNoFiltersSelected', () => {
-    expect(getMatchStatus(cafe07, [])).toBe('none');
+  it('shouldReturnFullWhenNoFiltersSelected', () => {
+    expect(getMatchStatus(cafe07, [])).toBe('full');
   });
 
   it('shouldReturnFullWhenAllSelectedAgesAreInsideRange', () => {
@@ -72,18 +75,18 @@ describe('getMatchStatus', () => {
   });
 
   it('shouldReturnFullWhenUnder12mIsSelectedAndCafeStartsAt0', () => {
-    const selected: AgeFilter[] = ['under12m'];
+    const selected: AgeFilter[] = ['0'];
     expect(getMatchStatus(cafe07, selected)).toBe('full');
   });
 
   it('shouldReturnNoneWhenUnder12mIsSelectedAndCafeStartsAt1', () => {
-    const selected: AgeFilter[] = ['under12m'];
+    const selected: AgeFilter[] = ['0'];
     expect(getMatchStatus(cafe13, selected)).toBe('none');
   });
 
-  it('shouldReturnPartialWhenSomeSelectedAgesAreOutsideRange', () => {
+  it('shouldReturnNoneWhenSomeSelectedAgesAreOutsideRange', () => {
     const selected: AgeFilter[] = ['1', '2', '5'];
-    expect(getMatchStatus(cafe13, selected)).toBe('partial');
+    expect(getMatchStatus(cafe13, selected)).toBe('none');
   });
 
   it('shouldReturnNoneWhenNoSelectedAgesAreInsideRange', () => {
@@ -96,9 +99,9 @@ describe('getMatchStatus', () => {
     expect(getMatchStatus(cafe46, selected)).toBe('full');
   });
 
-  it('shouldReturnPartialWhenOneOfTwoAgesMatches', () => {
+  it('shouldReturnNoneWhenOneOfTwoAgesMatches', () => {
     const selected: AgeFilter[] = ['3', '4'];
-    expect(getMatchStatus(cafe46, selected)).toBe('partial');
+    expect(getMatchStatus(cafe46, selected)).toBe('none');
   });
 });
 
@@ -172,7 +175,7 @@ describe('sortKidsCafes', () => {
     expect(result[1].id).toBe('full-closed');
   });
 
-  it('shouldPlaceFullMatchBeforePartialMatch', () => {
+  it('shouldPlaceFullMatchBeforeNoneMatch', () => {
     const result = sortKidsCafes(
       [partialMatchOpenCafe, fullMatchOpenCafe],
       selectedAges,
@@ -181,25 +184,16 @@ describe('sortKidsCafes', () => {
     expect(result[1].id).toBe('partial-open');
   });
 
-  it('shouldPlacePartialMatchOpenBeforePartialMatchClosed', () => {
-    const result = sortKidsCafes([partialMatchClosedCafe, partialMatchOpenCafe], selectedAges);
-    expect(result[0].id).toBe('partial-open');
-    expect(result[1].id).toBe('partial-closed');
-  });
-
-  it('shouldFollowFullPriority1234Order', () => {
+  it('shouldPlaceFullMatchesBeforeAllNoneMatches', () => {
     const result = sortKidsCafes(
       [noMatchCafe, partialMatchClosedCafe, partialMatchOpenCafe, fullMatchClosedCafe, fullMatchOpenCafe],
       selectedAges,
     );
     const ids = result.map((c) => c.id);
-    expect(ids).toEqual([
-      'full-open',
-      'full-closed',
-      'partial-open',
-      'partial-closed',
-      'no-match',
-    ]);
+    expect(ids[0]).toBe('full-open');
+    expect(ids[1]).toBe('full-closed');
+    // 나머지 3개는 none 그룹 (순서 무관)
+    expect(ids.slice(2)).toEqual(expect.arrayContaining(['partial-open', 'partial-closed', 'no-match']));
   });
 
   it('shouldSortByDistanceWithinSameGroup', () => {
@@ -224,7 +218,7 @@ describe('sortKidsCafes', () => {
 
   it('shouldReturnOriginalOrderWhenNoFiltersSelected', () => {
     const result = sortKidsCafes([fullMatchOpenCafe, partialMatchOpenCafe], []);
-    // All are 'none', no user location → original order preserved
+    // All are 'full' (no filter = show all), no user location → original order preserved
     expect(result.map((c) => c.id)).toEqual(['full-open', 'partial-open']);
   });
 });
