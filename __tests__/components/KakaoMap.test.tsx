@@ -5,8 +5,17 @@
  * jest 환경(node)에서 React 컴포넌트 렌더링 없이 로직을 검증합니다.
  */
 
+import { render, act } from '@testing-library/react';
+import { useEffect } from 'react';
+import KakaoMap from '../../components/KakaoMap';
+
+jest.mock('next/script', () => {
+  return function MockScript({ onLoad }: { onLoad?: () => void }) {
+    useEffect(() => { onLoad?.(); }, []);
+    return null;
+  };
+});
 import {
-  buildSdkUrl,
   isValidCoordinate,
   findKidsCafeById,
   getMarkerZIndex,
@@ -38,25 +47,70 @@ const cafes: KidsCafe[] = [
 ];
 
 // ============================================================
-// buildSdkUrl 테스트
+// KakaoMap 컴포넌트 초기화 테스트
 // ============================================================
 
-describe('buildSdkUrl', () => {
-  it('appKey를 포함한 Kakao Maps SDK URL을 반환해야 한다', () => {
-    const url = buildSdkUrl('test-api-key');
-    expect(url).toBe(
-      'https://dapi.kakao.com/v2/maps/sdk.js?appkey=test-api-key&libraries=services'
+const mockCafe = {
+  id: 'cafe-001',
+  name: '테스트 키즈카페',
+  address: '서울특별시 강남구',
+  lat: 37.5665,
+  lng: 126.978,
+  ageRange: { minAge: 0, maxAge: 84 },
+  birthYearRange: { younger: 2018, older: 2025 },
+  operatingHours: '10:00~20:00',
+  phone: '02-1234-5678',
+  imageUrl: '',
+  detailUrl: '',
+};
+
+describe('KakaoMap 초기화', () => {
+  let mapConstructorMock: jest.Mock;
+
+  beforeEach(() => {
+    mapConstructorMock = jest.fn().mockReturnValue({
+      setCenter: jest.fn(),
+      setLevel: jest.fn(),
+      relayout: jest.fn(),
+    });
+    (window as Window & { kakao: unknown }).kakao = {
+      maps: {
+        load: (cb: () => void) => cb(),
+        Map: mapConstructorMock,
+        LatLng: jest.fn().mockReturnValue({}),
+        Marker: jest.fn().mockReturnValue({
+          setMap: jest.fn(),
+          setZIndex: jest.fn(),
+          setImage: jest.fn(),
+        }),
+        MarkerImage: jest.fn(),
+        Size: jest.fn(),
+        Point: jest.fn(),
+        event: { addListener: jest.fn(), removeListener: jest.fn(), trigger: jest.fn() },
+      },
+    };
+  });
+
+  it('마운트되면 지도를 즉시 초기화해야 한다', async () => {
+    render(<KakaoMap kidsCafes={[mockCafe]} selectedAges={[]} onMarkerClick={jest.fn()} />);
+    await act(async () => {});
+    expect(mapConstructorMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('kidsCafes가 비어있어도 지도를 초기화해야 한다', async () => {
+    render(<KakaoMap kidsCafes={[]} selectedAges={[]} onMarkerClick={jest.fn()} />);
+    await act(async () => {});
+    expect(mapConstructorMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('kidsCafes가 로드된 후 지도를 재생성하지 않아야 한다', async () => {
+    const { rerender } = render(
+      <KakaoMap kidsCafes={[]} selectedAges={[]} onMarkerClick={jest.fn()} />
     );
-  });
-
-  it('appKey가 빈 문자열이면 빈 문자열을 반환해야 한다', () => {
-    const url = buildSdkUrl('');
-    expect(url).toBe('');
-  });
-
-  it('URL은 https://로 시작해야 한다', () => {
-    const url = buildSdkUrl('some-key');
-    expect(url.startsWith('https://')).toBe(true);
+    await act(async () => {});
+    rerender(<KakaoMap kidsCafes={[mockCafe]} selectedAges={[]} onMarkerClick={jest.fn()} />);
+    await act(async () => {});
+    expect(mapConstructorMock).toHaveBeenCalledTimes(1);
   });
 });
 

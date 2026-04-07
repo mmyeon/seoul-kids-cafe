@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Script from 'next/script';
 import type {
   KakaoMapProps,
   KakaoMapInstance,
@@ -11,7 +12,6 @@ import {
   isValidCoordinate,
   findKidsCafeById,
   getMarkerZIndex,
-  loadKakaoSdk,
   createMarkerImageUrl,
   getMarkerState,
   type MarkerState,
@@ -43,63 +43,71 @@ export default function KakaoMap({
   selectedKidsCafeId,
   selectedAges,
   onMarkerClick,
+  isVisible,
 }: KakaoMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<KakaoMapInstance | null>(null);
   const markersRef = useRef<Map<string, KakaoMarker>>(new Map());
+  const [mapReady, setMapReady] = useState(false);
+  const [sdkError, setSdkError] = useState(false);
 
   useEffect(() => {
-    const appKey = process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY ?? '';
-    // Capture ref value at effect start so cleanup uses the same Map instance
-    const markers = markersRef.current;
+    return () => {
+      mapRef.current = null;
+    };
+  }, []);
 
-    loadKakaoSdk(appKey, () => {
+  function handleSdkLoad() {
+    window.kakao.maps.load(() => {
       if (!containerRef.current) return;
-
       const center = new window.kakao.maps.LatLng(DEFAULT_CENTER.lat, DEFAULT_CENTER.lng);
-
       const map = new window.kakao.maps.Map(containerRef.current, {
         center,
         level: DEFAULT_LEVEL,
       });
-
       mapRef.current = map;
-
-      kidsCafes.forEach((kidsCafe) => {
-        if (!isValidCoordinate(kidsCafe.lat, kidsCafe.lng)) return;
-
-        const position = new window.kakao.maps.LatLng(kidsCafe.lat, kidsCafe.lng);
-        const zIndex = getMarkerZIndex(kidsCafe.id, selectedKidsCafeId);
-        const initialState = getMarkerState(
-          kidsCafe.id,
-          selectedKidsCafeId,
-          selectedAges,
-          kidsCafe
-        );
-
-        const marker = new window.kakao.maps.Marker({
-          position,
-          map,
-          zIndex,
-          image: buildMarkerImage(initialState),
-        });
-
-        window.kakao.maps.event.addListener(marker, 'click', () => {
-          onMarkerClick(kidsCafe.id);
-        });
-
-        markers.set(kidsCafe.id, marker);
-      });
+      setMapReady(true);
     });
+  }
 
-    return () => {
-      markers.forEach((marker) => marker.setMap(null));
-      markers.clear();
-      mapRef.current = null;
-    };
+  useEffect(() => {
+    if (isVisible && mapRef.current) {
+      mapRef.current.relayout();
+    }
+  }, [isVisible]);
+
+  useEffect(() => {
+    if (!mapReady || !mapRef.current) return;
+    const map = mapRef.current;
+    const markers = markersRef.current;
+
+    markers.forEach((marker) => marker.setMap(null));
+    markers.clear();
+
+    kidsCafes.forEach((kidsCafe) => {
+      if (!isValidCoordinate(kidsCafe.lat, kidsCafe.lng)) return;
+
+      const position = new window.kakao.maps.LatLng(kidsCafe.lat, kidsCafe.lng);
+      const zIndex = getMarkerZIndex(kidsCafe.id, selectedKidsCafeId);
+      const initialState = getMarkerState(kidsCafe.id, selectedKidsCafeId, selectedAges, kidsCafe);
+
+      const marker = new window.kakao.maps.Marker({
+        position,
+        map,
+        zIndex,
+        image: buildMarkerImage(initialState),
+      });
+
+      window.kakao.maps.event.addListener(marker, 'click', () => {
+        onMarkerClick(kidsCafe.id);
+      });
+
+      markers.set(kidsCafe.id, marker);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [kidsCafes]);
+  }, [mapReady, kidsCafes]);
 
+  // Effect 3: 선택된 카페 변경 시 지도 이동 및 마커 상태 업데이트
   useEffect(() => {
     if (!mapRef.current) return;
 
@@ -131,7 +139,7 @@ export default function KakaoMap({
 
       const state = getMarkerState(cafeId, selectedKidsCafeId, selectedAges, cafe);
 
-      if (selectedAges.length > 0 && state !== 'matching') {
+      if (selectedAges.length > 0 && state === 'default') {
         marker.setMap(null);
       } else {
         marker.setMap(mapRef.current);
@@ -144,11 +152,26 @@ export default function KakaoMap({
   }, [selectedAges]);
 
   return (
-    <div
-      ref={containerRef}
-      className="w-full h-full min-h-75 rounded-xl overflow-hidden"
-      aria-label="키즈카페 위치 지도"
-      role="img"
-    />
+    <>
+      <Script
+        id="kakao-maps-sdk"
+        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY}&autoload=false`}
+        onLoad={handleSdkLoad}
+        onError={() => setSdkError(true)}
+      />
+
+      {sdkError ? (
+        <div className="w-full h-full min-h-75 rounded-xl flex items-center justify-center bg-gray-100 text-gray-500 text-sm">
+          지도를 불러오지 못했습니다.
+        </div>
+      ) : (
+        <div
+          ref={containerRef}
+          className="w-full h-full min-h-75 rounded-xl overflow-hidden"
+          aria-label="키즈카페 위치 지도"
+          role="img"
+        />
+      )}
+    </>
   );
 }

@@ -1,14 +1,7 @@
 import type { KidsCafe, AgeFilter } from '../../types/index';
 import { getMatchStatus } from './ageFilter';
 
-export const KAKAO_SDK_ID = 'kakao-maps-sdk';
-
 export type MarkerState = 'default' | 'matching' | 'selected';
-
-export function buildSdkUrl(appKey: string): string {
-  if (!appKey) return '';
-  return `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(appKey)}&libraries=services&autoload=false`;
-}
 
 export function isValidCoordinate(lat: number, lng: number): boolean {
   if (isNaN(lat) || isNaN(lng)) return false;
@@ -56,29 +49,4 @@ export function getMarkerState(
   if (cafeId === selectedCafeId) return 'selected';
   if (selectedAges.length > 0 && getMatchStatus(cafe, selectedAges) === 'full') return 'matching';
   return 'default';
-}
-
-export function loadKakaoSdk(appKey: string, onLoad: () => void): void {
-  if (typeof window === 'undefined') return;
-
-  if (window.kakao?.maps) {
-    window.kakao.maps.load(onLoad);
-    return;
-  }
-
-  const existing = document.getElementById(KAKAO_SDK_ID);
-  if (existing) {
-    existing.addEventListener('load', () => window.kakao.maps.load(onLoad));
-    return;
-  }
-
-  const url = buildSdkUrl(appKey);
-  if (!url) return;
-
-  const script = document.createElement('script');
-  script.id = KAKAO_SDK_ID;
-  script.src = url;
-  script.async = true;
-  script.addEventListener('load', () => window.kakao.maps.load(onLoad));
-  document.head.appendChild(script);
 }

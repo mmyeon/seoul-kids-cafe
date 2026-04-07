@@ -109,6 +109,7 @@ export default function Home() {
             selectedKidsCafeId={selectedCafeId ?? undefined}
             selectedAges={selectedAges}
             onMarkerClick={selectCafe}
+            isVisible={viewMode === 'map'}
           />
         </section>
       </main>
