@@ -44,6 +44,11 @@ export default function Home() {
     clearSelection();
   }
 
+  function handleRequestPermission() {
+    setSelectedDistrict(null);
+    geolocation.requestPermission();
+  }
+
   function handleChangeDistrict() {
     setSelectedDistrict(null);
   }
@@ -61,7 +66,7 @@ export default function Home() {
         status={geolocation.status}
         selectedDistrict={selectedDistrict}
         districts={cafesState.districts}
-        onRequestPermission={geolocation.requestPermission}
+        onRequestPermission={handleRequestPermission}
         onSelectDistrict={setSelectedDistrict}
         onChangeDistrict={handleChangeDistrict}
       />
