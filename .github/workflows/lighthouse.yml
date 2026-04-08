@@ -23,7 +23,7 @@ jobs:
       - name: Next.js 빌드
         run: npm run build
         env:
-          NEXT_PUBLIC_KAKAO_MAP_KEY: ${{ secrets.NEXT_PUBLIC_KAKAO_MAP_KEY }}
+          NEXT_PUBLIC_KAKAO_MAP_API_KEY: ${{ secrets.NEXT_PUBLIC_KAKAO_MAP_API_KEY }}
 
       - name: Lighthouse CI 실행
         run: npx lhci autorun
