@@ -7,6 +7,8 @@ on:
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
 
@@ -25,8 +27,6 @@ jobs:
 
       - name: Lighthouse CI 실행
         run: npx lhci autorun
-        env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Lighthouse 결과 PR 코멘트 게시
         if: always()
