@@ -1,4 +1,4 @@
-import KidsCafeCardSkeleton from '@/components/KidsCafeCard/Skeleton'
+import KidsCafeCardSkeleton from '../../components/KidsCafeCard/Skeleton'
 
 export default function Loading() {
   return (
