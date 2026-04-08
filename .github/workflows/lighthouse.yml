@@ -54,16 +54,19 @@ jobs:
             const score = (val) => Math.round(val * 100);
             const emoji = (val, threshold) => val >= threshold ? '✅' : '❌';
 
-            const body = `## Lighthouse CI 결과
+            const p = categories.performance.score;
+            const a = categories.accessibility.score;
+            const bp = categories['best-practices'].score;
+            const seo = categories.seo.score;
 
-| 카테고리 | 점수 | 상태 |
-|---------|------|------|
-| Performance | ${score(categories.performance.score)} | ${emoji(categories.performance.score, 0.8)} |
-| Accessibility | ${score(categories.accessibility.score)} | ${emoji(categories.accessibility.score, 0.9)} |
-| Best Practices | ${score(categories['best-practices'].score)} | ${emoji(categories['best-practices'].score, 0.9)} |
-| SEO | ${score(categories.seo.score)} | ${emoji(categories.seo.score, 0.9)} |
-
-> 임계값: Performance ≥ 80, Accessibility/Best-Practices/SEO ≥ 90`;
+            const body = '## Lighthouse CI 결과\n\n' +
+              '| 카테고리 | 점수 | 상태 |\n' +
+              '|---------|------|------|\n' +
+              `| Performance | ${score(p)} | ${emoji(p, 0.8)} |\n` +
+              `| Accessibility | ${score(a)} | ${emoji(a, 0.9)} |\n` +
+              `| Best Practices | ${score(bp)} | ${emoji(bp, 0.9)} |\n` +
+              `| SEO | ${score(seo)} | ${emoji(seo, 0.9)} |\n\n` +
+              '> 임계값: Performance >= 80, Accessibility/Best-Practices/SEO >= 90';
 
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
