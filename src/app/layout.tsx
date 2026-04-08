@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import { SITE_URL } from '../lib/constants';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -11,8 +12,6 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
 });
-
-const SITE_URL = 'https://seoul-kids-cafe.vercel.app';
 const SITE_TITLE = '이모표 서울형 키즈카페';
 const SITE_DESCRIPTION = '서울 공공 키즈카페 한눈에 찾기 — 나이·지역 필터 + 카카오맵';
 

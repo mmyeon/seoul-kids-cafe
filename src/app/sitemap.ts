@@ -1,6 +1,5 @@
 import type { MetadataRoute } from 'next';
-
-const SITE_URL = 'https://seoul-kids-cafe.vercel.app';
+import { SITE_URL } from '../lib/constants';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
