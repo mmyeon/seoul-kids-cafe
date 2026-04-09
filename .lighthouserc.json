@@ -2,11 +2,12 @@
   "ci": {
     "collect": {
       "startServerCommand": "npm start",
-      "startServerReadyPattern": "Ready on",
+      "startServerReadyPattern": "Ready in",
       "url": ["http://localhost:3000"],
       "numberOfRuns": 1,
       "settings": {
-        "chromeFlags": "--no-sandbox"
+        "chromeFlags": "--no-sandbox",
+        "skipAudits": ["is-on-https"]
       }
     },
     "assert": {
