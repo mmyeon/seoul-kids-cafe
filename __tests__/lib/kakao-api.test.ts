@@ -6,6 +6,7 @@ import {
   buildKakaoLocalSearchUrl,
   extractKakaoPlaceUrl,
   mergeKakaoData,
+  enrichKidsCafeWithKakaoData,
 } from '../../src/lib/kakao-api';
 import type { KidsCafe } from '../../types/index';
 
@@ -85,5 +86,90 @@ describe('mergeKakaoData', () => {
   it('기존 카페 객체를 변경하지 않아야 한다 (immutable)', () => {
     mergeKakaoData(baseCafe, 'https://place.map.kakao.com/123');
     expect(baseCafe.kakaoPlaceUrl).toBeUndefined();
+  });
+});
+
+describe('enrichKidsCafeWithKakaoData', () => {
+  const baseCafe: KidsCafe = {
+    id: 'cafe-001',
+    name: '테스트 키즈카페',
+    address: '서울특별시 강남구 테헤란로 123',
+    lat: 37.5665,
+    lng: 126.978,
+    ageRange: { minAge: 0, maxAge: 84 },
+    operatingHours: '10:00~20:00',
+    phone: '02-1234-5678',
+    birthYearRange: { younger: 2018, older: 2025 },
+    imageUrl: 'https://example.com/image.jpg',
+    detailUrl: 'https://umppa.com/cafe-001',
+  };
+
+  const credentials = { restApiKey: 'test-api-key' };
+
+  const makeSuccessResponse = (placeUrl: string) =>
+    new Response(JSON.stringify({ documents: [{ place_url: placeUrl }] }), { status: 200 });
+
+  const makeEmptyResponse = () =>
+    new Response(JSON.stringify({ documents: [] }), { status: 200 });
+
+  beforeEach(() => {
+    global.fetch = jest.fn();
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  const getQueryParam = (callIndex: number) =>
+    new URL((global.fetch as jest.Mock).mock.calls[callIndex][0]).searchParams.get('query');
+
+  it('전화번호가 있으면 전화번호로 먼저 검색한다', async () => {
+    const mockFetch = global.fetch as jest.Mock;
+    mockFetch.mockResolvedValueOnce(makeSuccessResponse('https://place.map.kakao.com/phone-result'));
+
+    const result = await enrichKidsCafeWithKakaoData(baseCafe, credentials);
+
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+    expect(getQueryParam(0)).toBe(baseCafe.phone);
+    expect(result.kakaoPlaceUrl).toBe('https://place.map.kakao.com/phone-result');
+  });
+
+  it('전화번호 검색 실패 시 주소로 폴백한다', async () => {
+    const mockFetch = global.fetch as jest.Mock;
+    mockFetch
+      .mockResolvedValueOnce(makeEmptyResponse())
+      .mockResolvedValueOnce(makeSuccessResponse('https://place.map.kakao.com/address-result'));
+
+    const result = await enrichKidsCafeWithKakaoData(baseCafe, credentials);
+
+    expect(mockFetch).toHaveBeenCalledTimes(2);
+    expect(getQueryParam(1)).toBe(baseCafe.address);
+    expect(result.kakaoPlaceUrl).toBe('https://place.map.kakao.com/address-result');
+  });
+
+  it('전화번호가 없으면 주소로 검색한다', async () => {
+    const cafeWithoutPhone = { ...baseCafe, phone: '' };
+    const mockFetch = global.fetch as jest.Mock;
+    mockFetch.mockResolvedValueOnce(makeSuccessResponse('https://place.map.kakao.com/address-result'));
+
+    const result = await enrichKidsCafeWithKakaoData(cafeWithoutPhone, credentials);
+
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+    expect(getQueryParam(0)).toBe(cafeWithoutPhone.address);
+    expect(result.kakaoPlaceUrl).toBe('https://place.map.kakao.com/address-result');
+  });
+
+  it('주소 검색 실패 시 이름으로 폴백한다', async () => {
+    const cafeWithoutPhone = { ...baseCafe, phone: '' };
+    const mockFetch = global.fetch as jest.Mock;
+    mockFetch
+      .mockResolvedValueOnce(makeEmptyResponse())
+      .mockResolvedValueOnce(makeSuccessResponse('https://place.map.kakao.com/name-result'));
+
+    const result = await enrichKidsCafeWithKakaoData(cafeWithoutPhone, credentials);
+
+    expect(mockFetch).toHaveBeenCalledTimes(2);
+    expect(getQueryParam(1)).toBe(cafeWithoutPhone.name);
+    expect(result.kakaoPlaceUrl).toBe('https://place.map.kakao.com/name-result');
   });
 });
