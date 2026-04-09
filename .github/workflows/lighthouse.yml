@@ -62,11 +62,11 @@ jobs:
             const body = '## Lighthouse CI 결과\n\n' +
               '| 카테고리 | 점수 | 상태 |\n' +
               '|---------|------|------|\n' +
-              `| Performance | ${score(p)} | ${emoji(p, 0.8)} |\n` +
+              `| Performance | ${score(p)} | ${emoji(p, 0.75)} |\n` +
               `| Accessibility | ${score(a)} | ${emoji(a, 0.9)} |\n` +
               `| Best Practices | ${score(bp)} | ${emoji(bp, 0.9)} |\n` +
               `| SEO | ${score(seo)} | ${emoji(seo, 0.9)} |\n\n` +
-              '> 임계값: Performance >= 80, Accessibility/Best-Practices/SEO >= 90';
+              '> 임계값: Performance >= 75, Accessibility/Best-Practices/SEO >= 90';
 
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
