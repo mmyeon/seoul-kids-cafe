@@ -1,13 +1,14 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import AgeFilterChips from '../../components/AgeFilterChips';
 import CafeListSection from '../../components/CafeListSection';
 const LocationBanner = dynamic(() => import('../../components/LocationBanner'), { ssr: false });
 import { useGeolocation } from '../lib/useGeolocation';
 import { useCafes } from '../lib/useCafes';
-import { useAgeFilter } from '../lib/useAgeFilter';
+import { useAgeFilter, useAgeChange } from '../lib/useAgeFilter';
 import { useCafeSelection } from '../lib/useCafeSelection';
 import { buildCafeListItems } from '../lib/cafeListUtils';
 import type { UserLocation } from '../lib/cafeListUtils';
@@ -20,12 +21,26 @@ const WelcomeModal = dynamic(() => import('../../components/WelcomeModal'), { ss
 type ViewMode = 'list' | 'map';
 
 export default function Home() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const geolocation = useGeolocation();
   const cafesState = useCafes();
-  const { selectedAges, setAges } = useAgeFilter();
-  const { selectedCafeId, selectCafe, clearSelection } = useCafeSelection();
+  const { selectedAges } = useAgeFilter();
+  const handleAgeChange = useAgeChange();
+  const { selectedCafeId, selectCafe } = useCafeSelection();
   const [viewMode, setViewMode] = useState<ViewMode>('list');
-  const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
+
+  const selectedDistrict = searchParams.get('district');
+
+  function setDistrict(value: string | null) {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) {
+      params.set('district', value);
+    } else {
+      params.delete('district');
+    }
+    router.replace('?' + params.toString());
+  }
 
   const userLocation = useMemo((): UserLocation | null => {
     if (geolocation.status === 'granted' && geolocation.position !== null) {
@@ -39,18 +54,21 @@ export default function Home() {
     [cafesState.cafes, selectedAges, userLocation, selectedDistrict]
   );
 
-  function handleAgeChange(ages: Parameters<typeof setAges>[0]) {
-    setAges(ages);
-    clearSelection();
-  }
+  const filteredCafesForMap = useMemo(
+    () =>
+      selectedDistrict
+        ? cafesState.cafes.filter((cafe) => cafe.address.includes(selectedDistrict))
+        : cafesState.cafes,
+    [cafesState.cafes, selectedDistrict]
+  );
 
   function handleRequestPermission() {
-    setSelectedDistrict(null);
+    setDistrict(null);
     geolocation.requestPermission();
   }
 
   function handleChangeDistrict() {
-    setSelectedDistrict(null);
+    setDistrict(null);
   }
 
   return (
@@ -67,7 +85,7 @@ export default function Home() {
         selectedDistrict={selectedDistrict}
         districts={cafesState.districts}
         onRequestPermission={handleRequestPermission}
-        onSelectDistrict={setSelectedDistrict}
+        onSelectDistrict={setDistrict}
         onChangeDistrict={handleChangeDistrict}
       />
 
@@ -110,7 +128,7 @@ export default function Home() {
           aria-label="지도"
         >
           <KakaoMap
-            kidsCafes={cafesState.cafes}
+            kidsCafes={filteredCafesForMap}
             selectedKidsCafeId={selectedCafeId ?? undefined}
             selectedAges={selectedAges}
             onMarkerClick={selectCafe}

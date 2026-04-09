@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 export type CafeSelectionState = {
   selectedCafeId: string | null;
@@ -9,15 +10,29 @@ export type CafeSelectionState = {
 };
 
 export function useCafeSelection(): CafeSelectionState {
-  const [selectedCafeId, setSelectedCafeId] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
-  const selectCafe = useCallback((id: string) => {
-    setSelectedCafeId((prev) => (prev === id ? null : id));
-  }, []);
+  const selectedCafeId = searchParams.get('cafeId');
+
+  const selectCafe = useCallback(
+    (id: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (params.get('cafeId') === id) {
+        params.delete('cafeId');
+      } else {
+        params.set('cafeId', id);
+      }
+      router.replace(`?${params.toString()}`);
+    },
+    [searchParams, router],
+  );
 
   const clearSelection = useCallback(() => {
-    setSelectedCafeId(null);
-  }, []);
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete('cafeId');
+    router.replace(`?${params.toString()}`);
+  }, [searchParams, router]);
 
   return { selectedCafeId, selectCafe, clearSelection };
 }
