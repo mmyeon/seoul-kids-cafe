@@ -128,7 +128,7 @@ export default function KakaoMap({
       marker.setImage(buildMarkerImage(state));
       marker.setZIndex(getMarkerZIndex(cafeId, selectedKidsCafeId));
     });
-  }, [selectedKidsCafeId, kidsCafes]);
+  }, [mapReady, selectedKidsCafeId, kidsCafes]);
 
   useEffect(() => {
     if (!mapRef.current) return;
