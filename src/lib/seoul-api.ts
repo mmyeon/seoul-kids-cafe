@@ -1,5 +1,6 @@
 import type { SeoulKidsCafeRaw, KidsCafe } from '../../types/index';
 import { normalizeOperatingHours } from './kidsCafeCard';
+import { ApiError } from './errors';
 
 /**
  * 서울시 API URL 생성
@@ -76,7 +77,7 @@ export async function fetchSeoulKidsCafes(apiKey: string): Promise<ParsedKidsCaf
   });
 
   if (!response.ok) {
-    throw new Error(`서울시 API 호출 실패: ${response.status}`);
+    throw new ApiError(response.status, 'SEOUL_API', `서울시 API 호출 실패: ${response.status}`);
   }
 
   const data: SeoulApiResponse = await response.json();
