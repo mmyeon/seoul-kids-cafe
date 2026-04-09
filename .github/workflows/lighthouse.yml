@@ -42,7 +42,7 @@ jobs:
               return;
             }
 
-            const files = fs.readdirSync(resultsDir).filter(f => f.endsWith('.json') && !f.startsWith('manifest'));
+            const files = fs.readdirSync(resultsDir).filter(f => f.startsWith('lhr-') && f.endsWith('.json'));
             if (files.length === 0) {
               console.log('Lighthouse 결과 파일 없음');
               return;
