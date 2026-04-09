@@ -1,0 +1,76 @@
+name: Lighthouse CI
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 의존성 설치
+        run: npm ci
+
+      - name: Next.js 빌드
+        run: npm run build
+        env:
+          NEXT_PUBLIC_KAKAO_MAP_API_KEY: ${{ secrets.NEXT_PUBLIC_KAKAO_MAP_API_KEY }}
+
+      - name: Lighthouse CI 실행
+        run: npx lhci autorun
+
+      - name: Lighthouse 결과 PR 코멘트 게시
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const resultsDir = '.lighthouseci';
+            if (!fs.existsSync(resultsDir)) {
+              console.log('Lighthouse 결과 디렉토리 없음');
+              return;
+            }
+
+            const files = fs.readdirSync(resultsDir).filter(f => f.startsWith('lhr-') && f.endsWith('.json'));
+            if (files.length === 0) {
+              console.log('Lighthouse 결과 파일 없음');
+              return;
+            }
+
+            const results = JSON.parse(fs.readFileSync(path.join(resultsDir, files[0]), 'utf8'));
+            const categories = results.categories;
+
+            const score = (val) => Math.round(val * 100);
+            const emoji = (val, threshold) => val >= threshold ? '✅' : '❌';
+
+            const p = categories.performance.score;
+            const a = categories.accessibility.score;
+            const bp = categories['best-practices'].score;
+            const seo = categories.seo.score;
+
+            const body = '## Lighthouse CI 결과\n\n' +
+              '| 카테고리 | 점수 | 상태 |\n' +
+              '|---------|------|------|\n' +
+              `| Performance | ${score(p)} | ${emoji(p, 0.75)} |\n` +
+              `| Accessibility | ${score(a)} | ${emoji(a, 0.9)} |\n` +
+              `| Best Practices | ${score(bp)} | ${emoji(bp, 0.9)} |\n` +
+              `| SEO | ${score(seo)} | ${emoji(seo, 0.9)} |\n\n` +
+              '> 임계값: Performance >= 75, Accessibility/Best-Practices/SEO >= 90';
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });

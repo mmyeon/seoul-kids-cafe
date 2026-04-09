@@ -64,7 +64,23 @@ export default function KidsCafeCard({
       </div>
 
       <div className="p-4 space-y-1.5">
-        <h2 className="text-base font-bold text-gray-900 line-clamp-1">{kidsCafe.name}</h2>
+        <div className="flex items-center justify-between gap-2">
+          <h2 className="text-base font-bold text-gray-900 line-clamp-1 min-w-0">
+            {kidsCafe.name}
+          </h2>
+
+          {kidsCafe.kakaoPlaceUrl && isSafeUrl(kidsCafe.kakaoPlaceUrl) && (
+            <a
+              href={kidsCafe.kakaoPlaceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 flex items-center gap-1 text-sm font-medium text-amber-600 hover:text-amber-700 hover:underline"
+              onClick={(e) => e.stopPropagation()}
+            >
+              ⭐️ 리뷰보기
+            </a>
+          )}
+        </div>
 
         <p className="text-sm text-gray-500 line-clamp-1">
           <span aria-hidden="true">📍 </span>
@@ -80,18 +96,6 @@ export default function KidsCafeCard({
           <span aria-hidden="true">⏰ </span>
           {kidsCafe.operatingHours}
         </p>
-
-        {kidsCafe.kakaoPlaceUrl && isSafeUrl(kidsCafe.kakaoPlaceUrl) && (
-          <a
-            href={kidsCafe.kakaoPlaceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-sm text-yellow-600 font-medium hover:underline"
-            onClick={(e) => e.stopPropagation()}
-          >
-            ⭐ 카카오맵에서 리뷰 보기 →
-          </a>
-        )}
 
         <div className="flex gap-2 mt-2">
           {kidsCafe.phone?.trim() && (
