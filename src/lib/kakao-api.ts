@@ -74,11 +74,19 @@ export async function enrichKidsCafeWithKakaoData(
   const coords = { lat: kidsCafe.lat, lng: kidsCafe.lng };
 
   // 1차: 주소로 검색
-  const addressResponse = await fetch(
-    buildKakaoLocalSearchUrl(kidsCafe.address, coords),
-    { headers }
-  );
-  const addressData: KakaoLocalSearchResponse = addressResponse.ok ? await addressResponse.json() : null;
+  const addressResponse = await fetch(buildKakaoLocalSearchUrl(kidsCafe.address, coords), {
+    headers,
+  });
+  if (!addressResponse.ok) {
+    console.error('[kakao-api] 주소 검색 실패', {
+      cafeId: kidsCafe.id,
+      status: addressResponse.status,
+      query: kidsCafe.address,
+    });
+  }
+  const addressData: KakaoLocalSearchResponse = addressResponse.ok
+    ? await addressResponse.json()
+    : null;
   const placeUrlFromAddress = extractKakaoPlaceUrl(addressData);
 
   if (placeUrlFromAddress) {
@@ -86,10 +94,14 @@ export async function enrichKidsCafeWithKakaoData(
   }
 
   // 2차: 이름으로 검색 (폴백)
-  const nameResponse = await fetch(
-    buildKakaoLocalSearchUrl(kidsCafe.name, coords),
-    { headers }
-  );
+  const nameResponse = await fetch(buildKakaoLocalSearchUrl(kidsCafe.name, coords), { headers });
+  if (!nameResponse.ok) {
+    console.error('[kakao-api] 장소이름 검색 실패', {
+      cafeId: kidsCafe.id,
+      status: nameResponse.status,
+      query: kidsCafe.name,
+    });
+  }
   const nameData: KakaoLocalSearchResponse = nameResponse.ok ? await nameResponse.json() : null;
 
   return mergeKakaoData(kidsCafe, extractKakaoPlaceUrl(nameData));

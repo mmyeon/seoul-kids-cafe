@@ -3,6 +3,12 @@
 import { useState, useEffect } from 'react';
 import type { KidsCafe } from '../../types/index';
 
+function resolveErrorMessage(status: number, serverMessage?: string): string {
+  if (status >= 500) return serverMessage ?? '서울시 데이터를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.';
+  if (status === 429) return '요청이 너무 많습니다. 잠시 후 다시 시도해주세요.';
+  return serverMessage ?? '데이터를 불러오지 못했습니다.';
+}
+
 export type CafesStatus = 'loading' | 'success' | 'error';
 
 export type CafesState = {
@@ -24,9 +30,11 @@ export function useCafes(): CafesState {
     let cancelled = false;
 
     fetch('/api/cafes')
-      .then((res) => {
+      .then(async (res) => {
         if (!res.ok) {
-          throw new Error(`서버 오류: ${res.status}`);
+          const body = await res.json().catch(() => null) as { error?: string } | null;
+          const message = resolveErrorMessage(res.status, body?.error);
+          throw new Error(message);
         }
         return res.json() as Promise<{ cafes: KidsCafe[]; districts: string[] }>;
       })
