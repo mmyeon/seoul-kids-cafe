@@ -64,7 +64,7 @@ function buildKakaoHeaders(credentials: KakaoCredentials): HeadersInit {
 
 /**
  * 단일 카페에 대해 Kakao Local 검색 후 플레이스 URL 병합
- * 1차: 주소로 검색, 2차: 이름으로 검색 (폴백)
+ * 1차: 전화번호로 검색, 2차: 주소로 검색, 3차: 이름으로 검색 (폴백)
  */
 export async function enrichKidsCafeWithKakaoData(
   kidsCafe: KidsCafe,
@@ -73,7 +73,28 @@ export async function enrichKidsCafeWithKakaoData(
   const headers = buildKakaoHeaders(credentials);
   const coords = { lat: kidsCafe.lat, lng: kidsCafe.lng };
 
-  // 1차: 주소로 검색
+  // 1차: 전화번호로 검색 (전화번호가 있을 때만)
+  if (kidsCafe.phone) {
+    const phoneResponse = await fetch(buildKakaoLocalSearchUrl(kidsCafe.phone, coords), {
+      headers,
+    });
+    if (!phoneResponse.ok) {
+      console.error('[kakao-api] 전화번호 검색 실패', {
+        cafeId: kidsCafe.id,
+        status: phoneResponse.status,
+        query: kidsCafe.phone,
+      });
+    }
+    const phoneData: KakaoLocalSearchResponse = phoneResponse.ok
+      ? await phoneResponse.json()
+      : null;
+    const placeUrlFromPhone = extractKakaoPlaceUrl(phoneData);
+    if (placeUrlFromPhone) {
+      return mergeKakaoData(kidsCafe, placeUrlFromPhone);
+    }
+  }
+
+  // 2차: 주소로 검색
   const addressResponse = await fetch(buildKakaoLocalSearchUrl(kidsCafe.address, coords), {
     headers,
   });
@@ -93,7 +114,7 @@ export async function enrichKidsCafeWithKakaoData(
     return mergeKakaoData(kidsCafe, placeUrlFromAddress);
   }
 
-  // 2차: 이름으로 검색 (폴백)
+  // 3차: 이름으로 검색 (폴백)
   const nameResponse = await fetch(buildKakaoLocalSearchUrl(kidsCafe.name, coords), { headers });
   if (!nameResponse.ok) {
     console.error('[kakao-api] 장소이름 검색 실패', {
