@@ -7,7 +7,9 @@ export interface KidsCafeCardProps {
   isOpen: boolean;
   onClick?: () => void;
   isSelected?: boolean;
-  priority?: boolean;
+  onShare?: (action: 'link' | 'kakao') => void;
+  isShareMenuOpen?: boolean;
+  isCopied?: boolean;
 }
 
 export function formatAgeRange(ageRange: KidsCafe['ageRange']): string {
