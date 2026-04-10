@@ -7,6 +7,7 @@ export interface KidsCafeCardProps {
   isOpen: boolean;
   onClick?: () => void;
   isSelected?: boolean;
+  onShareMenuToggle?: () => void;
   onShare?: (action: 'link' | 'kakao') => void;
   isShareMenuOpen?: boolean;
   isCopied?: boolean;
