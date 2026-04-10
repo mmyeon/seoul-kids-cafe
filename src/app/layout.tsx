@@ -48,7 +48,8 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
       <Script
         id="kakao-sdk"
-        src="https://t1.kakaocdn.net/kakaojs/2.7.2/kakao.min.js"
+        src="https://t1.kakaocdn.net/kakao_js_sdk/2.8.1/kakao.min.js"
+        crossOrigin="anonymous"
         strategy="afterInteractive"
       />
     </html>
