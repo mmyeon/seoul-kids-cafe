@@ -76,7 +76,7 @@ export default function AgeFilterChips({ selected, onChange }: AgeFilterChipsPro
             <div className="relative mt-2">
               <div className="absolute -top-1.5 left-5 w-3 h-3 bg-blue-50 border-l border-t border-blue-200 rotate-45" />
               <div className="bg-blue-50 border border-blue-200 text-blue-600 text-xs px-3 py-2 rounded-lg">
-                나이 복수 선택 가능
+                아이 나이를 모두 선택해주세요! (여러 개 선택 가능)
               </div>
             </div>
           )}

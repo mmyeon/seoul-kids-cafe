@@ -32,14 +32,13 @@ export default function WelcomeModal() {
         <div className="text-4xl mb-3">👶🧒👧</div>
         <h2 className="text-base font-bold text-orange-600 mb-4">이모표 서울형 키즈카페</h2>
         <p className="text-sm text-gray-600 leading-relaxed mb-5">
-          나이 다른 조카들이랑 갈 수 있는 서울형 키즈 카페를 찾다
+          다둥이 조카들과 갈 수 있는 서울형 키즈 카페를 찾다가
           <br />
           이모가 직접 만든 서비스예요 😄
           <br />
           <br />
-          아이들 나이를 모두 선택하면
-          <br />
-          다 같이 갈 수 있는 키즈 카페만 보여드려요.
+          아이들 나이를 모두 선택해서
+          <br />다 같이 갈 수 있는 키즈 카페를 찾아보세요.
         </p>
         <button
           type="button"
