@@ -114,8 +114,40 @@ export interface KakaoMarker {
   getRange: () => number;
 }
 
+export interface KakaoShareLinkObject {
+  mobileWebUrl: string;
+  webUrl: string;
+}
+
+export interface KakaoShareContent {
+  title: string;
+  description?: string;
+  imageUrl?: string;
+  link: KakaoShareLinkObject;
+}
+
+export interface KakaoShareButton {
+  title: string;
+  link: KakaoShareLinkObject;
+}
+
+export interface KakaoShareFeedOptions {
+  objectType: 'feed';
+  content: KakaoShareContent;
+  buttons?: KakaoShareButton[];
+}
+
+export interface KakaoShareNamespace {
+  sendDefault(options: KakaoShareFeedOptions): void;
+}
+
 declare global {
   interface Window {
+    Kakao: {
+      init(key: string): void;
+      isInitialized(): boolean;
+      Share: KakaoShareNamespace;
+    };
     kakao: {
       maps: {
         load: (callback: () => void) => void;
