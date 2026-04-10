@@ -9,12 +9,14 @@ export interface CafeListSectionProps {
   items: CafeListItem[];
   selectedCafeId: string | null;
   onCardClick: (id: string) => void;
+  scrollKey?: string;
 }
 
 export default function CafeListSection({
   items,
   selectedCafeId,
   onCardClick,
+  scrollKey,
 }: CafeListSectionProps) {
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +25,7 @@ export default function CafeListSection({
 
     const cardEl = listRef.current.querySelector(`[data-cafe-id="${selectedCafeId}"]`);
     cardEl?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, [selectedCafeId]);
+  }, [selectedCafeId, scrollKey]);
 
   if (items.length === 0) {
     return (

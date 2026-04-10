@@ -145,7 +145,26 @@ export default function Home() {
           className={`flex flex-col flex-1 overflow-y-auto px-4 pb-4 md:hidden ${activeTab !== 'list' ? 'hidden' : ''}`}
           aria-label="카페 목록"
         >
-          {listContent}
+          {cafesState.status === 'loading' && (
+            <div className="grid grid-cols-1 gap-4 pt-2 sm:grid-cols-2">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <KidsCafeCardSkeleton key={i} />
+              ))}
+            </div>
+          )}
+          {cafesState.status === 'error' && (
+            <div className="flex items-center justify-center py-20 text-red-500">
+              <p>{cafesState.error ?? '데이터를 불러오지 못했습니다.'}</p>
+            </div>
+          )}
+          {cafesState.status === 'success' && (
+            <CafeListSection
+              items={cafeListItems}
+              selectedCafeId={selectedCafeId}
+              onCardClick={selectCafe}
+              scrollKey={activeTab}
+            />
+          )}
         </section>
 
         {/* 지도: 모바일 지도 탭 + 데스크탑 우측 */}
