@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
         hostname: 'umppa.seoul.go.kr',
       },
     ],
+    minimumCacheTTL: 86400, // 24시간 (스크래핑 주기와 일치)
   },
 };
 
