@@ -49,8 +49,7 @@ export default function RootLayout({
       <Script
         id="kakao-sdk"
         src="https://t1.kakaocdn.net/kakaojs/2.7.2/kakao.min.js"
-        crossOrigin="anonymous"
-        strategy="lazyOnload"
+        strategy="afterInteractive"
       />
     </html>
   );
