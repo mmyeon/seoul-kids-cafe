@@ -13,6 +13,7 @@ import { useCafes } from '../lib/useCafes';
 import { useAgeFilter, useAgeChange } from '../lib/useAgeFilter';
 import { useCafeSelection } from '../lib/useCafeSelection';
 import { buildCafeListItems } from '../lib/cafeListUtils';
+import { isOpenToday } from '../lib/openStatus';
 import type { UserLocation } from '../lib/cafeListUtils';
 import KidsCafeCardSkeleton from '../../components/KidsCafeCard/Skeleton';
 
@@ -127,9 +128,7 @@ export default function Home() {
       <AgeFilterChips selected={selectedAges} onChange={handleAgeChange} />
 
       {/* 모바일 탭 바 */}
-      <div className="px-4 pt-2 pb-1 md:hidden">
-        <MobileTabBar activeTab={activeTab} onChange={setActiveTab} />
-      </div>
+      <MobileTabBar activeTab={activeTab} onChange={setActiveTab} />
 
       {/* 본문 */}
       <main className="flex flex-1 overflow-hidden">
@@ -165,7 +164,8 @@ export default function Home() {
             <MapCafeCard
               cafe={selectedCafeItem.cafe}
               distanceKm={selectedCafeItem.distanceKm ?? undefined}
-              isOpen={true}
+              isVisible={true}
+              cafeIsOpen={isOpenToday(selectedCafeItem.cafe.operatingHours)}
               onClose={clearSelection}
             />
           )}

@@ -7,11 +7,12 @@ import type { KidsCafe } from '../types/index';
 interface MapCafeCardProps {
   cafe: KidsCafe;
   distanceKm?: number;
-  isOpen: boolean;
+  isVisible: boolean;
+  cafeIsOpen: boolean;
   onClose: () => void;
 }
 
-export default function MapCafeCard({ cafe, distanceKm: _distanceKm, isOpen, onClose }: MapCafeCardProps) {
+export default function MapCafeCard({ cafe, distanceKm: _distanceKm, isVisible, cafeIsOpen, onClose }: MapCafeCardProps) {
   const hasValidImage = Boolean(cafe.imageUrl && isSafeUrl(cafe.imageUrl));
   const hasPhone = Boolean(cafe.phone?.trim());
   const hasDetailUrl = isSafeUrl(cafe.detailUrl);
@@ -22,7 +23,7 @@ export default function MapCafeCard({ cafe, distanceKm: _distanceKm, isOpen, onC
   return (
     <div
       className={`fixed bottom-0 left-0 right-0 z-40 bg-white shadow-[0_-2px_16px_rgba(0,0,0,0.12)] md:hidden transition-transform duration-300 ${
-        isOpen ? 'translate-y-0' : 'translate-y-full'
+        isVisible ? 'translate-y-0' : 'translate-y-full'
       }`}
     >
       <div className="flex gap-3 px-4 py-4">
@@ -40,6 +41,11 @@ export default function MapCafeCard({ cafe, distanceKm: _distanceKm, isOpen, onC
             <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
               <span className="text-gray-400 text-xs">이미지 없음</span>
             </div>
+          )}
+          {!cafeIsOpen && (
+            <span className="absolute top-2 left-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-red-500 text-white shadow-sm">
+              오늘 휴무
+            </span>
           )}
         </div>
 
