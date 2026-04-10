@@ -35,7 +35,7 @@ export default function CafeListSection({
 
   return (
     <div ref={listRef} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      {items.map(({ cafe, matchStatus, distanceKm }) => (
+      {items.map(({ cafe, matchStatus, distanceKm }, index) => (
         <div key={cafe.id} data-cafe-id={cafe.id}>
           <KidsCafeCard
             kidsCafe={cafe}
@@ -44,6 +44,7 @@ export default function CafeListSection({
             isOpen={isOpenToday(cafe.operatingHours)}
             onClick={() => onCardClick(cafe.id)}
             isSelected={selectedCafeId === cafe.id}
+            priority={index === 0}
           />
         </div>
       ))}

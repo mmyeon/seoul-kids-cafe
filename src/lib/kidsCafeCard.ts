@@ -7,6 +7,7 @@ export interface KidsCafeCardProps {
   isOpen: boolean;
   onClick?: () => void;
   isSelected?: boolean;
+  priority?: boolean;
 }
 
 export function formatAgeRange(ageRange: KidsCafe['ageRange']): string {

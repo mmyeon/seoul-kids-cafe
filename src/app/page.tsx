@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import AgeFilterChips from '../../components/AgeFilterChips';
 import CafeListSection from '../../components/CafeListSection';
+import MobileBottomSheet from '../../components/MobileBottomSheet';
 const LocationBanner = dynamic(() => import('../../components/LocationBanner'), { ssr: false });
 import { useGeolocation } from '../lib/useGeolocation';
 import { useCafes } from '../lib/useCafes';
@@ -18,8 +19,6 @@ import KidsCafeCardSkeleton from '../../components/KidsCafeCard/Skeleton';
 const KakaoMap = dynamic(() => import('../../components/KakaoMap'), { ssr: false });
 const WelcomeModal = dynamic(() => import('../../components/WelcomeModal'), { ssr: false });
 
-type ViewMode = 'list' | 'map';
-
 export default function Home() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -28,9 +27,19 @@ export default function Home() {
   const { selectedAges } = useAgeFilter();
   const handleAgeChange = useAgeChange();
   const { selectedCafeId, selectCafe } = useCafeSelection();
-  const [viewMode, setViewMode] = useState<ViewMode>('list');
+  const [snapTarget, setSnapTarget] = useState<'half' | 'full' | null>(null);
+  const prevAgesRef = useRef(selectedAges);
 
   const selectedDistrict = searchParams.get('district');
+
+  // 나이 필터 변경 시 바텀 시트 반열림
+  useEffect(() => {
+    const prev = prevAgesRef.current;
+    if (prev.length === 0 && selectedAges.length > 0) {
+      setSnapTarget('half');
+    }
+    prevAgesRef.current = selectedAges;
+  }, [selectedAges]);
 
   function setDistrict(value: string | null) {
     const params = new URLSearchParams(searchParams.toString());
@@ -71,6 +80,11 @@ export default function Home() {
     setDistrict(null);
   }
 
+  function handleMarkerClick(id: string) {
+    selectCafe(id);
+    setSnapTarget('full');
+  }
+
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       <WelcomeModal />
@@ -92,13 +106,11 @@ export default function Home() {
       {/* 나이 필터 (sticky) */}
       <AgeFilterChips selected={selectedAges} onChange={handleAgeChange} />
 
-      {/* 본문: 데스크탑은 사이드바 레이아웃, 모바일은 단일 뷰 */}
+      {/* 본문: 데스크탑은 사이드바 레이아웃, 모바일은 지도 전체화면 */}
       <main className="flex flex-1 overflow-hidden p-4 gap-4">
-        {/* 카드 리스트 영역 */}
+        {/* 데스크탑 전용 카드 리스트 */}
         <section
-          className={`${
-            viewMode === 'map' ? 'hidden' : 'flex-1'
-          } overflow-y-auto p-2 md:flex md:flex-col md:w-1/2`}
+          className="hidden md:flex md:flex-col md:w-1/2 overflow-y-auto p-2"
           aria-label="카페 목록"
         >
           {cafesState.status === 'loading' && (
@@ -122,30 +134,27 @@ export default function Home() {
           )}
         </section>
 
-        {/* 지도 영역 */}
-        <section
-          className={`${viewMode === 'list' ? 'hidden' : 'flex-1'} md:flex md:flex-1 md:w-1/2`}
-          aria-label="지도"
-        >
+        {/* 지도: 모바일 전체화면 / 데스크탑 절반 */}
+        <section className="flex-1 md:w-1/2" aria-label="지도">
           <KakaoMap
             kidsCafes={filteredCafesForMap}
             selectedKidsCafeId={selectedCafeId ?? undefined}
             selectedAges={selectedAges}
-            onMarkerClick={selectCafe}
-            isVisible={viewMode === 'map'}
+            onMarkerClick={handleMarkerClick}
           />
         </section>
       </main>
 
-      {/* 모바일 FAB: 목록/지도 전환 */}
-      <button
-        type="button"
-        onClick={() => setViewMode((prev) => (prev === 'list' ? 'map' : 'list'))}
-        className="md:hidden fixed bottom-6 right-6 z-20 flex items-center gap-2 bg-blue-500 text-white px-5 py-3 rounded-full shadow-lg text-sm font-semibold hover:bg-blue-600 transition-colors"
-        aria-label={viewMode === 'list' ? '지도 보기' : '목록 보기'}
-      >
-        {viewMode === 'list' ? '지도 보기' : '목록 보기'}
-      </button>
+      {/* 모바일 전용 바텀 시트 */}
+      <MobileBottomSheet
+        items={cafeListItems}
+        selectedCafeId={selectedCafeId}
+        onCardClick={selectCafe}
+        status={cafesState.status}
+        error={cafesState.error ?? null}
+        snapTarget={snapTarget}
+        onSnapHandled={() => setSnapTarget(null)}
+      />
     </div>
   );
 }

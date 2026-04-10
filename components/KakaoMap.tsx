@@ -43,7 +43,6 @@ export default function KakaoMap({
   selectedKidsCafeId,
   selectedAges,
   onMarkerClick,
-  isVisible,
 }: KakaoMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<KakaoMapInstance | null>(null);
@@ -71,10 +70,13 @@ export default function KakaoMap({
   }
 
   useEffect(() => {
-    if (isVisible && mapRef.current) {
-      mapRef.current.relayout();
-    }
-  }, [isVisible]);
+    if (!containerRef.current) return;
+    const observer = new ResizeObserver(() => {
+      mapRef.current?.relayout();
+    });
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [mapReady]);
 
   useEffect(() => {
     if (!mapReady || !mapRef.current) return;

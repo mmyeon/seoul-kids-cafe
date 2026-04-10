@@ -18,6 +18,7 @@ export default function KidsCafeCard({
   isOpen,
   onClick,
   isSelected,
+  priority = false,
 }: KidsCafeCardProps) {
   const opacityClass = getCardOpacity(matchStatus);
   const distance = formatDistance(distanceKm);
@@ -42,6 +43,7 @@ export default function KidsCafeCard({
             className="object-cover"
             sizes="(max-width: 640px) 100vw, 50vw"
             quality={60}
+            priority={priority}
           />
         ) : (
           <div
