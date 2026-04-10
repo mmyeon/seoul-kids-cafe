@@ -18,7 +18,10 @@ export default function KidsCafeCard({
   isOpen,
   onClick,
   isSelected,
-  priority = false,
+  onShareMenuToggle,
+  onShare,
+  isShareMenuOpen,
+  isCopied,
 }: KidsCafeCardProps) {
   const opacityClass = getCardOpacity(matchStatus);
   const distance = formatDistance(distanceKm);
@@ -43,7 +46,6 @@ export default function KidsCafeCard({
             className="object-cover"
             sizes="(max-width: 640px) 100vw, 50vw"
             quality={60}
-            priority={priority}
           />
         ) : (
           <div
@@ -122,6 +124,43 @@ export default function KidsCafeCard({
             </a>
           )}
         </div>
+
+        {onShareMenuToggle && (
+          <div className="relative mt-1">
+            <button
+              className="w-full flex items-center justify-center gap-1 rounded-lg border border-gray-300 text-gray-700 text-sm font-semibold py-2 hover:bg-gray-50 transition-colors"
+              onClick={(e) => {
+                e.stopPropagation();
+                onShareMenuToggle();
+              }}
+            >
+              {isCopied ? '✅ 복사됨' : '🔗 공유하기 ▾'}
+            </button>
+
+            {isShareMenuOpen && (
+              <div className="absolute bottom-full left-0 mb-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden z-10">
+                <button
+                  className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onShare?.('link');
+                  }}
+                >
+                  🔗 링크 복사
+                </button>
+                <button
+                  className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2 border-t border-gray-100"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onShare?.('kakao');
+                  }}
+                >
+                  💬 카카오톡 공유
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </article>
   );
