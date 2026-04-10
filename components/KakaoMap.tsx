@@ -47,6 +47,7 @@ export default function KakaoMap({
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<KakaoMapInstance | null>(null);
   const markersRef = useRef<Map<string, KakaoMarker>>(new Map());
+  const pendingCenterRef = useRef<InstanceType<typeof window.kakao.maps.LatLng> | null>(null);
   const [mapReady, setMapReady] = useState(false);
   const [sdkError, setSdkError] = useState(false);
 
@@ -73,6 +74,9 @@ export default function KakaoMap({
     if (!containerRef.current) return;
     const observer = new ResizeObserver(() => {
       mapRef.current?.relayout();
+      if (pendingCenterRef.current) {
+        mapRef.current?.setCenter(pendingCenterRef.current);
+      }
     });
     observer.observe(containerRef.current);
     return () => observer.disconnect();
@@ -117,9 +121,12 @@ export default function KakaoMap({
       const kidsCafe = findKidsCafeById(selectedKidsCafeId, kidsCafes);
       if (kidsCafe && isValidCoordinate(kidsCafe.lat, kidsCafe.lng)) {
         const position = new window.kakao.maps.LatLng(kidsCafe.lat, kidsCafe.lng);
+        pendingCenterRef.current = position;
         mapRef.current.setLevel(SELECTED_ZOOM_LEVEL);
         mapRef.current.setCenter(position);
       }
+    } else {
+      pendingCenterRef.current = null;
     }
 
     markersRef.current.forEach((marker, cafeId) => {
