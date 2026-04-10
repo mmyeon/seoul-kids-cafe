@@ -105,7 +105,7 @@ export default function KidsCafeCard({
           {kidsCafe.phone?.trim() && (
             <a
               href={`tel:${kidsCafe.phone.trim()}`}
-              className="flex-1 flex items-center justify-center gap-1 rounded-lg border border-gray-300 text-gray-700 text-sm font-semibold py-2 hover:bg-gray-50 transition-colors"
+              className="flex-1 flex items-center justify-center gap-1 rounded-lg border border-gray-300 text-gray-700 text-sm font-semibold py-2 hover:bg-gray-50 transition-colors cursor-pointer"
               onClick={(e) => e.stopPropagation()}
             >
               📞 문의하기
@@ -117,50 +117,51 @@ export default function KidsCafeCard({
               href={kidsCafe.detailUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center rounded-lg bg-blue-500 text-white text-sm font-semibold py-2 hover:bg-blue-600 transition-colors"
+              className="flex-1 flex items-center justify-center rounded-lg bg-blue-500 text-white text-sm font-semibold py-2 hover:bg-blue-600 transition-colors cursor-pointer"
               onClick={(e) => e.stopPropagation()}
             >
               🕐 이용안내
             </a>
           )}
+
+          {onShareMenuToggle && (
+            <div className="relative shrink-0">
+              <button
+                className="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onShareMenuToggle();
+                }}
+                aria-label="공유하기"
+              >
+                {isCopied ? '✅' : '🔗'}
+              </button>
+
+              {isShareMenuOpen && (
+                <div className="absolute bottom-full right-0 mb-1 w-36 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden z-10">
+                  <button
+                    className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2 cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onShare?.('link');
+                    }}
+                  >
+                    🔗 링크 복사
+                  </button>
+                  <button
+                    className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2 border-t border-gray-100 cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onShare?.('kakao');
+                    }}
+                  >
+                    💬 카카오톡
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
-
-        {onShareMenuToggle && (
-          <div className="relative mt-1">
-            <button
-              className="w-full flex items-center justify-center gap-1 rounded-lg border border-gray-300 text-gray-700 text-sm font-semibold py-2 hover:bg-gray-50 transition-colors"
-              onClick={(e) => {
-                e.stopPropagation();
-                onShareMenuToggle();
-              }}
-            >
-              {isCopied ? '✅ 복사됨' : '🔗 공유하기 ▾'}
-            </button>
-
-            {isShareMenuOpen && (
-              <div className="absolute bottom-full left-0 mb-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden z-10">
-                <button
-                  className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onShare?.('link');
-                  }}
-                >
-                  🔗 링크 복사
-                </button>
-                <button
-                  className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2 border-t border-gray-100"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onShare?.('kakao');
-                  }}
-                >
-                  💬 카카오톡 공유
-                </button>
-              </div>
-            )}
-          </div>
-        )}
       </div>
     </article>
   );
