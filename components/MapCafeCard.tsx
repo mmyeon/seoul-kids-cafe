@@ -5,7 +5,7 @@ import { formatAgeRange, formatBirthYearRange, isSafeUrl } from '../src/lib/kids
 import type { KidsCafe } from '../types/index';
 
 const ImagePlaceholder = (
-  <div className="w-20 h-20 rounded-lg bg-gray-200" aria-hidden="true" />
+  <div className="w-28 h-28 rounded-lg bg-gray-200" aria-hidden="true" />
 );
 
 interface MapCafeCardProps {
@@ -19,6 +19,9 @@ export default function MapCafeCard({ cafe, distanceKm: _distanceKm, isOpen, onC
   const hasValidImage = Boolean(cafe.imageUrl && isSafeUrl(cafe.imageUrl));
   const hasPhone = Boolean(cafe.phone?.trim());
   const hasDetailUrl = isSafeUrl(cafe.detailUrl);
+  const ageLabel = cafe.birthYearRange
+    ? formatBirthYearRange(cafe.birthYearRange)
+    : formatAgeRange(cafe.ageRange);
 
   return (
     <div
@@ -41,8 +44,8 @@ export default function MapCafeCard({ cafe, distanceKm: _distanceKm, isOpen, onC
               <Image
                 src={cafe.imageUrl}
                 alt={cafe.name}
-                width={80}
-                height={80}
+                width={112}
+                height={112}
                 className="rounded-lg object-cover"
               />
             ) : (
@@ -56,8 +59,8 @@ export default function MapCafeCard({ cafe, distanceKm: _distanceKm, isOpen, onC
               <p className="text-sm text-gray-500 truncate">
                 <span aria-hidden="true">📍</span> {cafe.address}
               </p>
-              <p className="text-sm text-gray-500">
-                <span aria-hidden="true">🎂</span> {formatAgeRange(cafe.ageRange)} ({formatBirthYearRange(cafe.birthYearRange)})
+              <p className="text-sm text-gray-600">
+                <span aria-hidden="true">🎂</span> {ageLabel}
               </p>
             </div>
 
@@ -65,9 +68,10 @@ export default function MapCafeCard({ cafe, distanceKm: _distanceKm, isOpen, onC
               {hasPhone && (
                 <a
                   href={`tel:${cafe.phone.trim()}`}
-                  className="flex-1 text-center text-sm py-1.5 px-3 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-50 active:bg-gray-100"
+                  className="flex-1 flex items-center justify-center gap-1 rounded-lg border border-gray-300 text-gray-700 text-sm font-semibold py-2 hover:bg-gray-50 transition-colors"
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  전화
+                  📞 문의하기
                 </a>
               )}
               {hasDetailUrl && (
@@ -75,9 +79,10 @@ export default function MapCafeCard({ cafe, distanceKm: _distanceKm, isOpen, onC
                   href={cafe.detailUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 text-center text-sm py-1.5 px-3 rounded-md bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-700"
+                  className="flex-1 flex items-center justify-center rounded-lg bg-blue-500 text-white text-sm font-semibold py-2 hover:bg-blue-600 transition-colors"
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  이용안내
+                  🕐 이용안내
                 </a>
               )}
             </div>

@@ -151,7 +151,7 @@ export default function Home() {
 
         {/* 지도: 모바일 지도 탭 + 데스크탑 우측 */}
         <section
-          className={`flex-1 relative md:flex ${activeTab === 'map' ? 'flex' : 'hidden md:flex'}`}
+          className={`flex-1 relative md:flex px-4 pb-4 ${activeTab === 'map' ? 'flex' : 'hidden md:flex'}`}
           aria-label="지도"
         >
           <KakaoMap
