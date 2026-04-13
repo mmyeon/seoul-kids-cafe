@@ -5,7 +5,7 @@ export interface KakaoMapProps {
   selectedKidsCafeId?: string;
   selectedAges: AgeFilter[];
   onMarkerClick: (id: string) => void;
-  isVisible?: boolean;
+  onEmptyClick?: () => void;
 }
 
 export interface KakaoCoords {

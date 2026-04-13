@@ -21,6 +21,7 @@ export type { KakaoMapProps };
 
 const DEFAULT_CENTER = { lat: 37.5665, lng: 126.978 }; // 서울시청
 const DEFAULT_LEVEL = 8;
+const MOBILE_DEFAULT_LEVEL = 9;
 
 const MARKER_COLOR = '#3B82F6';
 const MARKER_SIZE = { normal: { w: 20, h: 29 }, selected: { w: 26, h: 38 } } as const;
@@ -43,11 +44,12 @@ export default function KakaoMap({
   selectedKidsCafeId,
   selectedAges,
   onMarkerClick,
-  isVisible,
+  onEmptyClick,
 }: KakaoMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<KakaoMapInstance | null>(null);
   const markersRef = useRef<Map<string, KakaoMarker>>(new Map());
+  const pendingCenterRef = useRef<InstanceType<typeof window.kakao.maps.LatLng> | null>(null);
   const [mapReady, setMapReady] = useState(false);
   const [sdkError, setSdkError] = useState(false);
 
@@ -61,20 +63,30 @@ export default function KakaoMap({
     window.kakao.maps.load(() => {
       if (!containerRef.current) return;
       const center = new window.kakao.maps.LatLng(DEFAULT_CENTER.lat, DEFAULT_CENTER.lng);
+      const isMobile = window.innerWidth < 768;
       const map = new window.kakao.maps.Map(containerRef.current, {
         center,
-        level: DEFAULT_LEVEL,
+        level: isMobile ? MOBILE_DEFAULT_LEVEL : DEFAULT_LEVEL,
       });
       mapRef.current = map;
+      window.kakao.maps.event.addListener(map, 'click', () => {
+        onEmptyClick?.();
+      });
       setMapReady(true);
     });
   }
 
   useEffect(() => {
-    if (isVisible && mapRef.current) {
-      mapRef.current.relayout();
-    }
-  }, [isVisible]);
+    if (!containerRef.current) return;
+    const observer = new ResizeObserver(() => {
+      mapRef.current?.relayout();
+      if (pendingCenterRef.current) {
+        mapRef.current?.setCenter(pendingCenterRef.current);
+      }
+    });
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [mapReady]);
 
   useEffect(() => {
     if (!mapReady || !mapRef.current) return;
@@ -115,9 +127,12 @@ export default function KakaoMap({
       const kidsCafe = findKidsCafeById(selectedKidsCafeId, kidsCafes);
       if (kidsCafe && isValidCoordinate(kidsCafe.lat, kidsCafe.lng)) {
         const position = new window.kakao.maps.LatLng(kidsCafe.lat, kidsCafe.lng);
+        pendingCenterRef.current = position;
         mapRef.current.setLevel(SELECTED_ZOOM_LEVEL);
         mapRef.current.setCenter(position);
       }
+    } else {
+      pendingCenterRef.current = null;
     }
 
     markersRef.current.forEach((marker, cafeId) => {

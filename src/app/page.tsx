@@ -5,20 +5,22 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import AgeFilterChips from '../../components/AgeFilterChips';
 import CafeListSection from '../../components/CafeListSection';
+import MobileTabBar from '../../components/MobileTabBar';
+import MapCafeCard from '../../components/MapCafeCard';
 const LocationBanner = dynamic(() => import('../../components/LocationBanner'), { ssr: false });
 import { useGeolocation } from '../lib/useGeolocation';
 import { useCafes } from '../lib/useCafes';
 import { useAgeFilter, useAgeChange } from '../lib/useAgeFilter';
 import { useCafeSelection } from '../lib/useCafeSelection';
 import { buildCafeListItems } from '../lib/cafeListUtils';
+import { isOpenToday } from '../lib/openStatus';
 import type { UserLocation } from '../lib/cafeListUtils';
 import KidsCafeCardSkeleton from '../../components/KidsCafeCard/Skeleton';
 
-// KakaoMap은 SSR 불가 컴포넌트이므로 dynamic import 사용
 const KakaoMap = dynamic(() => import('../../components/KakaoMap'), { ssr: false });
 const WelcomeModal = dynamic(() => import('../../components/WelcomeModal'), { ssr: false });
 
-type ViewMode = 'list' | 'map';
+type Tab = 'list' | 'map';
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -27,8 +29,8 @@ export default function Home() {
   const cafesState = useCafes();
   const { selectedAges } = useAgeFilter();
   const handleAgeChange = useAgeChange();
-  const { selectedCafeId, selectCafe } = useCafeSelection();
-  const [viewMode, setViewMode] = useState<ViewMode>('list');
+  const { selectedCafeId, selectCafe, clearSelection } = useCafeSelection();
+  const [activeTab, setActiveTab] = useState<Tab>('list');
 
   const selectedDistrict = searchParams.get('district');
 
@@ -62,6 +64,11 @@ export default function Home() {
     [cafesState.cafes, selectedDistrict]
   );
 
+  const selectedCafeItem = useMemo(
+    () => cafeListItems.find((item) => item.cafe.id === selectedCafeId) ?? null,
+    [cafeListItems, selectedCafeId]
+  );
+
   function handleRequestPermission() {
     setDistrict(null);
     geolocation.requestPermission();
@@ -70,6 +77,34 @@ export default function Home() {
   function handleChangeDistrict() {
     setDistrict(null);
   }
+
+  function handleMarkerClick(id: string) {
+    selectCafe(id);
+  }
+
+  const listContent = (
+    <>
+      {cafesState.status === 'loading' && (
+        <div className="grid grid-cols-1 gap-4 pt-2 sm:grid-cols-2">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <KidsCafeCardSkeleton key={i} />
+          ))}
+        </div>
+      )}
+      {cafesState.status === 'error' && (
+        <div className="flex items-center justify-center py-20 text-red-500">
+          <p>{cafesState.error ?? '데이터를 불러오지 못했습니다.'}</p>
+        </div>
+      )}
+      {cafesState.status === 'success' && (
+        <CafeListSection
+          items={cafeListItems}
+          selectedCafeId={selectedCafeId}
+          onCardClick={selectCafe}
+        />
+      )}
+    </>
+  );
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
@@ -92,17 +127,26 @@ export default function Home() {
       {/* 나이 필터 (sticky) */}
       <AgeFilterChips selected={selectedAges} onChange={handleAgeChange} />
 
-      {/* 본문: 데스크탑은 사이드바 레이아웃, 모바일은 단일 뷰 */}
-      <main className="flex flex-1 overflow-hidden p-4 gap-4">
-        {/* 카드 리스트 영역 */}
+      {/* 모바일 탭 바 */}
+      <MobileTabBar activeTab={activeTab} onChange={setActiveTab} />
+
+      {/* 본문 */}
+      <main className="flex flex-1 overflow-hidden">
+        {/* 데스크탑 전용 카드 리스트 */}
         <section
-          className={`${
-            viewMode === 'map' ? 'hidden' : 'flex-1'
-          } overflow-y-auto p-2 md:flex md:flex-col md:w-1/2`}
+          className="hidden md:flex md:flex-col md:w-1/2 overflow-y-auto px-4 pb-4"
+          aria-label="카페 목록"
+        >
+          {listContent}
+        </section>
+
+        {/* 모바일 목록 탭 */}
+        <section
+          className={`flex flex-col flex-1 overflow-y-auto px-4 pb-4 md:hidden ${activeTab !== 'list' ? 'hidden' : ''}`}
           aria-label="카페 목록"
         >
           {cafesState.status === 'loading' && (
-            <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 pt-2 sm:grid-cols-2">
               {Array.from({ length: 6 }).map((_, i) => (
                 <KidsCafeCardSkeleton key={i} />
               ))}
@@ -118,34 +162,35 @@ export default function Home() {
               items={cafeListItems}
               selectedCafeId={selectedCafeId}
               onCardClick={selectCafe}
+              scrollKey={activeTab}
             />
           )}
         </section>
 
-        {/* 지도 영역 */}
+        {/* 지도: 모바일 지도 탭 + 데스크탑 우측 */}
         <section
-          className={`${viewMode === 'list' ? 'hidden' : 'flex-1'} md:flex md:flex-1 md:w-1/2`}
+          className={`flex-1 relative md:flex px-4 pb-4 ${activeTab === 'map' ? 'flex' : 'hidden md:flex'}`}
           aria-label="지도"
         >
           <KakaoMap
             kidsCafes={filteredCafesForMap}
             selectedKidsCafeId={selectedCafeId ?? undefined}
             selectedAges={selectedAges}
-            onMarkerClick={selectCafe}
-            isVisible={viewMode === 'map'}
+            onMarkerClick={handleMarkerClick}
+            onEmptyClick={clearSelection}
           />
+          {/* 모바일 마커 탭 미니 카드 */}
+          {selectedCafeItem && (
+            <MapCafeCard
+              cafe={selectedCafeItem.cafe}
+              distanceKm={selectedCafeItem.distanceKm ?? undefined}
+              isVisible={true}
+              cafeIsOpen={isOpenToday(selectedCafeItem.cafe.operatingHours)}
+              onClose={clearSelection}
+            />
+          )}
         </section>
       </main>
-
-      {/* 모바일 FAB: 목록/지도 전환 */}
-      <button
-        type="button"
-        onClick={() => setViewMode((prev) => (prev === 'list' ? 'map' : 'list'))}
-        className="md:hidden fixed bottom-6 right-6 z-20 flex items-center gap-2 bg-blue-500 text-white px-5 py-3 rounded-full shadow-lg text-sm font-semibold hover:bg-blue-600 transition-colors"
-        aria-label={viewMode === 'list' ? '지도 보기' : '목록 보기'}
-      >
-        {viewMode === 'list' ? '지도 보기' : '목록 보기'}
-      </button>
     </div>
   );
 }

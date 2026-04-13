@@ -9,12 +9,14 @@ export interface CafeListSectionProps {
   items: CafeListItem[];
   selectedCafeId: string | null;
   onCardClick: (id: string) => void;
+  scrollKey?: string;
 }
 
 export default function CafeListSection({
   items,
   selectedCafeId,
   onCardClick,
+  scrollKey,
 }: CafeListSectionProps) {
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +25,7 @@ export default function CafeListSection({
 
     const cardEl = listRef.current.querySelector(`[data-cafe-id="${selectedCafeId}"]`);
     cardEl?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, [selectedCafeId]);
+  }, [selectedCafeId, scrollKey]);
 
   if (items.length === 0) {
     return (
@@ -35,7 +37,7 @@ export default function CafeListSection({
 
   return (
     <div ref={listRef} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      {items.map(({ cafe, matchStatus, distanceKm }) => (
+      {items.map(({ cafe, matchStatus, distanceKm }, index) => (
         <div key={cafe.id} data-cafe-id={cafe.id}>
           <KidsCafeCard
             kidsCafe={cafe}
@@ -44,6 +46,7 @@ export default function CafeListSection({
             isOpen={isOpenToday(cafe.operatingHours)}
             onClick={() => onCardClick(cafe.id)}
             isSelected={selectedCafeId === cafe.id}
+            priority={index === 0}
           />
         </div>
       ))}

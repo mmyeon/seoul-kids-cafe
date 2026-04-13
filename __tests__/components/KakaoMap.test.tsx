@@ -9,6 +9,12 @@ import { render, act } from '@testing-library/react';
 import { useEffect } from 'react';
 import KakaoMap from '../../components/KakaoMap';
 
+global.ResizeObserver = class ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+};
+
 jest.mock('next/script', () => {
   return function MockScript({ onLoad }: { onLoad?: () => void }) {
     useEffect(() => { onLoad?.(); }, []);
