@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import KidsCafeCard from './KidsCafeCard';
 import type { CafeListItem } from '../src/lib/cafeListUtils';
 import { isOpenToday } from '../src/lib/openStatus';
+import { useShareMenu } from '../src/lib/useShareMenu';
 
 export interface CafeListSectionProps {
   items: CafeListItem[];
@@ -19,6 +20,7 @@ export default function CafeListSection({
   scrollKey,
 }: CafeListSectionProps) {
   const listRef = useRef<HTMLDivElement>(null);
+  const { openMenuId, toggleMenu, closeMenu, copiedId, copyLink, shareKakao } = useShareMenu();
 
   useEffect(() => {
     if (!selectedCafeId || !listRef.current) return;
@@ -37,16 +39,23 @@ export default function CafeListSection({
 
   return (
     <div ref={listRef} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      {items.map(({ cafe, matchStatus, distanceKm }, index) => (
+      {items.map(({ cafe, matchStatus, distanceKm }) => (
         <div key={cafe.id} data-cafe-id={cafe.id}>
           <KidsCafeCard
             kidsCafe={cafe}
             matchStatus={matchStatus}
             distanceKm={distanceKm ?? undefined}
             isOpen={isOpenToday(cafe.operatingHours)}
-            onClick={() => onCardClick(cafe.id)}
+            onClick={() => { closeMenu(); onCardClick(cafe.id); }}
             isSelected={selectedCafeId === cafe.id}
-            priority={index === 0}
+            onShareMenuToggle={() => toggleMenu(cafe.id)}
+            onShare={(action) =>
+              action === 'link'
+                ? copyLink(cafe.id)
+                : shareKakao(cafe.id, cafe)
+            }
+            isShareMenuOpen={openMenuId === cafe.id}
+            isCopied={copiedId === cafe.id}
           />
         </div>
       ))}
