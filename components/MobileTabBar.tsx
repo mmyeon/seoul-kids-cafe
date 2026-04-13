@@ -22,7 +22,7 @@ export default function MobileTabBar({ activeTab, onChange }: MobileTabBarProps)
             type="button"
             onClick={() => onChange(id)}
             className={[
-              'flex-1 py-2 text-sm font-medium transition-colors',
+              'flex-1 py-2 text-sm font-medium transition-colors cursor-pointer',
               activeTab === id
                 ? 'bg-blue-500 text-white'
                 : 'bg-white text-gray-500 hover:text-blue-400',

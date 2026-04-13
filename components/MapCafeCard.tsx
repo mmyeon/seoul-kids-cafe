@@ -6,13 +6,12 @@ import type { KidsCafe } from '../types/index';
 
 interface MapCafeCardProps {
   cafe: KidsCafe;
-  distanceKm?: number;
   isVisible: boolean;
   cafeIsOpen: boolean;
   onClose: () => void;
 }
 
-export default function MapCafeCard({ cafe, distanceKm: _distanceKm, isVisible, cafeIsOpen, onClose }: MapCafeCardProps) {
+export default function MapCafeCard({ cafe, isVisible, cafeIsOpen, onClose }: MapCafeCardProps) {
   const hasValidImage = Boolean(cafe.imageUrl && isSafeUrl(cafe.imageUrl));
   const hasPhone = Boolean(cafe.phone?.trim());
   const hasDetailUrl = isSafeUrl(cafe.detailUrl);
@@ -28,7 +27,7 @@ export default function MapCafeCard({ cafe, distanceKm: _distanceKm, isVisible, 
     >
       <div className="flex gap-3 px-4 py-4">
         {/* 이미지: 카드 높이 전체 채움 */}
-        <div className="relative w-32 self-stretch min-h-[130px] flex-shrink-0 rounded-xl overflow-hidden bg-gray-100">
+        <div className="relative w-32 self-stretch min-h-32.5 shrink-0 rounded-xl overflow-hidden bg-gray-100">
           {hasValidImage ? (
             <Image
               src={cafe.imageUrl}
@@ -88,7 +87,7 @@ export default function MapCafeCard({ cafe, distanceKm: _distanceKm, isVisible, 
         {/* 닫기 버튼 */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xl leading-none"
+          className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xl leading-none cursor-pointer"
           aria-label="닫기"
         >
           ×
