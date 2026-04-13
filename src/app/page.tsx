@@ -177,24 +177,17 @@ export default function Home() {
             selectedKidsCafeId={selectedCafeId ?? undefined}
             selectedAges={selectedAges}
             onMarkerClick={handleMarkerClick}
+            onEmptyClick={clearSelection}
           />
           {/* 모바일 마커 탭 미니 카드 */}
           {selectedCafeItem && (
-            <>
-              {/* 빈 지도 영역 탭으로 미니카드 닫기 */}
-              <div
-                className="absolute inset-0 z-30 md:hidden"
-                onClick={clearSelection}
-                aria-hidden="true"
-              />
-              <MapCafeCard
-                cafe={selectedCafeItem.cafe}
-                distanceKm={selectedCafeItem.distanceKm ?? undefined}
-                isVisible={true}
-                cafeIsOpen={isOpenToday(selectedCafeItem.cafe.operatingHours)}
-                onClose={clearSelection}
-              />
-            </>
+            <MapCafeCard
+              cafe={selectedCafeItem.cafe}
+              distanceKm={selectedCafeItem.distanceKm ?? undefined}
+              isVisible={true}
+              cafeIsOpen={isOpenToday(selectedCafeItem.cafe.operatingHours)}
+              onClose={clearSelection}
+            />
           )}
         </section>
       </main>

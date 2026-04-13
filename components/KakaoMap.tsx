@@ -43,6 +43,7 @@ export default function KakaoMap({
   selectedKidsCafeId,
   selectedAges,
   onMarkerClick,
+  onEmptyClick,
 }: KakaoMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<KakaoMapInstance | null>(null);
@@ -66,6 +67,9 @@ export default function KakaoMap({
         level: DEFAULT_LEVEL,
       });
       mapRef.current = map;
+      window.kakao.maps.event.addListener(map, 'click', () => {
+        onEmptyClick?.();
+      });
       setMapReady(true);
     });
   }
