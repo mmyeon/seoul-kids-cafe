@@ -184,7 +184,6 @@ export default function HomeClient() {
           {selectedCafeItem && (
             <MapCafeCard
               cafe={selectedCafeItem.cafe}
-              distanceKm={selectedCafeItem.distanceKm ?? undefined}
               isVisible={true}
               cafeIsOpen={isOpenToday(selectedCafeItem.cafe.operatingHours)}
               onClose={clearSelection}
