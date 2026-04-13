@@ -137,8 +137,15 @@ export interface KakaoShareFeedOptions {
   buttons?: KakaoShareButton[];
 }
 
+export interface KakaoShareScrapOptions {
+  requestUrl: string;
+  templateId?: number;
+  templateArgs?: Record<string, string>;
+}
+
 export interface KakaoShareNamespace {
   sendDefault(options: KakaoShareFeedOptions): void;
+  sendScrap(options: KakaoShareScrapOptions): void;
 }
 
 declare global {
