@@ -1,4 +1,5 @@
 import type { KidsCafe, AgeFilter } from './index';
+import type { GeolocationPosition } from '../src/lib/useGeolocation';
 
 export interface KakaoMapProps {
   kidsCafes: KidsCafe[];
@@ -6,6 +7,7 @@ export interface KakaoMapProps {
   selectedAges: AgeFilter[];
   onMarkerClick: (id: string) => void;
   onEmptyClick?: () => void;
+  userPosition?: GeolocationPosition | null;
 }
 
 export interface KakaoCoords {

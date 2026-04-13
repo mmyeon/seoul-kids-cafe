@@ -36,7 +36,7 @@ export default function LocationBanner({
         ) : (
           <button
             onClick={onRequestPermission}
-            className="shrink-0 bg-blue-600 text-white text-xs font-medium px-3 py-1.5 rounded-md"
+            className="shrink-0 bg-blue-600 text-white text-xs font-medium px-3 py-1.5 rounded-md cursor-pointer"
           >
             허용
           </button>

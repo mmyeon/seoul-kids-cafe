@@ -45,11 +45,13 @@ export default function KakaoMap({
   selectedAges,
   onMarkerClick,
   onEmptyClick,
+  userPosition,
 }: KakaoMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<KakaoMapInstance | null>(null);
   const markersRef = useRef<Map<string, KakaoMarker>>(new Map());
   const pendingCenterRef = useRef<InstanceType<typeof window.kakao.maps.LatLng> | null>(null);
+  const hasCenteredOnUser = useRef(false);
   const [mapReady, setMapReady] = useState(false);
   const [sdkError, setSdkError] = useState(false);
 
@@ -87,6 +89,13 @@ export default function KakaoMap({
     observer.observe(containerRef.current);
     return () => observer.disconnect();
   }, [mapReady]);
+
+  useEffect(() => {
+    if (!mapReady || !mapRef.current || !userPosition || hasCenteredOnUser.current) return;
+    const center = new window.kakao.maps.LatLng(userPosition.lat, userPosition.lng);
+    mapRef.current.setCenter(center);
+    hasCenteredOnUser.current = true;
+  }, [mapReady, userPosition]);
 
   useEffect(() => {
     if (!mapReady || !mapRef.current) return;

@@ -178,6 +178,7 @@ export default function Home() {
             selectedAges={selectedAges}
             onMarkerClick={handleMarkerClick}
             onEmptyClick={clearSelection}
+            userPosition={userLocation}
           />
           {/* 모바일 마커 탭 미니 카드 */}
           {selectedCafeItem && (
