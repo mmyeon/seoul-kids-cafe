@@ -30,9 +30,9 @@ export function useShareMenu(): UseShareMenuReturn {
     (cafeId: string): string => {
       const params = new URLSearchParams(searchParams.toString());
       params.set('cafeId', cafeId);
-      return `${window.location.origin}?${params.toString()}`;
+      return `${process.env.NEXT_PUBLIC_SITE_URL}?${params.toString()}`;
     },
-    [searchParams],
+    [searchParams]
   );
 
   const copyLink = useCallback(
@@ -43,7 +43,7 @@ export function useShareMenu(): UseShareMenuReturn {
       setOpenMenuId(null);
       setTimeout(() => setCopiedId((prev) => (prev === cafeId ? null : prev)), 2000);
     },
-    [buildShareUrl],
+    [buildShareUrl]
   );
 
   const shareKakao = useCallback(
@@ -70,7 +70,7 @@ export function useShareMenu(): UseShareMenuReturn {
       });
       setOpenMenuId(null);
     },
-    [buildShareUrl],
+    [buildShareUrl]
   );
 
   return { openMenuId, toggleMenu, closeMenu, copiedId, copyLink, shareKakao };
