@@ -50,6 +50,8 @@ export default function KakaoMap({
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<KakaoMapInstance | null>(null);
   const markersRef = useRef<Map<string, KakaoMarker>>(new Map());
+  const onMarkerClickRef = useRef(onMarkerClick);
+  onMarkerClickRef.current = onMarkerClick;
   const pendingCenterRef = useRef<InstanceType<typeof window.kakao.maps.LatLng> | null>(null);
   const hasCenteredOnUser = useRef(false);
   const [mapReady, setMapReady] = useState(false);
@@ -116,22 +118,13 @@ export default function KakaoMap({
         image: buildMarkerImage(initialState),
       });
 
+      window.kakao.maps.event.addListener(marker, 'click', () => {
+        onMarkerClickRef.current(kidsCafe.id);
+      });
       markers.set(kidsCafe.id, marker);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapReady, kidsCafes]);
-
-  useEffect(() => {
-    if (!mapReady) return;
-    const markers = markersRef.current;
-
-    markers.forEach((marker, cafeId) => {
-      window.kakao.maps.event.removeListener(marker, 'click');
-      window.kakao.maps.event.addListener(marker, 'click', () => {
-        onMarkerClick(cafeId);
-      });
-    });
-  }, [mapReady, kidsCafes, onMarkerClick]);
 
   useEffect(() => {
     if (!mapReady || !mapRef.current) return;
