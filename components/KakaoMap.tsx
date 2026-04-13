@@ -21,6 +21,7 @@ export type { KakaoMapProps };
 
 const DEFAULT_CENTER = { lat: 37.5665, lng: 126.978 }; // 서울시청
 const DEFAULT_LEVEL = 8;
+const MOBILE_DEFAULT_LEVEL = 9;
 
 const MARKER_COLOR = '#3B82F6';
 const MARKER_SIZE = { normal: { w: 20, h: 29 }, selected: { w: 26, h: 38 } } as const;
@@ -62,9 +63,10 @@ export default function KakaoMap({
     window.kakao.maps.load(() => {
       if (!containerRef.current) return;
       const center = new window.kakao.maps.LatLng(DEFAULT_CENTER.lat, DEFAULT_CENTER.lng);
+      const isMobile = window.innerWidth < 768;
       const map = new window.kakao.maps.Map(containerRef.current, {
         center,
-        level: DEFAULT_LEVEL,
+        level: isMobile ? MOBILE_DEFAULT_LEVEL : DEFAULT_LEVEL,
       });
       mapRef.current = map;
       window.kakao.maps.event.addListener(map, 'click', () => {
