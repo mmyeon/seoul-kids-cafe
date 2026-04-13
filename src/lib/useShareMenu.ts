@@ -63,7 +63,7 @@ export function useShareMenu(): UseShareMenuReturn {
         },
         buttons: [
           {
-            title: '지도에서 보기',
+            title: '키즈카페 보러가기',
             link: { mobileWebUrl: shareUrl, webUrl: shareUrl },
           },
         ],
