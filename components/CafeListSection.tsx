@@ -52,7 +52,7 @@ export default function CafeListSection({
             onShare={(action) =>
               action === 'link'
                 ? copyLink(cafe.id)
-                : shareKakao(cafe.id, cafe)
+                : shareKakao(cafe.id)
             }
             isShareMenuOpen={openMenuId === cafe.id}
             isCopied={copiedId === cafe.id}

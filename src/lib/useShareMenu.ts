@@ -2,7 +2,6 @@
 
 import { useCallback, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import type { KidsCafe } from '../../types/index';
 
 export type UseShareMenuReturn = {
   openMenuId: string | null;
@@ -10,7 +9,7 @@ export type UseShareMenuReturn = {
   closeMenu: () => void;
   copiedId: string | null;
   copyLink: (cafeId: string) => Promise<void>;
-  shareKakao: (cafeId: string, cafe: KidsCafe) => void;
+  shareKakao: (cafeId: string) => void;
 };
 
 export function useShareMenu(): UseShareMenuReturn {
@@ -47,27 +46,13 @@ export function useShareMenu(): UseShareMenuReturn {
   );
 
   const shareKakao = useCallback(
-    (cafeId: string, cafe: KidsCafe): void => {
+    (cafeId: string): void => {
       if (!window.Kakao) return;
       if (!window.Kakao.isInitialized()) {
         window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY ?? '');
       }
       const shareUrl = buildShareUrl(cafeId);
-      window.Kakao.Share.sendDefault({
-        objectType: 'feed',
-        content: {
-          title: cafe.name,
-          description: cafe.address,
-          imageUrl: cafe.imageUrl || undefined,
-          link: { mobileWebUrl: shareUrl, webUrl: shareUrl },
-        },
-        buttons: [
-          {
-            title: '지도에서 보기',
-            link: { mobileWebUrl: shareUrl, webUrl: shareUrl },
-          },
-        ],
-      });
+      window.Kakao.Share.sendScrap({ requestUrl: shareUrl });
       setOpenMenuId(null);
     },
     [buildShareUrl],
