@@ -71,9 +71,6 @@ export default function KakaoMap({
         level: isMobile ? MOBILE_DEFAULT_LEVEL : DEFAULT_LEVEL,
       });
       mapRef.current = map;
-      window.kakao.maps.event.addListener(map, 'click', () => {
-        onEmptyClick?.();
-      });
       setMapReady(true);
     });
   }
@@ -119,14 +116,31 @@ export default function KakaoMap({
         image: buildMarkerImage(initialState),
       });
 
-      window.kakao.maps.event.addListener(marker, 'click', () => {
-        onMarkerClick(kidsCafe.id);
-      });
-
       markers.set(kidsCafe.id, marker);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapReady, kidsCafes]);
+
+  useEffect(() => {
+    if (!mapReady) return;
+    const markers = markersRef.current;
+
+    markers.forEach((marker, cafeId) => {
+      window.kakao.maps.event.removeListener(marker, 'click');
+      window.kakao.maps.event.addListener(marker, 'click', () => {
+        onMarkerClick(cafeId);
+      });
+    });
+  }, [mapReady, kidsCafes, onMarkerClick]);
+
+  useEffect(() => {
+    if (!mapReady || !mapRef.current) return;
+    const map = mapRef.current;
+
+    const handler = () => onEmptyClick?.();
+    window.kakao.maps.event.addListener(map, 'click', handler);
+    return () => window.kakao.maps.event.removeListener(map, 'click', handler);
+  }, [mapReady, onEmptyClick]);
 
   // Effect 3: 선택된 카페 변경 시 지도 이동 및 마커 상태 업데이트
   useEffect(() => {
