@@ -164,7 +164,10 @@ export default function KidsCafeCard({
                       onShare?.('kakao');
                     }}
                   >
-                    💬 카카오톡
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill="#3A1D1D" d="M12 3C6.477 3 2 6.477 2 10.8c0 2.7 1.6 5.08 4.03 6.52l-1.02 3.8a.3.3 0 0 0 .46.32l4.4-2.9c.7.1 1.42.16 2.13.16 5.523 0 10-3.477 10-7.8S17.523 3 12 3z"/>
+                    </svg>
+                    카카오톡
                   </button>
                 </div>
               )}
