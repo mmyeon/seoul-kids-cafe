@@ -115,17 +115,17 @@
     "birthYearOlder": 2020
   },
   "GA240101": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/11/19/1a2d7eb8-7af2-43c1-8eaa-cea5c80d009c.jpg",
-    "birthYearYounger": 2026,
-    "birthYearOlder": 2020
-  },
-  "GA241201": {
     "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/8/21/f6088217-e4c8-4b32-9cac-e82feb2faa8b.jpg",
     "birthYearYounger": 2026,
     "birthYearOlder": 2020
   },
-  "GA241203": {
+  "GA241201": {
     "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/8/8/b14ccab5-0a09-4f4f-968c-29c29b9eeae8.jpg",
+    "birthYearYounger": 2026,
+    "birthYearOlder": 2020
+  },
+  "GA241203": {
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/4/17/b9b1a3f1-a9c8-4157-a6ec-775e9303e591.jpg",
     "birthYearYounger": 2026,
     "birthYearOlder": 2020
   },
@@ -803,5 +803,10 @@
     "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/5/27/1e730d3f-3d5b-4c3f-aa32-6f9ed285af9c.jpg",
     "birthYearYounger": 2019,
     "birthYearOlder": 2017
+  },
+  "GS260601": {
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/11/19/1a2d7eb8-7af2-43c1-8eaa-cea5c80d009c.jpg",
+    "birthYearYounger": 2026,
+    "birthYearOlder": 2026
   }
 }
