@@ -830,7 +830,12 @@
     "birthYearOlder": 2014
   },
   "MP260705": {
-    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/7/21/16af1561-8841-4a89-bff2-708ed1ee924b.jpg",
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/7/22/94bb5e5e-963e-41d1-b425-3b683c261bd3.png",
+    "birthYearYounger": 2025,
+    "birthYearOlder": 2020
+  },
+  "MP260706": {
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/7/22/fb721eac-4e90-4ef6-bdcc-43f67be1daa7.jpg",
     "birthYearYounger": 2025,
     "birthYearOlder": 2020
   }
