@@ -4,6 +4,8 @@
  * GitHub Actions 워크플로우에서 호출된다.
  */
 
+import { validateSeoulApiResponse } from './lib/validate-seoul-api.mjs';
+
 const apiKey = process.env.SEOUL_API_KEY;
 if (!apiKey) {
   console.error('SEOUL_API_KEY 환경변수가 없습니다');
@@ -19,28 +21,15 @@ if (!res.ok) {
 }
 
 const data = await res.json();
-const row = data?.tnFcltySttusInfo1011?.row?.[0];
+const result = validateSeoulApiResponse(data);
 
-if (!row) {
+if (!result.ok && result.reason === 'NO_ROW') {
   console.error('서울시 API 응답에 row 데이터가 없습니다 (API 구조 변경 가능성)');
   process.exit(1);
 }
 
-const requiredFields = [
-  'FCLTY_ID',
-  'FCLTY_NM',
-  'BASS_ADRES',
-  'Y_CRDNT_VALUE',
-  'X_CRDNT_VALUE',
-  'POSBL_AGRDE',
-  'OPEN_WEEK',
-  'CTTPC',
-];
-
-const missing = requiredFields.filter((field) => !(field in row));
-
-if (missing.length > 0) {
-  console.error(`서울시 API 형식 변경 감지! 누락된 필드: ${missing.join(', ')}`);
+if (!result.ok) {
+  console.error(`서울시 API 형식 변경 감지! 누락된 필드: ${result.missing.join(', ')}`);
   console.error('파싱 코드(src/lib/seoul-api.ts)를 확인하고 업데이트가 필요합니다');
   process.exit(1);
 }
