@@ -5,6 +5,7 @@
 import { writeFileSync, mkdirSync } from 'fs';
 
 import { extractCafesFromHtml } from './lib/extract-cafes.mjs';
+import { fetchWithRetry } from './lib/fetch-with-retry.mjs';
 
 const BASE_URL = 'https://umppa.seoul.go.kr/icare/user/kidsCafe/BD_selectKidsCafeList.do';
 const FCLTY_STLES = [2001, 2002];
@@ -13,13 +14,22 @@ const DELAY_MS = 300;
 
 async function fetchPage(fcltyStle, currPage) {
   const url = `${BASE_URL}?q_hiddenVal=1&q_rowPerPage=${PAGE_SIZE}&q_currPage=${currPage}&q_fcltyStle=${fcltyStle}`;
-  const res = await fetch(url, {
+  const res = await fetchWithRetry(url, {
     headers: {
       'User-Agent': 'Mozilla/5.0 (compatible; SeoulKidsCafeApp/1.0)',
       Accept: 'text/html',
     },
   });
+
+  // 5xx는 재시도를 모두 소진한 서버 장애다. null을 반환하면 호출부가 정상 종료로
+  // 처리해 잘린 데이터가 그대로 커밋되므로, 실패로 드러나도록 throw한다.
+  if (res.status >= 500) {
+    throw new Error(`umppa 서버 오류 ${res.status} (fcltyStle=${fcltyStle}, page=${currPage})`);
+  }
+
+  // 4xx는 페이지 끝일 수 있으므로 기존대로 중단 신호로 취급한다.
   if (!res.ok) return null;
+
   return res.text();
 }
 
@@ -78,5 +88,6 @@ async function main() {
 
 main().catch((err) => {
   console.error('오류 발생:', err);
+  if (err.cause) console.error('원인:', err.cause);
   process.exit(1);
 });
