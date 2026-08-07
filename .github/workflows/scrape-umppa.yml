@@ -9,6 +9,7 @@ jobs:
   update-images:
     name: 이미지 URL 자동 업데이트
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: write
 
@@ -19,7 +20,7 @@ jobs:
       - name: Node.js 설정
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: 의존성 설치
@@ -34,6 +35,7 @@ jobs:
   check-seoul-api:
     name: 서울시 API 형식 변경 감지
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: 저장소 체크아웃
@@ -42,7 +44,7 @@ jobs:
       - name: Node.js 설정
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: 서울시 API 형식 검증
         run: node scripts/check-seoul-api-format.mjs
