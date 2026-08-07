@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write .",
-    "test": "jest",
+    "test": "jest && npm run test:scripts",
+    "test:scripts": "node --test \"scripts/**/*.test.mjs\"",
     "scrape": "node scripts/scrape-umppa.mjs"
   },
   "dependencies": {
