@@ -848,5 +848,10 @@
     "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/9/2/852d10da-9b0c-4e46-bcda-a895ac09ce91.jpg",
     "birthYearYounger": 2026,
     "birthYearOlder": 2020
+  },
+  "GB260901": {
+    "imageUrl": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/4/1/e3c53d3f-d9f4-4f75-9182-74390696721c.png",
+    "birthYearYounger": 2022,
+    "birthYearOlder": 2017
   }
 }
